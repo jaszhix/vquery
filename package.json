@@ -1,0 +1,67 @@
+{
+  "name": "vquery",
+  "version": "1.0.0",
+  "description": "A simple, light-weight, vanilla JS wrapper for jQuery-like syntax.",
+  "main": "dist/index.js",
+  "files": [
+    "bin/",
+    "dist/"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "lint": "eslint src test",
+    "check": "npm run lint -s && dependency-check package.json --entry src",
+    "watch": "watch 'npm run build' src test",
+    "test": "babel-node test/index.js | tspec",
+    "prebuild": "npm run check -s && npm run clean -s",
+    "build": "babel --optional runtime src -d dist",
+    "coverage": "babel-node node_modules/isparta/bin/isparta cover test/index.js",
+    "coveralls": "npm run coverage -s && coveralls < coverage/lcov.info",
+    "postcoveralls": "rimraf ./coverage",
+    "prepublish": "npm run build -s",
+    "deploy": "git pull --rebase origin master && git push origin master",
+    "patch": "npm version patch && npm publish",
+    "minor": "npm version minor && npm publish",
+    "major": "npm version major && npm publish",
+    "postpublish": "git push origin master --follow-tags",
+    "toc": "doctoc --github --title \"# Changelog\" CHANGELOG.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaszhix/vquery.git"
+  },
+  "keywords": [
+    "vquery",
+    "jquery",
+    "vanilla",
+    "javascript",
+    "js",
+    "dom",
+    "browser",
+    "tool",
+    "utility",
+    "wrapper"
+  ],
+  "author": "Jason Hicks <jaszhix@gmail.com>",
+  "license": "CC-BY-4.0",
+  "bugs": {
+    "url": "https://github.com/jaszhix/vquery/issues"
+  },
+  "homepage": "https://github.com/jaszhix/vquery",
+  "devDependencies": {
+    "babel-cli": "^6.3.17",
+    "babel-core": "^6.3.21",
+    "babel-eslint": "*",
+    "babel-preset-es2015": "^6.3.13",
+    "coveralls": "*",
+    "dependency-check": "*",
+    "doctoc": "*",
+    "eslint": "*",
+    "isparta": "*",
+    "rimraf": "*",
+    "tap-spec": "*",
+    "tape": "*",
+    "watch": "*",
+    "classnames": "^2.2.1"
+  }
+}
