@@ -1,4 +1,4 @@
-<!-- <big><h1 align="center">vquery</h1></big>
+<big><h1 align="center">vquery</h1></big>
 
 <p align="center">
   <a href="https://npmjs.org/package/vquery">
@@ -34,7 +34,7 @@
 
 <p align="center"><big>
 
-</big></p> -->
+</big></p>
 
 vQuery is a simple, light-weight, vanilla JS wrapper for jQuery-like syntax. It is currently experimental, so use it at your own risk.
 
