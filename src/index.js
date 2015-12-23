@@ -1,7 +1,3 @@
-/*
-vQuery - A vanilla JS wrapper for jQuery-like syntax
-Version 0.1
-*/
 export default function (selector) {
   var methods = {
     nodes: document.querySelectorAll(selector),
@@ -55,11 +51,7 @@ export default function (selector) {
       return this;
     },
     isEmpty: function() {
-      if (!this.node.hasChildNodes()) {
-        return true;
-      } else {
-        return false;
-      }     
+      return !this.node.hasChildNodes(); 
     },
     next: function() {
       this.node.nextElementSibling;
@@ -116,7 +108,7 @@ export default function (selector) {
           this.nodes[i].innerHTML = contents;
         }
       }
-      return output && this;
+      return output;
     },
     text: function(contents) {
       var output = [];
@@ -127,7 +119,7 @@ export default function (selector) {
           this.nodes[i].textContent = contents;
         }
       }
-      return output && this;
+      return output;
     },
     prepend: function(selectedElement) {
       for (var i = this.nodes.length - 1; i >= 0; i--) {

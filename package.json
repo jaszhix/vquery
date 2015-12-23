@@ -53,15 +53,16 @@
     "babel-core": "^6.3.21",
     "babel-eslint": "*",
     "babel-preset-es2015": "^6.3.13",
+    "classnames": "^2.2.1",
     "coveralls": "*",
     "dependency-check": "*",
     "doctoc": "*",
     "eslint": "*",
     "isparta": "*",
+    "phantomjs": "^1.9.19",
     "rimraf": "*",
     "tap-spec": "*",
     "tape": "*",
-    "watch": "*",
-    "classnames": "^2.2.1"
+    "watch": "*"
   }
 }
