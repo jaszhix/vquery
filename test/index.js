@@ -1,7 +1,6 @@
-import test from "tape"
-import vquery from "../src"
+import test from 'tape';
 
-/*test("vquery", (t) => {
-  t.plan(1)
-  t.equal(undefined, vquery(), "undefined");
-})*/
+test('vquery', (t) => {
+  t.plan(1);
+  t.equal(true, true, "placeholder");
+});

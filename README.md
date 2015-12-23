@@ -6,10 +6,10 @@
          alt="NPM Version">
   </a>
 
-  <a href="https://coveralls.io/r/jaszhix/vquery">
-    <img src="https://img.shields.io/coveralls/jaszhix/vquery.svg?style=flat-square"
-         alt="Coverage Status">
-  </a>
+<!--   <a href="https://coveralls.io/r/jaszhix/vquery">
+  <img src="https://img.shields.io/coveralls/jaszhix/vquery.svg?style=flat-square"
+       alt="Coverage Status">
+</a> -->
 
   <a href="https://travis-ci.org/jaszhix/vquery">
     <img src="https://img.shields.io/travis/jaszhix/vquery.svg?style=flat-square"

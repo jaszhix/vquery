@@ -59,7 +59,6 @@
     "doctoc": "*",
     "eslint": "*",
     "isparta": "*",
-    "phantomjs": "^1.9.19",
     "rimraf": "*",
     "tap-spec": "*",
     "tape": "*",
