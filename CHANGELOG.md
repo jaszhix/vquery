@@ -1,10 +1,10 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 # Changelog
 
-- [v1.0.0](#v100)
+### v3.1.2
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+ * ```attr``` now accepts an object for attr values. If no object is passed, it will return an object of attributes of the currently selected element.
+ * New methods added: on(event, function), off(event, function), trigger(event), removeAttr(string), and clone().
+ * Add/remove/toggleClass now accept multiple class names separated by spaces.
 
 ### v1.0.0
 

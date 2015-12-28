@@ -1,4 +1,4 @@
-export default function (selector) {
+export default function(selector) {
   return {
     nodes: () => {
       if (typeof selector === 'string') {
@@ -14,60 +14,75 @@ export default function (selector) {
         return selector;
       }
     },
-    ready: function (func) {
+    ready: function(func) {
       document.addEventListener('DOMContentLoaded', func);
     },
-    load: function (func) {
+    load: function(func) {
       document.addEventListener('onload', func);
     },
-    on: function (event, func) {
+    on: function(event, func) {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         this.nodes()[i].addEventListener(event, func);
       }
       return this;
     },
-    off: function (event, func) {
+    off: function(event, func) {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         this.nodes()[i].removeEventListener(event, func);
       }
       return this;
     },
-    click: function (func) {
+    trigger: function(event) {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
-        this.nodes()[i].addEventListener('click', func);
+        if (this.nodes()[i].fireEvent) {
+          (this.nodes()[i].fireEvent('on' + event));
+        } else {
+          var evObj = document.createEvent('Events');
+          evObj.initEvent(event, true, false);
+          this.nodes()[i].dispatchEvent(evObj);
+        }
+      }
+    },
+    click: function(func) {
+      for (var i = this.nodes().length - 1; i >= 0; i--) {
+        if (func) {
+          this.nodes()[i].addEventListener('onclick', func);
+        } else {
+          this.trigger('click');
+        }
       }
       return this;
     },
-    hide: function () {
+    hide: function() {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         this.nodes()[i].style.display = 'none';
       }
       return this;
     },
-    show: function () {
+    show: function() {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         this.nodes()[i].style.display = 'block';
       }
       return this;
     },
-    remove: function () {
+    remove: function() {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         this.nodes()[i].parentNode.removeChild(this.nodes()[i]);
       }
       return this;
     },
-    empty: function () {
+    empty: function() {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
-        this.nodes()[i].innerHTML = '';  
+        this.nodes()[i].innerHTML = '';
       }
-      return this; 
+      return this;
     },
-    clone: function () {
-      var clone = this.node().cloneNode(true);  
+    clone: function() {
+      var clone = this.node().cloneNode(true);
       selector = clone;
       return this;
     },
-    wrap: function () {
+    wrap: function() {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         while (this.nodes()[i].firstChild) {
           this.nodes()[i].removeChild(this.nodes()[i].firstChild);
@@ -75,18 +90,18 @@ export default function (selector) {
       }
       return this;
     },
-    parent: function () {
+    parent: function() {
       selector = this.node().parentNode.node();
       return this;
     },
-    isEmpty: function () {
-      return !this.node().hasChildNodes(); 
+    isEmpty: function() {
+      return !this.node().hasChildNodes();
     },
-    next: function () {
+    next: function() {
       this.node().nextElementSibling;
       return this;
     },
-    addClass: function (_class) {
+    addClass: function(_class) {
       var classArr = _class.split(' ');
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         for (var y = 0; y < classArr.length; y++) {
@@ -95,7 +110,7 @@ export default function (selector) {
       }
       return this;
     },
-    removeClass: function (_class) {
+    removeClass: function(_class) {
       var classArr = _class.split(' ');
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         for (var y = 0; y < classArr.length; y++) {
@@ -104,7 +119,7 @@ export default function (selector) {
       }
       return this;
     },
-    toggleClass: function (_class) {
+    toggleClass: function(_class) {
       var classArr = _class.split(' ');
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         for (var y = 0; y < classArr.length; y++) {
@@ -113,17 +128,17 @@ export default function (selector) {
       }
       return this;
     },
-    hasClass: function (_class) {
+    hasClass: function(_class) {
       var bool = this.node().classList.contains(_class);
       return bool;
     },
-    removeAttr: function (attr) {
+    removeAttr: function(attr) {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         this.nodes()[i].removeAttribute(attr);
       }
       return this;
     },
-    attr: function (props) {
+    attr: function(props) {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         if (props) {
           for (var y in props) {
@@ -146,7 +161,7 @@ export default function (selector) {
         }
       }
     },
-    css: function (props) {
+    css: function(props) {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         for (var y in props) {
           this.nodes()[i].style[y] = props[y];
@@ -154,7 +169,7 @@ export default function (selector) {
       }
       return this;
     },
-    html: function (contents) {
+    html: function(contents) {
       var output = [];
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         if (!contents) {
@@ -165,7 +180,7 @@ export default function (selector) {
       }
       return output;
     },
-    text: function (contents) {
+    text: function(contents) {
       var output = [];
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         if (!contents) {
@@ -176,32 +191,32 @@ export default function (selector) {
       }
       return output;
     },
-    insertBefore: function (el1, el2){
+    insertBefore: function(el1, el2) {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         this.nodes()[i].insertBefore(el1, el2);
       }
       return this;
     },
-    prepend: function (selectedElement) {
+    prepend: function(selectedElement) {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         this.nodes()[i].insertBefore(selectedElement, this.nodes()[i].firstChild);
       }
       return this;
     },
-    append: function (element) {
+    append: function(element) {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         this.nodes()[i].appendChild(element);
       }
       return this;
     },
-    contains: function (text) {
+    contains: function(text) {
       var bool = this.node().textContent.indexOf(text) > -1;
       return bool;
     },
-    camelize: function (string) {
+    camelize: function(string) {
       return string.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
         return index === 0 ? letter.toLowerCase() : letter.toUpperCase();
-      }).replace(/\s+/g, '').replace( /[-_]+/g, '');
+      }).replace(/\s+/g, '').replace(/[-_]+/g, '');
     }
   };
 }

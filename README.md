@@ -1,4 +1,4 @@
-<big><h1 align="center">vquery</h1></big>
+<big><h1 align="center">vQuery</h1></big>
 
 <p align="center">
   <a href="https://npmjs.org/package/vquery">
@@ -57,16 +57,15 @@ Currently implementation (and execution) of mimicing jQuery in a light-weight co
 
 *   Implemented
 
-ready(*function*), load(*function*), hide(), show(), remove(), empty(), wrap(), parent(), isEmpty(), next(), addClass(), removeClass(), toggleClass(), hasClass(), attr(), css(), click(), html(), text(), prepend(), append(), contains()
+ready(function), load(function), on(event, function), off(event, function), trigger(event), click(function), hide(), show(), remove(), empty(), wrap(), parent(), isEmpty(), next(), addClass(), removeClass(), toggleClass(), hasClass(), attr(), removeAttr(), css(), html(), text(), prepend(), append(), contains(), clone()
 
-You can return just the node list from a selector by using ```v(*selector*).nodes```, or get the first node with ```v(*selector*).node```.
+You can return just the node list from a selector, and chain vanilla DOM methods after it. ```v("selector").nodes()```, or get the first node with ```v("selector").node()```.
 
-Like jQuery, you can chain the methods. Example: ```v(*selector*).css({fontWeight: '500'}).show()```
+Like jQuery, you can chain the methods. Example: ```v("selector").css({fontWeight: '500'}).show()```
 
 ## Known Issues
 
-*   ```addClass``` and ```removeClass``` currently only accept one class parameter, and it can't have a dot in front of the class name, unlike the query selector. This inconsistency is planned on being fixed.
-*   ```attr``` does not accept an object.
+*   Doesn't work exactly like jQuery. Possibly not a bug.
 *   ```hasClass``` and ```contains``` do not block susequent chained methods.
 *   ```wrap``` doesn't wrap anything. It only removes the first child.
 
