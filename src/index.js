@@ -9,7 +9,7 @@ export default function (selector) {
     },
     node: () => {
       if (typeof selector === 'string') {
-        return document.querySelectorAll(selector);
+        return document.querySelector(selector);
       } else {
         return selector;
       }
@@ -18,7 +18,25 @@ export default function (selector) {
       document.addEventListener('DOMContentLoaded', func);
     },
     load: function (func) {
-      window.attachEvent( 'onload', func );
+      document.addEventListener('onload', func);
+    },
+    on: function (event, func) {
+      for (var i = this.nodes().length - 1; i >= 0; i--) {
+        this.nodes()[i].addEventListener(event, func);
+      }
+      return this;
+    },
+    off: function (event, func) {
+      for (var i = this.nodes().length - 1; i >= 0; i--) {
+        this.nodes()[i].removeEventListener(event, func);
+      }
+      return this;
+    },
+    click: function (func) {
+      for (var i = this.nodes().length - 1; i >= 0; i--) {
+        this.nodes()[i].addEventListener('click', func);
+      }
+      return this;
     },
     hide: function () {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
@@ -44,12 +62,11 @@ export default function (selector) {
       }
       return this; 
     },
-    /*clone: function () {
-      for (var i = this.nodes().length - 1; i >= 0; i--) {
-        this.nodes()[i].cloneNode(true);   
-      }
+    clone: function () {
+      var clone = this.node().cloneNode(true);  
+      selector = clone;
       return this;
-    },*/
+    },
     wrap: function () {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         while (this.nodes()[i].firstChild) {
@@ -59,7 +76,7 @@ export default function (selector) {
       return this;
     },
     parent: function () {
-      this.node().parentNode;
+      selector = this.node().parentNode.node();
       return this;
     },
     isEmpty: function () {
@@ -70,20 +87,29 @@ export default function (selector) {
       return this;
     },
     addClass: function (_class) {
+      var classArr = _class.split(' ');
       for (var i = this.nodes().length - 1; i >= 0; i--) {
-        this.nodes()[i].classList.add(_class);
+        for (var y = 0; y < classArr.length; y++) {
+          this.nodes()[i].classList.add(classArr[y]);
+        }
       }
       return this;
     },
     removeClass: function (_class) {
+      var classArr = _class.split(' ');
       for (var i = this.nodes().length - 1; i >= 0; i--) {
-        this.nodes()[i].classList.remove(_class);
+        for (var y = 0; y < classArr.length; y++) {
+          this.nodes()[i].classList.remove(classArr[y]);
+        }
       }
       return this;
     },
     toggleClass: function (_class) {
+      var classArr = _class.split(' ');
       for (var i = this.nodes().length - 1; i >= 0; i--) {
-        this.nodes()[i].classList.toggle(_class);
+        for (var y = 0; y < classArr.length; y++) {
+          this.nodes()[i].classList.toggle(classArr[y]);
+        }
       }
       return this;
     },
@@ -91,23 +117,40 @@ export default function (selector) {
       var bool = this.node().classList.contains(_class);
       return bool;
     },
-    attr: function (key, value) {
+    removeAttr: function (attr) {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
-        this.nodes()[i].setAttribute(key, value);
+        this.nodes()[i].removeAttribute(attr);
       }
       return this;
+    },
+    attr: function (props) {
+      for (var i = this.nodes().length - 1; i >= 0; i--) {
+        if (props) {
+          for (var y in props) {
+            this.nodes()[i].setAttribute(y, props[y]);
+          }
+          return this;
+        } else {
+          var obj = {};
+          var name = null;
+          var value = null;
+          for (var z = this.nodes()[i].attributes.length - 1; z >= 0; z--) {
+            name = this.nodes()[i].attributes[z].name;
+            if (name.includes('-')) {
+              name = this.camelize(name);
+            }
+            value = this.nodes()[i].attributes[z].value;
+            obj[name] = value;
+          }
+          return obj;
+        }
+      }
     },
     css: function (props) {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         for (var y in props) {
           this.nodes()[i].style[y] = props[y];
         }
-      }
-      return this;
-    },
-    click: function (func) {
-      for (var i = this.nodes().length - 1; i >= 0; i--) {
-        this.nodes()[i].addEventListener('click', func);
       }
       return this;
     },
@@ -133,6 +176,12 @@ export default function (selector) {
       }
       return output;
     },
+    insertBefore: function (el1, el2){
+      for (var i = this.nodes().length - 1; i >= 0; i--) {
+        this.nodes()[i].insertBefore(el1, el2);
+      }
+      return this;
+    },
     prepend: function (selectedElement) {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         this.nodes()[i].insertBefore(selectedElement, this.nodes()[i].firstChild);
@@ -148,6 +197,11 @@ export default function (selector) {
     contains: function (text) {
       var bool = this.node().textContent.indexOf(text) > -1;
       return bool;
+    },
+    camelize: function (string) {
+      return string.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+        return index === 0 ? letter.toLowerCase() : letter.toUpperCase();
+      }).replace(/\s+/g, '').replace( /[-_]+/g, '');
     }
   };
 }
