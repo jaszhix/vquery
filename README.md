@@ -49,7 +49,7 @@ npm install --save vquery
 ```js
 import v from 'vquery'
 
-v(*selector*).*method*(props)
+v("selector")."method"(props)
 ```
 ## Methods
 
@@ -66,7 +66,7 @@ Like jQuery, you can chain the methods. Example: ```v("selector").css({fontWeigh
 ## Known Issues
 
 *   Doesn't work exactly like jQuery. Possibly not a bug.
-*   ```hasClass``` and ```contains``` do not block susequent chained methods.
+*   ```hasClass``` and ```contains``` do not block subsequent chained methods.
 *   ```wrap``` doesn't wrap anything. It only removes the first child.
 
 I am starting to use this in my own projects in order to reduce code clutter. I will keep updating it as I find use for new wrapper functions, but feel free to contribute if you are interested.
