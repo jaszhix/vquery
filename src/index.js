@@ -94,6 +94,15 @@ export default function(selector) {
       selector = this.node().parentNode.node();
       return this;
     },
+    children: function() {
+      var arr = [];
+      var children = this.node().children;
+      for (var i = children.length - 1; i >= 0; i--) {
+        arr.push(children[i]);
+      }
+      selector = arr;
+      return this;
+    },
     isEmpty: function() {
       return !this.node().hasChildNodes();
     },
@@ -142,7 +151,7 @@ export default function(selector) {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         if (props) {
           for (var y in props) {
-            this.nodes()[i].setAttribute(y, props[y]);
+            this.nodes()[i].setAttribute(this.decamelize(y), props[y]);
           }
           return this;
         } else {
@@ -217,6 +226,15 @@ export default function(selector) {
       return string.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
         return index === 0 ? letter.toLowerCase() : letter.toUpperCase();
       }).replace(/\s+/g, '').replace(/[-_]+/g, '');
+    },
+    decamelize: function(string) {
+      return string
+        // insert a space between lower & upper
+        .replace(/([a-z])([A-Z])/g, '$1-$2')
+        // space before last upper in a sequence followed by lower
+        .replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1-$2$3')
+        // uppercase the first character
+        .replace(/^./, function(str){ return str.toLowerCase(); });
     }
   };
 }
