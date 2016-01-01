@@ -91,7 +91,7 @@ export default function(selector) {
       return this;
     },
     parent: function() {
-      selector = this.node().parentNode.node();
+      selector = this.node().parentNode;
       return this;
     },
     children: function() {
@@ -107,7 +107,7 @@ export default function(selector) {
       return !this.node().hasChildNodes();
     },
     next: function() {
-      this.node().nextElementSibling;
+      selector = this.node().nextElementSibling;
       return this;
     },
     addClass: function(_class) {
@@ -159,10 +159,7 @@ export default function(selector) {
           var name = null;
           var value = null;
           for (var z = this.nodes()[i].attributes.length - 1; z >= 0; z--) {
-            name = this.nodes()[i].attributes[z].name;
-            if (name.includes('-')) {
-              name = this.camelize(name);
-            }
+            name = this.camelize(this.nodes()[i].attributes[z].name);
             value = this.nodes()[i].attributes[z].value;
             obj[name] = value;
           }
@@ -229,11 +226,8 @@ export default function(selector) {
     },
     decamelize: function(string) {
       return string
-        // insert a space between lower & upper
         .replace(/([a-z])([A-Z])/g, '$1-$2')
-        // space before last upper in a sequence followed by lower
         .replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1-$2$3')
-        // uppercase the first character
         .replace(/^./, function(str){ return str.toLowerCase(); });
     }
   };
