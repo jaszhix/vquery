@@ -46,7 +46,7 @@ export default function(selector) {
     click: function(func) {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         if (func) {
-          this.nodes()[i].addEventListener('onclick', func);
+          this.nodes()[i].addEventListener('click', func);
         } else {
           this.trigger('click');
         }
