@@ -15,9 +15,11 @@ var v = function(param) {
     console.error(`vQuery: ${msg}`);
   };
   this.handler = ()=>{
+    // If the param is updated, start a new instance with the updated parameter.
     let _param = this.param ? this.param : param;
     return new v(_param);
   };
+  // Turn the CSS selector into a node, or pass an existing node to this.nodes, which is used by all methods.
   var _nodes;
   if (typeof param === 'string') {
     _nodes = document.querySelectorAll(param);
@@ -26,9 +28,11 @@ var v = function(param) {
   }
   this.nodes = Array.prototype.slice.call(_nodes);
 
+  // v(selector).get(0) -> <div></div>
   this.get = (i)=>{
     return this.nodes[i];
   };
+  // Event methods
   v.prototype.ready = (func)=>{
     if (func && typeof func !== 'undefined' &&typeof func === 'function') {
       document.addEventListener('DOMContentLoaded', func);
@@ -72,6 +76,7 @@ var v = function(param) {
     }
     return this.handler();
   };
+  // DOM traversal and manipulation methods
   v.prototype.hide = ()=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       this.nodes[i].style.display = 'none';
@@ -166,6 +171,8 @@ var v = function(param) {
     }
     return this.handler();
   };
+  // v(selector).attr() returns an object of camelized attribute keys. 
+  // v(selector).attr({dataId: '0'}) -> <div data-id="0"></div>
   v.prototype.attr = (props)=>{  
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       if (props) {
@@ -186,6 +193,7 @@ var v = function(param) {
       }
     }
   };
+  // v(selector).css({backgroundColor: '#FFF'}) -> <div style="background-color:#FFF;"></div>
   v.prototype.css = (props)=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       for (var y in props) {
@@ -255,6 +263,7 @@ var v = function(param) {
     var bool = this.nodes[0].textContent.indexOf(text) > -1;
     return bool;
   };
+  // Used by attr method
   v.prototype.camelize = (string)=>{  
     return string.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
       return index === 0 ? letter.toLowerCase() : letter.toUpperCase();
