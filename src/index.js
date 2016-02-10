@@ -25,6 +25,10 @@ var v = function(param) {
     _nodes = param;
   }
   this.nodes = Array.prototype.slice.call(_nodes);
+
+  this.get = (i)=>{
+    return this.nodes[i];
+  };
       document.addEventListener('DOMContentLoaded', func);
     },
     load: function(func) {
