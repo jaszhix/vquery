@@ -206,6 +206,28 @@ export default function(selector) {
     prepend: function(selectedElement) {
       for (var i = this.nodes().length - 1; i >= 0; i--) {
         this.nodes()[i].insertBefore(selectedElement, this.nodes()[i].firstChild);
+  v.prototype.rect = ()=>{
+    
+    return this.nodes[0].getBoundingClientRect();
+  };
+  v.prototype.offset = ()=>{
+    
+    let rect = this.rect();
+    let offset = {
+      top: rect.top + document.body.scrollTop,
+      left: rect.left + document.body.scrollLeft
+    };
+    return offset;
+  };
+  v.prototype.offsetParent = ()=>{
+    
+    return this.nodes[0].offsetParent || this.nodes[0];
+  };
+  v.prototype.outerHeight = ()=>{
+    
+    let offsetHeight = this.nodes[0].offsetHeight;
+    return this.nodes[0].offsetHeight;
+  };
       }
       return this;
     },
