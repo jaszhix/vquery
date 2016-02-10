@@ -1,20 +1,30 @@
-export default function(selector) {
-  return {
-    nodes: () => {
-      if (typeof selector === 'string') {
-        return document.querySelectorAll(selector);
-      } else {
-        return selector;
-      }
-    },
-    node: () => {
-      if (typeof selector === 'string') {
-        return document.querySelector(selector);
-      } else {
-        return selector;
-      }
-    },
-    ready: function(func) {
+var v = function(param) {
+  if (!(this instanceof v)) {
+    return new v(param);
+  } 
+  if (param instanceof v) {
+    return param;
+  }
+  if (param && param.nodeName) {
+    param = [param];
+    if (!this.param) {
+      this.param = param;
+    }
+  }
+  var error = (msg)=>{
+    console.error(`vQuery: ${msg}`);
+  };
+  this.handler = ()=>{
+    let _param = this.param ? this.param : param;
+    return new v(_param);
+  };
+  var _nodes;
+  if (typeof param === 'string') {
+    _nodes = document.querySelectorAll(param);
+  } else {
+    _nodes = param;
+  }
+  this.nodes = Array.prototype.slice.call(_nodes);
       document.addEventListener('DOMContentLoaded', func);
     },
     load: function(func) {
