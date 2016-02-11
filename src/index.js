@@ -77,6 +77,10 @@ var v = function(param) {
     return this.handler();
   };
   // DOM traversal and manipulation methods
+  v.prototype.filter = (func)=>{
+    Array.prototype.filter.call(this.nodes, func);
+    return this.handler();
+  };
   v.prototype.hide = ()=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       this.nodes[i].style.display = 'none';
