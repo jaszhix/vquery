@@ -81,6 +81,10 @@ var v = function(param) {
     Array.prototype.filter.call(this.nodes, func);
     return this.handler();
   };
+  v.prototype.find = (_selector)=>{
+    this.selector = this.node.querySelectorAll(_selector);
+    return this.handler();
+  };
   v.prototype.hide = ()=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       this.nodes[i].style.display = 'none';
