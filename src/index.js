@@ -364,9 +364,10 @@ var V = function(selector) {
     }
     return this.handler();
   };
-  V.prototype.prepend = (selectedElement)=>{ 
+  V.prototype.prepend = (element)=>{ 
+    let _element = isElement(element) ? element : this.query(document, element)[0];
     for (var i = this.nodes.length - 1; i >= 0; i--) {
-      this.nodes[i].insertBefore(selectedElement, this.nodes[i].firstChild);
+      this.nodes[i].insertBefore(_element, this.nodes[i].firstChild);
     }
     return this.handler();
   };
