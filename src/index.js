@@ -37,7 +37,11 @@ var V = function(selector) {
   // Assign the selector by calling this.query if its an element, otherwise assign it to this.nodes directly.
   if (selector) {
     if (this.typeOf(selector) === 'string') {
-      assignNodes(Array.prototype.slice.call(this.query(document, selector)));
+      try {
+        assignNodes(Array.prototype.slice.call(this.query(document, selector)));
+      } catch (e) {
+        this.string = selector;
+      }
       if (typeof this.node === 'undefined') {
         this.string = selector;
       }
