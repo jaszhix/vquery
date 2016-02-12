@@ -1,6 +1,6 @@
-var v = function(param) {
-  if (!(this instanceof v)) {
-    return new v(param);
+var V = function(selector) {
+  if (!(this instanceof V)) {
+    return new V(selector);
   } 
   if (param instanceof v) {
     return param;
