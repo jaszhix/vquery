@@ -49,27 +49,200 @@ npm install --save vquery
 ```js
 import v from 'vquery'
 
-v("selector")."method"(props)
+v(selector, element, or string).method(props);
 ```
-## Methods
+## API
 
-Currently implementation (and execution) of mimicing jQuery in a light-weight codebase is far from complete. The methods below work like they do with jQuery, except they are just wrappers around ```document.querySelectorAll```, and the associated vanilla JS dom manipulation functions.
+The methods below work like they do with jQuery, except they are just wrappers around ```document.querySelectorAll```, and the associated vanilla JS dom manipulation functions.
 
-*   Implemented
+Like jQuery and many other similar libraries, most of the methods can be chained.
 
-ready(function), load(function), on(event, function), off(event, function), trigger(event), click(function), hide(), show(), remove(), empty(), wrap(), parent(), isEmpty(), next(), addClass(), removeClass(), toggleClass(), hasClass(), attr(), removeAttr(), css(), html(), text(), prepend(), append(), contains(), clone()
+**Breaking changes in 4.0.0**: ```.nodes()``` is now ```nodes``` and ```node()``` is now ```node```.
 
-You can return just the node list from a selector, and chain vanilla DOM methods after it. ```v("selector").nodes()```, or get the first node with ```v("selector").node()```.
+### Node retrieval
 
-Like jQuery, you can chain the methods. Example: ```v("selector").css({fontWeight: '500'}).show()```
+*   .nodes *
+```js
+v('.class-thing').nodes
+```
+```html
+-> [<div class="class-thing">One</div>, <div class="class-thing">Two</div>, <div class="class-thing"><span id="three">Three</span></div>]
+```
 
-## Known Issues
+*   .node (Alias: .n) *
+```js
+v('.class-thing').node
+```
+```html
+-> <div class="class-thing">One</div>
+```
 
-*   Doesn't work exactly like jQuery. Possibly not a bug.
-*   ```hasClass``` and ```contains``` do not block subsequent chained methods.
-*   ```wrap``` doesn't wrap anything. It only removes the first child.
+*   .get(index)
+```js
+v('.class-thing').get(1)
+```
+```html
+-> <div class="class-thing">Two</div>
+```
 
-I am starting to use this in my own projects in order to reduce code clutter. I will keep updating it as I find use for new wrapper functions, but feel free to contribute if you are interested.
+*   .find(index)
+```js
+v('.class-thing').get(2).find('#three').node
+```
+```html
+-> <span id="three">Three</span>
+```
+
+*   .length *
+
+### Events
+
+*   .ready(function) *
+```js
+v().ready(()=>{
+  console.log('Document is ready!');
+});
+```
+
+*   .load(function) *
+```js
+v().load(()=>{
+  console.log('Document has loaded!');
+});
+```
+
+*   .on(event, function)
+```js
+v('#animating-div').on('animationend', myAnimationFunction);
+```
+
+*   .off(event, function)
+```js
+v(document.getElementById('animating-div')).off('animationend', myAnimationFunction);
+```
+
+*   .trigger(event) *
+```js
+v(document.getElementById('animating-div')).trigger('click');
+```
+
+*   .click(function)
+```js
+v('body > div.pre-render').click(myCleverClickEvent);
+```
+
+### Iteration
+
+*   .filter(function(currentValue, index, array))
+*   .each(function(currentValue, index, array))
+*   .map(function(currentValue, index, array))
+
+### DOM Manipulation
+
+*   .hide()
+*   .show()
+*   .remove()
+*   .clone()
+*   .wrap(HTML string)
+```js
+v('.class-thing').get(0).wrap('<span id="one" />').parent().n;
+```
+```html
+-> <span id="one"><div class="class-thing">Two</div></span>
+```
+
+*   .parent()
+*   .children()
+*   .isEmpty() *
+*   .siblings()
+*   .next()
+*   .prev()
+*   .addClass(string of classes separated by a space)
+*   .removeClass(string of classes separated by a space)
+*   .addClass(string of classes separated by a space)
+*   .hasClass(string)
+*   .removeAttr(string)
+*   .attr(object)
+Pass an object of camel cased attribute keys, or pass no parameter to return an object of existing attributes.
+
+*   .css(object)
+Pass an object of camel cased style keys, or pass no parameter to return the computed style of the selected element.
+
+*   .rect() *
+Returns the position of an object relative of the viewport.
+
+*   .offset() *
+*   .offsetParent() *
+*   .outerHeight() *
+*   .outerWidth() *
+*   .position() *
+*   .html(HTML string)
+Inserts HTML inside the selected elements, or returns an array of HTML strings of the selected elements if no parameter is passed.
+
+*   .parseHTML(HTML string) *
+```js
+v('<div class="stuff"></div>').parseHTML();
+v().parseHTML('<div class="stuff"></div>');
+```
+```html
+-> <div class="stuff"></div>
+```
+*   .text(string)
+Inserts text inside the selected elements, or returns an array of text strings inside the selected elements if no parameter is passed.
+
+*   .insertBefore(newNode, referenceNode)
+Works like the native Node.insertBefore method as it is just a wrapper. The selector parameter must be a parent of the newNode and referenceNode.
+
+*   .prepend(CSS selector or element)
+*   .append(CSS selector or element)
+*   .after(HTML string)
+*   .before(HTML string)
+*   .contains(element or string)
+*   .is(CSS selector or element)
+Compares two elements and returns ```true``` if they are the same and ```false``` if not.
+
+### Utilities
+
+*   .type(value)
+
+*   .json(value)
+```js
+v([{one: true}, {two: false}]).json();
+v().json([{one: true}, {two: false}]);
+-> '[{"one":true},{"two":false}]'
+```
+
+*   .parseJSON(valid JSON string)
+```js
+v('[{"one":true},{"two":false}]').parseJSON();
+v().parseJSON('[{"one":true},{"two":false}]');
+-> [{one: true}, {two: false}]
+```
+
+*   .trim(string)
+```js
+v('   trimMe!   ').trim();
+v().trim('   trimMe!   ');
+-> 'trimMe!'
+```
+
+*   .camelize(string)
+```js
+v('data-id').camelize();
+v().camelize('data-id');
+-> 'dataId'
+```
+
+*   .decamelize(string)
+```js
+v('deCamelize').decamelize()
+v().decamelize('deCamelize')
+-> 'de-Camelize'
+```
+
+## To-do's
+*   Package vQuery for Bower and the browser
+
 
 <!-- [npm-url]: https://npmjs.org/package/vquery
 [npm-image]: https://img.shields.io/npm/v/vquery.svg?style=flat-square
