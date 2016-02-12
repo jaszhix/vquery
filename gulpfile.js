@@ -17,7 +17,6 @@ gulp.task("browser-sync", function () {
 });
 
 gulp.task("browserify", function() {
-    "use strict";
     return browserify("./test/index.js")
         .transform("babelify", {presets: ["es2015"]})
         .bundle()
@@ -31,9 +30,8 @@ gulp.task("browserify", function() {
 });
 
 gulp.task("test", function () {
-    "use strict";
     return gulp.src("./test/tests.html")
-        .pipe(mochaPhantomJS());
+        .pipe(mochaPhantomJS({reporter: 'spec', dump:'./tmp/test.log'}));
 });
 
 gulp.task("serve", ["browserify", "browser-sync"], function () {

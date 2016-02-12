@@ -12,7 +12,7 @@
     "lint": "eslint src test",
     "check": "npm run lint -s && dependency-check package.json --entry src",
     "watch": "watch 'npm run build' src",
-    "test": "gulp browserify && node ./node_modules/mocha-phantomjs/bin/mocha-phantomjs test/tests.html",
+    "test": "rimraf ./tmp/test.log && gulp browserify && gulp test",
     "prebuild": "npm run clean -s",
     "build": "babel --optional runtime src -d dist",
     "coverage": "babel-node node_modules/isparta/bin/isparta cover test/index.js",
