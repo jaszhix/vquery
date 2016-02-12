@@ -305,6 +305,15 @@ var V = function(selector) {
   v.prototype.append = (element)=>{ 
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       this.nodes[i].appendChild(element);
+  V.prototype.after = (string)=>{
+    for (var i = this.nodes.length - 1; i >= 0; i--) {
+      this.nodes[i].insertAdjacentHTML('afterend', string);
+    }
+    return this.handler();
+  };
+  V.prototype.before = (string)=>{
+    for (var i = this.nodes.length - 1; i >= 0; i--) {
+      this.nodes[i].insertAdjacentHTML('beforebegin', string);
     }
     return this.handler();
   };
@@ -317,6 +326,9 @@ var V = function(selector) {
     }
     var bool = textContent.indexOf(text) > -1;
     return bool;
+  };
+  V.prototype.is = (el)=>{
+    return this.node === this.query(document, el)[0];
   };
   // Used by attr method
   V.prototype.camelize = (string)=>{
