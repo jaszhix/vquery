@@ -167,13 +167,13 @@ v('.class-thing').get(0).wrap('<span id="one" />').parent().n;
 *   .hasClass(string)
 *   .removeAttr(string)
 *   .attr(object)
-Pass an object of camel cased attribute keys, or pass no parameter to return an object of existing attributes.
+  * Pass an object of camel cased attribute keys, or pass no parameter to return an object of existing attributes.
 
 *   .css(object)
-Pass an object of camel cased style keys, or pass no parameter to return the computed style of the selected element.
+  * Pass an object of camel cased style keys, or pass no parameter to return the computed style of the selected element.
 
 *   .rect() *
-Returns the position of an object relative of the viewport.
+  * Returns the position of an object relative of the viewport.
 
 *   .offset() *
 *   .offsetParent() *
@@ -181,7 +181,7 @@ Returns the position of an object relative of the viewport.
 *   .outerWidth() *
 *   .position() *
 *   .html(HTML string)
-Inserts HTML inside the selected elements, or returns an array of HTML strings of the selected elements if no parameter is passed.
+  * Inserts HTML inside the selected elements, or returns an array of HTML strings of the selected elements if no parameter is passed.
 
 *   .parseHTML(HTML string) *
 ```js
@@ -192,10 +192,10 @@ v().parseHTML('<div class="stuff"></div>');
 -> <div class="stuff"></div>
 ```
 *   .text(string)
-Inserts text inside the selected elements, or returns an array of text strings inside the selected elements if no parameter is passed.
+  * Inserts text inside the selected elements, or returns an array of text strings inside the selected elements if no parameter is passed.
 
 *   .insertBefore(newNode, referenceNode)
-Works like the native Node.insertBefore method as it is just a wrapper. The selector parameter must be a parent of the newNode and referenceNode.
+  * Works like the native Node.insertBefore method as it is just a wrapper. The selector parameter must be a parent of the newNode and referenceNode.
 
 *   .prepend(CSS selector or element)
 *   .append(CSS selector or element)
@@ -203,7 +203,7 @@ Works like the native Node.insertBefore method as it is just a wrapper. The sele
 *   .before(HTML string)
 *   .contains(element or string)
 *   .is(CSS selector or element)
-Compares two elements and returns ```true``` if they are the same and ```false``` if not.
+  * Compares two elements and returns ```true``` if they are the same and ```false``` if not.
 
 ### Utilities
 
@@ -244,7 +244,7 @@ v().decamelize('deCamelize')
 -> 'de-Camelize'
 ```
 
-* Methods returning a boolean or strings are currently not chainable.
+* Asterisked methods are currently not chainable.
 
 ## To-do's
 *   Package vQuery for Bower and the browser
