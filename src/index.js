@@ -27,6 +27,9 @@
       let _selector = this.selector ? this.selector : selector;
       return new v(_selector);
     };
+    v.prototype.uniq = (array)=>{
+      return Array.from(new Set(array));
+    };
     v.prototype.slice = (nodeList)=>{
       return Array.prototype.slice.call(nodeList);
     };
@@ -163,11 +166,29 @@
       }
       return this.handler();
     };
-    v.prototype.parent = (el)=>{
+    v.prototype.parent = ()=>{
+      this.selector = this.node.parentNode;
+      return this.handler();
+    };
+    v.prototype.parents = (el)=>{
+      let parent = this.node.parentNode;
+      let _parents = [];
+      while (parent) {
+        _parents.unshift(parent);
+        parent = parent.parentNode;
+      }
       if (el) {
-        this.selector = this.query(this.node.parentNode, el);
+        let __parents = [];
+        let _parentsQuery = [];
+        for (let i = _parents.length - 1; i >= 0; i--) {
+          __parents = this.slice(this.query(_parents[i], el));
+          for (let i = __parents.length - 1; i >= 0; i--) {
+            _parentsQuery.push(__parents[i]);
+          }
+        }
+        this.selector = this.uniq(_parentsQuery);
       } else {
-        this.selector = this.node.parentNode;
+        this.selector = _parents;
       }
       return this.handler();
     };
