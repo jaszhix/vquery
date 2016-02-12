@@ -302,6 +302,23 @@ var V = function(selector) {
     tmp.body.innerHTML = this.string ? this.string : string;
     return tmp.body.children;
   };
+  V.prototype.json = (input)=>{
+    let _input = this.nodes ? this.nodes : input;
+    let output = JSON.stringify(_input);
+    if (output && typeof _input !== 'string') {
+      return JSON.stringify(_input);
+    } else {
+      error(`Parameter passed to the json method cannot be converted into valid JSON.`);
+    }
+  };
+  V.prototype.parseJSON = (string)=>{
+    string = this.string ? this.string : string;
+    let output;
+    try {
+      output = JSON.parse(string);
+    } catch (e) {
+      error(`Parameter passed to the parseJSON method is not valid JSON.\n${e}`);
+    }
     return output;
   };
   v.prototype.text = (contents)=>{
