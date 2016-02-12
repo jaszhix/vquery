@@ -27,8 +27,11 @@
       let _selector = this.selector ? this.selector : selector;
       return new v(_selector);
     };
+    v.prototype.slice = (nodeList)=>{
+      return Array.prototype.slice.call(nodeList);
+    };
     var assignNodes = (nodes)=>{
-      this.nodes = nodes;
+      this.nodes = this.slice(nodes);
       this.node = this.nodes[0];
     };
     // Turn the CSS selector into a node, pass an existing node to this.nodes, which is used by all methods.
@@ -39,7 +42,7 @@
     if (selector) {
       if (this.typeOf(selector) === 'string') {
         try {
-          assignNodes(Array.prototype.slice.call(this.query(document, selector)));
+          assignNodes(this.query(document, selector));
         } catch (e) {
           this.string = selector;
         }
@@ -48,7 +51,7 @@
         }
       } else {
         if (isElement(selector)) {
-          assignNodes(Array.prototype.slice.call(selector));
+          assignNodes(selector);
         } else {
           this.nodes = selector;
         }
