@@ -322,6 +322,10 @@ var V = function(selector) {
     return output;
   };
   v.prototype.text = (contents)=>{
+  V.prototype.trim = (string)=>{
+    string = this.string ? this.string : string;
+    return string.trim();
+  };
   V.prototype.replaceWith = (string)=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       if (string && typeof string === 'string') {
