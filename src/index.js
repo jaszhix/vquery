@@ -56,11 +56,11 @@ var V = function(selector) {
     return this.handler();
   };
   // Event methods
-  v.prototype.ready = (func)=>{
+  V.prototype.ready = (func)=>{
     if (func && typeof func !== 'undefined' &&typeof func === 'function') {
       document.addEventListener('DOMContentLoaded', func);
     } else {
-      error('Parameter supplied to the ready method is not a function.');
+      error(`Parameter passed to the ready method is not of the type 'function'.`);
     }
   };
   v.prototype.load = (func)=>{
