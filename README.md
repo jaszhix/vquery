@@ -66,7 +66,11 @@ Like jQuery and many other similar libraries, most of the methods can be chained
 v('.class-thing').nodes
 ```
 ```html
--> [<div class="class-thing">One</div>, <div class="class-thing">Two</div>, <div class="class-thing"><span id="three">Three</span></div>]
+->  [
+    <div class="class-thing">One</div>, 
+    <div class="class-thing">Two</div>, 
+    <div class="class-thing"><span id="three">Three</span></div>
+    ]
 ```
 
 *   .node (Alias: .n) *
