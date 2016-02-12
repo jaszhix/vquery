@@ -12,7 +12,7 @@
     "lint": "eslint src test",
     "check": "npm run lint -s && dependency-check package.json --entry src",
     "watch": "watch 'npm run build' src",
-    "test": "rimraf ./tmp/test.log && gulp browserify && gulp test",
+    "test": "gulp browserify && node ./node_modules/mocha-phantomjs/bin/mocha-phantomjs test/tests.html",
     "prebuild": "npm run clean -s",
     "build": "babel --optional runtime src -d dist",
     "coverage": "babel-node node_modules/isparta/bin/isparta cover test/index.js",
@@ -40,7 +40,14 @@
     "browser",
     "tool",
     "utility",
-    "wrapper"
+    "wrapper",
+    "umbrella",
+    "selector",
+    "small",
+    "alternative",
+    "zepto",
+    "micro"
+
   ],
   "author": "Jason Hicks <jaszhix@gmail.com>",
   "license": "CC-BY-4.0",
