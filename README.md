@@ -36,7 +36,7 @@
 
 </big></p>
 
-vQuery is a simple, light-weight, vanilla JS wrapper for jQuery-like syntax. It is currently experimental, so use it at your own risk.
+vQuery is a simple, light-weight, vanilla JS wrapper for jQuery-like syntax.
 
 ## Install
 
