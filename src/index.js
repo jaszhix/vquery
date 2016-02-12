@@ -333,10 +333,6 @@ var V = function(selector) {
     }
     return output;
   };
-  V.prototype.trim = (string)=>{
-    string = this.string ? this.string : string;
-    return string.trim();
-  };
   V.prototype.type = (input)=>{
     input = this.nodes ? this.nodes : this.string ? this.string : input;
     return isElement(this.node) ? 'node' : this.typeOf(input);
@@ -405,6 +401,9 @@ var V = function(selector) {
   };
   V.prototype.is = (el)=>{
     return this.node === this.query(document, el)[0];
+  V.prototype.trim = (string)=>{
+    string = this.string ? this.string : string;
+    return string.trim();
   };
   // Used by attr method
   V.prototype.camelize = (string)=>{
