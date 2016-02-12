@@ -302,9 +302,13 @@ var V = function(selector) {
     }
     return this.handler();
   };
-  v.prototype.append = (element)=>{ 
+  V.prototype.append = (element)=>{ 
+    let _element = isElement(element) ? element : this.query(document, element)[0];
     for (var i = this.nodes.length - 1; i >= 0; i--) {
-      this.nodes[i].appendChild(element);
+      this.nodes[i].appendChild(_element);
+    }
+    return this.handler();
+  };
   V.prototype.after = (string)=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       this.nodes[i].insertAdjacentHTML('afterend', string);
