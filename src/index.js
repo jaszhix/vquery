@@ -149,8 +149,12 @@ var V = function(selector) {
     }
     return this.handler();
   };
-  v.prototype.parent = ()=>{
-    this.param = this.nodes[0].parentNode;
+  V.prototype.parent = (el)=>{
+    if (el) {
+      this.selector = this.query(this.node.parentNode, el);
+    } else {
+      this.selector = this.node.parentNode;
+    }
     return this.handler();
   };
   v.prototype.children = ()=>{
