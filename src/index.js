@@ -50,9 +50,10 @@ var V = function(selector) {
     }
     this.length = this.string ? this.string.length : this.nodes.length;
   }
-  // v(selector).get(0) -> <div></div>
+  // V(selector).get(0) -> <div></div>
   this.get = (i)=>{
-    return this.nodes[i];
+    this.selector = this.nodes[i];
+    return this.handler();
   };
   // Event methods
   v.prototype.ready = (func)=>{
