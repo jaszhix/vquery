@@ -280,6 +280,16 @@ var V = function(selector) {
     return output;
   };
   v.prototype.text = (contents)=>{
+  V.prototype.replaceWith = (string)=>{
+    for (var i = this.nodes.length - 1; i >= 0; i--) {
+      if (string && typeof string === 'string') {
+        this.nodes[i].outerHTML = string;
+        return this.handler();
+      } else {
+        error(`Parameter passed to the replaceWith method is not of the type 'string'.`);
+      }
+    }
+  };
     var output = [];
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       if (!contents) {
