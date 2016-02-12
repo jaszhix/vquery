@@ -153,11 +153,9 @@ var V = function(selector) {
     this.selector = clone;
     return this.handler();
   };
-  V.prototype.wrap = ()=>{
+  V.prototype.wrap = (tag)=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
-      while (this.nodes[i].firstChild) {
-        this.nodes[i].removeChild(this.nodes[i].firstChild);
-      }
+      this.nodes[i].outerHTML = `${tag.match(/<(.|\n)*?>/g)[0]}${this.nodes[i].outerHTML}`;
     }
     return this.handler();
   };
