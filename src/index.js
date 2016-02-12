@@ -271,8 +271,24 @@ var V = function(selector) {
   };
   v.prototype.outerHeight = ()=>{
     return this.nodes[0].offsetHeight;
+  V.prototype.outerHeight = (withMargin)=>{
+    let height = this.node.offsetHeight;
+    if (withMargin) {
+      let style = this.css();
+      height += parseInt(style.marginTop) + parseInt(style.marginBottom);
+    }
+    return height;
   };
   v.prototype.html = (contents)=>{ 
+  V.prototype.outerWidth = (withMargin)=>{
+    let width = this.node.offsetWidth;
+    if (withMargin) {
+      let style = this.css();
+      width += parseInt(style.marginTop) + parseInt(style.marginBottom);
+    }
+    return width;
+  };
+  V.prototype.html = (contents)=>{ 
     var output = [];
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       if (!contents) {
