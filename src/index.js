@@ -136,9 +136,9 @@ var V = function(selector) {
     }
     return this.handler();
   };
-  v.prototype.clone = ()=>{
-    var clone = this.nodes[0].cloneNode(true);
-    this.param = clone;
+  V.prototype.clone = ()=>{
+    var clone = this.node.cloneNode(true);
+    this.selector = clone;
     return this.handler();
   };
   v.prototype.wrap = ()=>{
