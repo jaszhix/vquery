@@ -68,7 +68,11 @@ var V = function(selector) {
     }
   };
   V.prototype.load = (func)=>{
-    document.addEventListener('onload', func);
+    if (func && typeof func !== 'undefined' && typeof func === 'function') {
+      document.addEventListener('onload', func);
+    } else {
+      error(`Parameter passed to the load method is not of the type 'function'.`);
+    }
   };
   V.prototype.on = (event, func)=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
