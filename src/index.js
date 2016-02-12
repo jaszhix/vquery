@@ -326,6 +326,10 @@ var V = function(selector) {
     string = this.string ? this.string : string;
     return string.trim();
   };
+  V.prototype.type = (input)=>{
+    input = this.nodes ? this.nodes : this.string ? this.string : input;
+    return isElement(this.node) ? 'node' : this.typeOf(input);
+  };
   V.prototype.replaceWith = (string)=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       if (string && typeof string === 'string') {
