@@ -238,14 +238,18 @@ var V = function(selector) {
       }
     }
   };
-  // v(selector).css({backgroundColor: '#FFF'}) -> <div style="background-color:#FFF;"></div>
-  v.prototype.css = (props)=>{
-    for (var i = this.nodes.length - 1; i >= 0; i--) {
-      for (var y in props) {
-        this.nodes[i].style[y] = props[y];
+  // V(selector).css({backgroundColor: '#FFF'}) -> <div style="background-color:#FFF;"></div>
+  V.prototype.css = (props)=>{
+    if (props) {
+      for (var i = this.nodes.length - 1; i >= 0; i--) {
+        for (var y in props) {
+          this.nodes[i].style[y] = props[y];
+        }
       }
+      return this.handler();
+    } else {
+      return getComputedStyle(this.node);
     }
-    return this.handler();
   };
   v.prototype.rect = ()=>{
     return this.nodes[0].getBoundingClientRect();
