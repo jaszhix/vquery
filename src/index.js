@@ -109,6 +109,10 @@ var V = function(selector) {
     return this.handler();
   };
   v.prototype.hide = ()=>{
+  V.prototype.find = (_selector)=>{
+    this.selector = this.query(this.node, _selector);
+    return this.handler();
+  };
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       this.nodes[i].style.display = 'none';
     }
