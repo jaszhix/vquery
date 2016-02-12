@@ -295,6 +295,9 @@ var V = function(selector) {
     }
     return width;
   };
+  V.prototype.position = (withMargin)=>{
+    return {left: this.node.offsetLeft, top: this.node.offsetTop};
+  };
   V.prototype.html = (contents)=>{ 
     var output = [];
     for (var i = this.nodes.length - 1; i >= 0; i--) {
