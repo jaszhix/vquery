@@ -244,6 +244,8 @@ v().decamelize('deCamelize')
 -> 'de-Camelize'
 ```
 
+* Methods returning a boolean or strings are currently not chainable.
+
 ## To-do's
 *   Package vQuery for Bower and the browser
 
