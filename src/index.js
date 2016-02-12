@@ -11,23 +11,45 @@ var V = function(selector) {
       this.selector = selector;
     }
   } 
+  // Utility functions
   var error = (msg)=>{
     console.error(`vQuery: ${msg}`);
   };
-  this.handler = ()=>{
-    // If the param is updated, start a new instance with the updated parameter.
-    let _param = this.param ? this.param : param;
-    return new v(_param);
+  var isElement = (element)=>{
+    return element instanceof Element || element[0] instanceof Element;
   };
-  // Turn the CSS selector into a node, or pass an existing node to this.nodes, which is used by all methods.
-  var _nodes;
-  if (typeof param === 'string') {
-    _nodes = document.querySelectorAll(param);
-  } else {
-    _nodes = param;
+  this.typeOf = (input)=>{
+    return Object.prototype.toString.call(input).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
+  };
+  this.handler = ()=>{
+    // If the selector is updated, start a new instance with the updated selectoreter.
+    let _selector = this.selector ? this.selector : selector;
+    return new V(_selector);
+  };
+  var assignNodes = (nodes)=>{
+    this.nodes = nodes;
+    this.node = this.nodes[0];
+  };
+  // Turn the CSS selector into a node, pass an existing node to this.nodes, which is used by all methods.
+  this.query = (el, _selector)=>{
+    return el.querySelectorAll(_selector);
+  };
+  // Assign the selector by calling this.query if its an element, otherwise assign it to this.nodes directly.
+  if (selector) {
+    if (this.typeOf(selector) === 'string') {
+      assignNodes(Array.prototype.slice.call(this.query(document, selector)));
+      if (typeof this.node === 'undefined') {
+        this.string = selector;
+      }
+    } else {
+      if (isElement(selector)) {
+        assignNodes(Array.prototype.slice.call(selector));
+      } else {
+        this.nodes = selector;
+      }
+    }
+    this.length = this.string ? this.string.length : this.nodes.length;
   }
-  this.nodes = Array.prototype.slice.call(_nodes);
-
   // v(selector).get(0) -> <div></div>
   this.get = (i)=>{
     return this.nodes[i];
