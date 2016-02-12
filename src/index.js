@@ -2,15 +2,15 @@ var V = function(selector) {
   if (!(this instanceof V)) {
     return new V(selector);
   } 
-  if (param instanceof v) {
-    return param;
+  if (selector instanceof V) {
+    return selector;
   }
-  if (param && param.nodeName) {
-    param = [param];
-    if (!this.param) {
-      this.param = param;
+  if (selector && selector.nodeName) {
+    selector = [selector];
+    if (!this.selector) {
+      this.selector = selector;
     }
-  }
+  } 
   var error = (msg)=>{
     console.error(`vQuery: ${msg}`);
   };
