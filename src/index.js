@@ -401,7 +401,9 @@ var V = function(selector) {
     return bool;
   };
   V.prototype.is = (el)=>{
-    return this.node === this.query(document, el)[0];
+    let _el = isElement(el) ? el : this.query(document, el)[0];
+    return this.node === _el;
+  };
   V.prototype.trim = (string)=>{
     string = this.string ? this.string : string;
     return string.trim();
