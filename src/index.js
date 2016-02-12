@@ -297,6 +297,11 @@ var V = function(selector) {
         this.nodes[i].innerHTML = contents;
       }
     }
+  V.prototype.parseHTML = (string)=>{
+    let tmp = document.implementation.createHTMLDocument();
+    tmp.body.innerHTML = this.string ? this.string : string;
+    return tmp.body.children;
+  };
     return output;
   };
   v.prototype.text = (contents)=>{
