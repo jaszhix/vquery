@@ -408,6 +408,11 @@ var V = function(selector) {
       .replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1-$2$3')
       .replace(/^./, function(str){ return str.toLowerCase(); });
   };
+  V.prototype = {
+    get n(){
+      return this.node;
+    }
+  };
 };
 
 export default v;
