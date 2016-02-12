@@ -192,13 +192,21 @@
       }
       return this.handler();
     };
-    v.prototype.children = ()=>{
-      var arr = [];
-      var children = this.nodes[0].children;
-      for (var i = children.length - 1; i >= 0; i--) {
-        arr.push(children[i]);
+    v.prototype.children = (el)=>{
+      let children = this.slice(this.nodes[0].children);
+      if (el) {
+        let _children = [];
+        let arr = [];
+        for (let i = children.length - 1; i >= 0; i--) {
+          _children = this.slice(this.query(children[i], el));
+          for (let i = _children.length - 1; i >= 0; i--) {
+            arr.push(_children[i]);
+          }
+        }
+        this.selector = arr;
+      } else {
+        this.selector = children;
       }
-      this.selector = arr;
       return this.handler();
     };
     v.prototype.isEmpty = ()=>{
