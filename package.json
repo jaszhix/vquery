@@ -14,7 +14,7 @@
     "watch": "watch 'npm run build' src",
     "test": "gulp browserify && node ./node_modules/mocha-phantomjs/bin/mocha-phantomjs test/tests.html",
     "prebuild": "npm run clean -s",
-    "build": "babel --optional runtime src -d dist && gulp uglify",
+    "build": "rimraf v.min.js && babel --optional runtime src -d dist && gulp uglify",
     "coverage": "babel-node node_modules/isparta/bin/isparta cover test/index.js",
     "coveralls": "npm run coverage -s && coveralls < coverage/lcov.info",
     "postcoveralls": "rimraf ./coverage",
