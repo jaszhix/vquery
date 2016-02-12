@@ -100,12 +100,16 @@ var V = function(selector) {
     return this.handler();
   };
   // DOM traversal and manipulation methods
-  v.prototype.filter = (func)=>{
+  V.prototype.filter = (func)=>{
     Array.prototype.filter.call(this.nodes, func);
     return this.handler();
   };
-  v.prototype.find = (_selector)=>{
-    this.selector = this.node.querySelectorAll(_selector);
+  V.prototype.each = (func)=>{
+    Array.prototype.forEach.call(this.nodes, func);
+    return this.handler();
+  };
+  V.prototype.map = (func)=>{
+    Array.prototype.map.call(this.nodes, func);
     return this.handler();
   };
   v.prototype.hide = ()=>{
