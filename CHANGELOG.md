@@ -1,5 +1,30 @@
 # Changelog
 
+### v4.0.0
+
+ * Refactored the library so it uses a constructor instead of returning an object of methods.
+ * The selector parameter is now more versatile for some methods as outlined in the API section of the readme.
+ * .wrap() works now.
+ * Changed the node retrieval from a function to an array. ```.nodes()``` is now ```nodes``` and ```node()``` is now ```node```. ```node``` also has a short alias, ```n```.
+ * .length will return the length of the array of selected elements.
+ * New methods
+   * ```.filter(function(currentValue, index, array))```
+   * ```.each(function(currentValue, index, array))```
+   * ```.map(function(currentValue, index, array))```
+   * ```.siblings()```
+   * ```.rect()```
+   * ```.offset()```
+   * ```.offsetParent()```
+   * ```.outerHeight()```
+   * ```.outerWidth()```
+   * ```.parseHTML(HTML string)```
+   * ```.after(HTML string)```
+   * ```.before(HTML string)```
+   * ```.json(value)```
+   * ```.parseJSON(valid JSON string)```
+   * ```.trim(string)```
+   * ```.type(value)```
+
 ### v3.1.3
 
  * Attributes with a "-" character now can be updated by passing an object to ```attr``` with a camel cased property.
