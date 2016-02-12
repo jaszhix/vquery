@@ -63,22 +63,22 @@ var V = function(selector) {
       error(`Parameter passed to the ready method is not of the type 'function'.`);
     }
   };
-  v.prototype.load = (func)=>{
+  V.prototype.load = (func)=>{
     document.addEventListener('onload', func);
   };
-  v.prototype.on = (event, func)=>{
+  V.prototype.on = (event, func)=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       this.nodes[i].addEventListener(event, func);
     }
     return this.handler();
   };
-  v.prototype.off = (event, func)=>{
+  V.prototype.off = (event, func)=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       this.nodes[i].removeEventListener(event, func);
     }
     return this.handler();
   };
-  v.prototype.trigger = (event)=>{
+  V.prototype.trigger = (event)=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       if (this.nodes[i].fireEvent) {
         (this.nodes[i].fireEvent('on' + event));
@@ -89,12 +89,12 @@ var V = function(selector) {
       }
     }
   };
-  v.prototype.click = (func)=>{
+  V.prototype.click = (func)=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       if (func) {
         this.nodes[i].addEventListener('click', func);
       } else {
-        v.prototype.trigger('click');
+        V.prototype.trigger('click');
       }
     }
     return this.handler();
@@ -112,29 +112,29 @@ var V = function(selector) {
     Array.prototype.map.call(this.nodes, func);
     return this.handler();
   };
-  v.prototype.hide = ()=>{
   V.prototype.find = (_selector)=>{
     this.selector = this.query(this.node, _selector);
     return this.handler();
   };
+  V.prototype.hide = ()=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       this.nodes[i].style.display = 'none';
     }
     return this.handler();
   };
-  v.prototype.show = ()=>{
+  V.prototype.show = ()=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       this.nodes[i].style.display = 'block';
     }
     return this.handler();
   };
-  v.prototype.remove = ()=>{
+  V.prototype.remove = ()=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       this.nodes[i].parentNode.removeChild(this.nodes[i]);
     }
     return this.handler();
   };
-  v.prototype.empty = ()=>{
+  V.prototype.empty = ()=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       this.nodes[i].innerHTML = '';
     }
@@ -145,7 +145,7 @@ var V = function(selector) {
     this.selector = clone;
     return this.handler();
   };
-  v.prototype.wrap = ()=>{
+  V.prototype.wrap = ()=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       while (this.nodes[i].firstChild) {
         this.nodes[i].removeChild(this.nodes[i].firstChild);
@@ -161,17 +161,17 @@ var V = function(selector) {
     }
     return this.handler();
   };
-  v.prototype.children = ()=>{
+  V.prototype.children = ()=>{
     var arr = [];
     var children = this.nodes[0].children;
     for (var i = children.length - 1; i >= 0; i--) {
       arr.push(children[i]);
     }
-    param = arr;
+    this.selector = arr;
     return this.handler();
   };
-  v.prototype.isEmpty = ()=>{
-    return !this.nodes[0].hasChildNodes();
+  V.prototype.isEmpty = ()=>{
+    return !this.node.hasChildNodes();
   };
   V.prototype.siblings = ()=>{
     this.nodes = this.node.parentNode.children;
@@ -187,7 +187,7 @@ var V = function(selector) {
     this.selector = this.node.previousElementSibling;
     return this.handler();
   };
-  v.prototype.addClass = (_class)=>{
+  V.prototype.addClass = (_class)=>{
     var classArr = _class.split(' ');
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       for (var y = 0; y < classArr.length; y++) {
@@ -196,7 +196,7 @@ var V = function(selector) {
     }
     return this.handler();
   };
-  v.prototype.removeClass = (_class)=>{
+  V.prototype.removeClass = (_class)=>{
     var classArr = _class.split(' ');
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       for (var y = 0; y < classArr.length; y++) {
@@ -205,7 +205,7 @@ var V = function(selector) {
     }
     return this.handler();
   };
-  v.prototype.toggleClass = (_class)=>{
+  V.prototype.toggleClass = (_class)=>{
     var classArr = _class.split(' ');
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       for (var y = 0; y < classArr.length; y++) {
@@ -214,19 +214,19 @@ var V = function(selector) {
     }
     return this.handler();
   };
-  v.prototype.hasClass = (_class)=>{
-    var bool = this.nodes[0].classList.contains(_class);
+  V.prototype.hasClass = (_class)=>{
+    var bool = this.node.classList.contains(_class);
     return bool;
   };
-  v.prototype.removeAttr = (attr)=>{   
+  V.prototype.removeAttr = (attr)=>{   
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       this.nodes[i].removeAttribute(attr);
     }
     return this.handler();
   };
-  // v(selector).attr() returns an object of camelized attribute keys. 
-  // v(selector).attr({dataId: '0'}) -> <div data-id="0"></div>
-  v.prototype.attr = (props)=>{  
+  // V(selector).attr() returns an object of camelized attribute keys. 
+  // V(selector).attr({dataId: '0'}) -> <div data-id="0"></div>
+  V.prototype.attr = (props)=>{  
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       if (props) {
         for (var y in props) {
@@ -259,10 +259,10 @@ var V = function(selector) {
       return getComputedStyle(this.node);
     }
   };
-  v.prototype.rect = ()=>{
-    return this.nodes[0].getBoundingClientRect();
+  V.prototype.rect = ()=>{
+    return this.node.getBoundingClientRect();
   };
-  v.prototype.offset = ()=>{ 
+  V.prototype.offset = ()=>{ 
     let rect = this.rect();
     let offset = {
       top: rect.top + document.body.scrollTop,
@@ -270,11 +270,9 @@ var V = function(selector) {
     };
     return offset;
   };
-  v.prototype.offsetParent = ()=>{
-    return this.nodes[0].offsetParent || this.nodes[0];
+  V.prototype.offsetParent = ()=>{
+    return this.node.offsetParent || this.node;
   };
-  v.prototype.outerHeight = ()=>{
-    return this.nodes[0].offsetHeight;
   V.prototype.outerHeight = (withMargin)=>{
     let height = this.node.offsetHeight;
     if (withMargin) {
@@ -283,7 +281,6 @@ var V = function(selector) {
     }
     return height;
   };
-  v.prototype.html = (contents)=>{ 
   V.prototype.outerWidth = (withMargin)=>{
     let width = this.node.offsetWidth;
     if (withMargin) {
@@ -301,6 +298,8 @@ var V = function(selector) {
         this.nodes[i].innerHTML = contents;
       }
     }
+    return contents ? this.handler() : output;
+  };
   V.prototype.parseHTML = (string)=>{
     let tmp = document.implementation.createHTMLDocument();
     tmp.body.innerHTML = this.string ? this.string : string;
@@ -325,7 +324,6 @@ var V = function(selector) {
     }
     return output;
   };
-  v.prototype.text = (contents)=>{
   V.prototype.trim = (string)=>{
     string = this.string ? this.string : string;
     return string.trim();
@@ -344,6 +342,7 @@ var V = function(selector) {
       }
     }
   };
+  V.prototype.text = (contents)=>{
     var output = [];
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       if (!contents) {
@@ -352,15 +351,15 @@ var V = function(selector) {
         this.nodes[i].textContent = contents;
       }
     }
-    return output;
+    return contents ? this.handler() : output;
   };
-  v.prototype.insertBefore = (el1, el2)=>{
+  V.prototype.insertBefore = (el1, el2)=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       this.nodes[i].insertBefore(el1, el2);
     }
     return this.handler();
   };
-  v.prototype.prepend = (selectedElement)=>{ 
+  V.prototype.prepend = (selectedElement)=>{ 
     for (var i = this.nodes.length - 1; i >= 0; i--) {
       this.nodes[i].insertBefore(selectedElement, this.nodes[i].firstChild);
     }
@@ -419,4 +418,4 @@ var V = function(selector) {
   };
 };
 
-export default v;
+export default V;
