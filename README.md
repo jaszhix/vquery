@@ -89,7 +89,7 @@ v('.class-thing').get(1)
 -> <div class="class-thing">Two</div>
 ```
 
-*   .find(index)
+*   .find(CSS selector)
 ```js
 v('.class-thing').get(2).find('#three').node
 ```
