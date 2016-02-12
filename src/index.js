@@ -165,8 +165,18 @@ var V = function(selector) {
   v.prototype.isEmpty = ()=>{
     return !this.nodes[0].hasChildNodes();
   };
-  v.prototype.next = ()=>{
-    this.param = this.nodes[0].nextElementSibling;
+  V.prototype.siblings = ()=>{
+    this.nodes = this.node.parentNode.children;
+    return this.filter((child)=>{
+      return child !== this.node;
+    });
+  };
+  V.prototype.next = ()=>{
+    this.selector = this.node.nextElementSibling;
+    return this.handler();
+  };
+  V.prototype.prev = ()=>{
+    this.selector = this.node.previousElementSibling;
     return this.handler();
   };
   v.prototype.addClass = (_class)=>{
