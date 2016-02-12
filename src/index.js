@@ -38,7 +38,7 @@
       this.node = this.nodes[0];
     };
     // Turn the CSS selector into a node, pass an existing node to this.nodes, which is used by all methods.
-    this.query = (el, _selector)=>{
+    v.prototype.query = (el, _selector)=>{
       return el.querySelectorAll(_selector);
     };
     // Assign the selector by calling this.query if its an element, otherwise assign it to this.nodes directly.
@@ -62,7 +62,7 @@
       this.length = this.string ? this.string.length : this.nodes.length;
     }
     // v(selector).get(0) -> <div></div>
-    this.get = (i)=>{
+    v.prototype.get = (i)=>{
       this.selector = this.nodes[i];
       return this.handler();
     };
