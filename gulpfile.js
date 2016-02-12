@@ -46,7 +46,7 @@ gulp.task('uglify', function() {
     .pipe(uglify('v.min.js', {
       compress: {
         warnings: false,
-        drop_console: true,
+        drop_console: false,
         dead_code: true,
         unused: true,
         booleans: true,
