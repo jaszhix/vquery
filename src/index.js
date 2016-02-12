@@ -61,7 +61,7 @@ var V = function(selector) {
   };
   // Event methods
   V.prototype.ready = (func)=>{
-    if (func && typeof func !== 'undefined' &&typeof func === 'function') {
+    if (func && typeof func !== 'undefined' && typeof func === 'function') {
       document.addEventListener('DOMContentLoaded', func);
     } else {
       error(`Parameter passed to the ready method is not of the type 'function'.`);
