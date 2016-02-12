@@ -57,6 +57,7 @@
           assignNodes(selector);
         } else {
           this.nodes = selector;
+          this.node = this.nodes[0];
         }
       }
       this.length = this.string ? this.string.length : this.nodes.length;
