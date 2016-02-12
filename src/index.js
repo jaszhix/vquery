@@ -289,17 +289,25 @@ var V = function(selector) {
     }
     return this.handler();
   };
-  v.prototype.contains = (text)=>{
-    var bool = this.nodes[0].textContent.indexOf(text) > -1;
+  V.prototype.contains = (text)=>{
+    let textContent;
+    if (this.string) {
+      textContent = this.string;
+    } else {
+      textContent = this.node.textContent;
+    }
+    var bool = textContent.indexOf(text) > -1;
     return bool;
   };
   // Used by attr method
-  v.prototype.camelize = (string)=>{  
+  V.prototype.camelize = (string)=>{
+    string = this.string ? this.string : string;
     return string.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
       return index === 0 ? letter.toLowerCase() : letter.toUpperCase();
     }).replace(/\s+/g, '').replace(/[-_]+/g, '');
   };
-  v.prototype.decamelize = (string)=>{
+  V.prototype.decamelize = (string)=>{
+    string = this.string ? this.string : string;
     return string
       .replace(/([a-z])([A-Z])/g, '$1-$2')
       .replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1-$2$3')
