@@ -335,7 +335,7 @@ var V = function(selector) {
   };
   V.prototype.type = (input)=>{
     input = this.nodes ? this.nodes : this.string ? this.string : input;
-    return isElement(this.node) ? 'node' : this.typeOf(input);
+    return isElement(this.nodes) ? 'node' : this.typeOf(input);
   };
   V.prototype.replaceWith = (string)=>{
     for (var i = this.nodes.length - 1; i >= 0; i--) {
