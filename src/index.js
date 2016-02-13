@@ -210,6 +210,24 @@
       }
       return this.handler();
     };
+    v.prototype.allChildren = (_el)=> {
+      var __el = _el ? this.slice(this.query(this.node, _el))[0] : this.node;
+      var arr = [];
+      var recurse = (el)=>{
+        arr.push(el);
+        //el.removeAttribute('data-reactid');
+        if (el.childNodes.length > 0) {
+          for (var child in el.childNodes) {
+            if (el.childNodes[child].nodeType == 1) {
+              recurse(el.childNodes[child]);
+            }
+          }
+        }
+      };
+      recurse(__el);
+      this.selector = arr;
+      return this.handler();
+    };
     v.prototype.isEmpty = ()=>{
       return !this.node.hasChildNodes();
     };
