@@ -75,7 +75,7 @@ v('.class-thing').nodes
 
 *   .node (Alias: .n) *
 ```js
-v('.class-thing').node
+v('.class-thing').node;
 ```
 ```html
 -> <div class="class-thing">One</div>
@@ -83,7 +83,7 @@ v('.class-thing').node
 
 *   .get(index)
 ```js
-v('.class-thing').get(1)
+v('.class-thing').get(1).n;
 ```
 ```html
 -> <div class="class-thing">Two</div>
@@ -98,6 +98,10 @@ v('.class-thing').get(2).find('#three').node
 ```
 
 *   .length *
+```js
+v('.class-thing').length
+-> 2
+```
 
 ### Events
 
@@ -155,8 +159,18 @@ v('.class-thing').get(0).wrap('<span id="one" />').parent().n;
 -> <span id="one"><div class="class-thing">Two</div></span>
 ```
 
-*   .parent()
-*   .children()
+*   .parent(CSS selector)
+  * Returns the parent node.
+
+*   .parents(CSS selector)
+  * Returns an array of all parent nodes, or filters all parent nodes if a CSS selector parameter is passed to it.
+
+*   .children(CSS selector)
+  * Returns an array of child nodes, or filters child nodes if a CSS selector parameter is passed to it.
+
+*   .allChildren(CSS selector)
+  * Like .children(), it returns an array of child nodes, but instead of returning just the first level of children, it deeply recurses every child node and returns an array of every element under the selected node at all levels of children.
+
 *   .isEmpty() *
 *   .siblings()
 *   .next()
@@ -206,6 +220,8 @@ v().parseHTML('<div class="stuff"></div>');
   * Compares two elements and returns ```true``` if they are the same and ```false``` if not.
 
 ### Utilities
+
+*   .uniq(array)
 
 *   .type(value)
 
