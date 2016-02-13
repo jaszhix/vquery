@@ -17,6 +17,18 @@ describe('vquery', function () {
     this.wrap.appendChild(this.div);
   });
   after(function () {
+    //var arr = []
+    /*var remove = function(el){
+      el.parentNode.removeChild(el);
+      if (el.childNodes.length > 0) {
+          for (var child in el.childNodes) {
+            if (el.childNodes[child].nodeType == 1) {
+              remove(el.childNodes[child]);
+            }
+          }
+        }
+    };
+    remove(this.wrap);*/
     document.body.removeChild(this.wrap);
   });
   afterEach(function () {
@@ -57,14 +69,14 @@ describe('vquery', function () {
       expect(this.div.innerHTML).to.equal('<span id="2"><div class="new-div"></div></span>');
     });
     // Clone method error - "after all" hook
-    /*it('[clone] clones a node', function () {
+    it('[clone] clones a node', function () {
       this.newDiv = document.createElement('div');
       this.newDiv.className = 'new-div';
       this.div.appendChild(this.newDiv);
       this.clone = v('.new-div').clone().node;
       this.newDiv.parentNode.insertBefore(this.clone, this.newDiv);
-      expect(this.newDiv).to.equal(this.clone);
-    });*/
+      expect(this.div.children.length).to.equal(2);
+    });
     it('[parent] selects a parent node', function () {
       this.newDiv = document.createElement('div');
       this.newDiv.className = 'new-div';
@@ -76,6 +88,22 @@ describe('vquery', function () {
       this.newDiv.className = 'new-div';
       this.div.appendChild(this.newDiv);
       expect(v(this.divSelector).children().nodes[0]).to.equal(this.div.children[0]);
+    });
+    it('[allChildren] recursively selects every child nodes', function () {
+      this.newDiv = document.createElement('div');
+      this.newDiv.className = 'new-div';
+      this.div.appendChild(this.newDiv);
+      this.newDivChild = document.createElement('div');
+      this.newDivChild.className = 'new-div-c';
+      this.newDiv.appendChild(this.newDivChild);
+      this.newDivChildChild = document.createElement('div');
+      this.newDivChildChild.className = 'new-div-c-c';
+      this.newDivChild.appendChild(this.newDivChildChild);
+      this.newDivChildChildChild = document.createElement('div');
+      this.newDivChildChildChild.className = 'new-div-c-c-c';
+      this.newDivChildChild.appendChild(this.newDivChildChildChild);
+      expect(v(this.div).allChildren().length).to.equal(5);
+      expect(v(this.div).allChildren('.new-div-c-c-c').n).to.equal(this.newDivChildChildChild);
     });
     it('[isEmpty] determines if node is empty', function () {
       expect(v(this.divSelector).isEmpty()).to.equal(true);
