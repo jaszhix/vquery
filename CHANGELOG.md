@@ -1,5 +1,15 @@
 # Changelog
 
+### v4.1.0
+
+ * Added browser compatibility.
+ * Added a minified build intended for being included in script tag in the root of the repository.
+ * ```.children()``` now accepts a CSS selector in its parameter and can further filter down the child nodes.
+  * New methods
+   * ```.parents(CSS selector)```
+   * ```.allChildren(CSS selector)```
+   * ```.uniq(array)```
+
 ### v4.0.0
 
  * Refactored the library so it uses a constructor instead of returning an object of methods.

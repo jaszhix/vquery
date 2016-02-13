@@ -19,11 +19,11 @@
     "coveralls": "npm run coverage -s && coveralls < coverage/lcov.info",
     "postcoveralls": "rimraf ./coverage",
     "prepublish": "npm run build -s",
-    "deploy": "git pull --rebase origin master && git push origin master",
+    "deploy": "git pull --rebase origin dev && git push origin dev",
     "patch": "npm version patch && npm publish",
     "minor": "npm version minor && npm publish",
     "major": "npm version major && npm publish",
-    "postpublish": "git push origin master --follow-tags",
+    "postpublish": "git push origin dev --follow-tags",
     "toc": "doctoc --github --title \"# Changelog\" CHANGELOG.md"
   },
   "repository": {
