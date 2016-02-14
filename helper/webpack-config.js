@@ -4,6 +4,7 @@ var path = require('path');
 var webpackStatsHelper = require('./webpack-stats-helper');
 var url = require('url');
 var pkg = require('../package.json');
+var fs = require('fs');
 
 module.exports = function (options) {
   var defaultOptions = {
@@ -18,7 +19,17 @@ module.exports = function (options) {
     https: false,
     banner: false
   };
-
+  var setEnv = function(_path){
+    var env = JSON.parse(fs.readFileSync(path.join(__dirname, '../app/stores/env.json'), 'utf8'));
+    env.publicPath = _path;
+    fs.writeFile(path.join(__dirname, '../app/stores/env.json'), JSON.stringify(env), function(err) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('Writing env JSON: ', JSON.stringify(env));
+      }
+    });
+  };
   options = merge(defaultOptions, options || {});
 
   var entry = {
@@ -74,7 +85,7 @@ module.exports = function (options) {
     {
       test: /\.less$/,
       loader: 'style-loader!css-loader!autoprefixer-loader?' + JSON.stringify(autoprefixer) + '!less-loader'
-    }
+    },
   ];
 
   if (options.hash) {
@@ -100,6 +111,7 @@ module.exports = function (options) {
   var plugins = [];
 
   if (options.hot) {
+    setEnv('/');
     plugins.push(new webpack.HotModuleReplacementPlugin());
   }
   if (!options.optimize) {
@@ -109,6 +121,7 @@ module.exports = function (options) {
       }
     }));
   } else {
+    setEnv('/vquery/');
     plugins.push(new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
@@ -165,7 +178,7 @@ module.exports = function (options) {
       path: path.join(__dirname, '../'),
       filename: options.hash ? '[hash].js' : '[name].js',
       chunkFilename: options.hash ? '[chunkhash].js' : '[name].chunk.js',
-      publicPath: '/vquery/'
+      publicPath: options.hot ? '/' : '/vquery/'
     },
     resolve: {
       extensions: ['', '.jsx', '.js'],

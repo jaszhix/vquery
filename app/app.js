@@ -19,8 +19,7 @@ import Box from './components/FlexboxGrid/Box.js';
 // Stores
 import {appTheme} from './stores/main';
 import Options from './components/options';
-
-const publicPath = '/vquery/';
+const publicPath = require('./stores/env.json').publicPath;
 var _appTheme = appTheme.get();
 const styles = {
   logo: {width: '25%', marginTop: '10px', marginLeft: '15px', cursor: 'pointer'},
