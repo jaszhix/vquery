@@ -204,5 +204,3 @@ v('deCamelize').decamelize()
 v().decamelize('deCamelize')
 -> 'de-Camelize'
 ```
-
-* Asterisked methods are currently not chainable.
