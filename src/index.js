@@ -28,7 +28,8 @@
       return new v(_selector);
     };
     v.prototype.uniq = (array)=>{
-      return Array.from(new Set(array));
+      let _array = array ? array : this.nonElement ? this.nonElement : this.nodes ? this.nodes : null;
+      return Array.from(new Set(_array));
     };
     v.prototype.slice = (nodeList)=>{
       return Array.prototype.slice.call(nodeList);
@@ -47,10 +48,10 @@
         try {
           assignNodes(this.query(document, selector));
         } catch (e) {
-          this.string = selector;
+          this.nonElement = selector;
         }
         if (typeof this.node === 'undefined') {
-          this.string = selector;
+          this.nonElement = selector;
         }
       } else {
         if (isElement(selector)) {
@@ -60,7 +61,7 @@
           this.node = this.nodes[0];
         }
       }
-      this.length = this.string ? this.string.length : this.nodes.length;
+      this.length = this.nonElement ? this.nonElement.length : this.nodes.length;
     }
     // v(selector).get(0) -> <div></div>
     v.prototype.get = (i)=>{
@@ -362,7 +363,7 @@
     };
     v.prototype.parseHTML = (string)=>{
       let tmp = document.implementation.createHTMLDocument();
-      tmp.body.innerHTML = this.string ? this.string : string;
+      tmp.body.innerHTML = this.nonElement ? this.nonElement : string;
       return tmp.body.children;
     };
     v.prototype.json = (input)=>{
@@ -375,7 +376,7 @@
       }
     };
     v.prototype.parseJSON = (string)=>{
-      string = this.string ? this.string : string;
+      string = this.nonElement ? this.nonElement : string;
       try {
         var output = JSON.parse(string);
       } catch (e) {
@@ -384,7 +385,7 @@
       return output;
     };
     v.prototype.type = (input)=>{
-      input = this.nodes ? this.nodes : this.string ? this.string : input;
+      input = this.nodes ? this.nodes : this.nonElement ? this.nonElement : input;
       return isElement(this.nodes) ? 'node' : this.typeOf(input);
     };
     v.prototype.replaceWith = (string)=>{
@@ -442,8 +443,8 @@
     };
     v.prototype.contains = (text)=>{
       let textContent = null;
-      if (this.string) {
-        textContent = this.string;
+      if (this.nonElement) {
+        textContent = this.nonElement;
       } else {
         textContent = this.node.textContent;
       }
@@ -455,18 +456,18 @@
       return this.node === _el;
     };
     v.prototype.trim = (string)=>{
-      string = this.string ? this.string : string;
+      string = this.nonElement ? this.nonElement : string;
       return string.trim();
     };
     // Used by attr method
     v.prototype.camelize = (string)=>{
-      string = this.string ? this.string : string;
+      string = this.nonElement ? this.nonElement : string;
       return string.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
         return index === 0 ? letter.toLowerCase() : letter.toUpperCase();
       }).replace(/\s+/g, '').replace(/[-_]+/g, '');
     };
     v.prototype.decamelize = (string)=>{
-      string = this.string ? this.string : string;
+      string = this.nonElement ? this.nonElement : string;
       return string
         .replace(/([a-z])([A-Z])/g, '$1-$2')
         .replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1-$2$3')
