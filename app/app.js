@@ -31,6 +31,7 @@ const styles = {
   toolbarTitle: {color: _appTheme.palette.textColor, zIndex: '9999', cursor: 'pointer', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', margin: 0, paddingTop: 0, letterSpacing: 0, fontSize: 24},
   toolbarRow: {marginBottom: '15px'},
   flatButton: {color: _appTheme.palette.textColor},
+  flatButtonFontAwesome: {position: 'relative', left: '8px'},
   underlineStyle: {borderColor: '#77959D'},
   floatingLabelStyle: {color: 'rgb(191, 226, 236)'},
   rowContent: {marginLeft: '8px', marginRight: '8px'},
@@ -170,12 +171,14 @@ var Bar = React.createClass({
             <img src={Logo} style={styles.logo} onTouchTap={()=>r.push(publicPath)} />
           </ToolbarGroup>
           <ToolbarGroup float="right">
-            {/*<FlatButton
-                          label="Save"
-                          labelPosition="after"
-                          style={styles.flatButton}
-                          primary={true}
-                          onTouchTap={()=>r.push('/docs')} />*/}
+            <FlatButton        
+              label="Github"
+              labelPosition="after"
+              style={styles.flatButton}
+              primary={true}
+              onTouchTap={()=>window.location.href = "https://github.com/jaszhix/vquery"}>
+              <i style={styles.flatButtonFontAwesome} className="fa fa-github"/>
+              </FlatButton>
           </ToolbarGroup>
         </Toolbar>
       </Row>
