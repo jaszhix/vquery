@@ -184,8 +184,8 @@
         let _parentsQuery = [];
         for (let i = _parents.length - 1; i >= 0; i--) {
           __parents = this.slice(this.query(_parents[i], el));
-          for (let i = __parents.length - 1; i >= 0; i--) {
-            _parentsQuery.push(__parents[i]);
+          for (let y = __parents.length - 1; y >= 0; y--) {
+            _parentsQuery.push(__parents[y]);
           }
         }
         this.selector = this.uniq(_parentsQuery);
@@ -201,8 +201,8 @@
         let arr = [];
         for (let i = children.length - 1; i >= 0; i--) {
           _children = this.slice(this.query(children[i], el));
-          for (let i = _children.length - 1; i >= 0; i--) {
-            arr.push(_children[i]);
+          for (let y = _children.length - 1; y >= 0; y--) {
+            arr.push(_children[y]);
           }
         }
         this.selector = arr;
