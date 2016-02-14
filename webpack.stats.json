@@ -1,0 +1,1 @@
+{"errors":[],"warnings":[],"version":"1.12.8","publicPath":"/","assetsByChunkName":{"app":"app.js"},"assets":[{"name":"logo_white.png","size":49399,"chunks":[],"chunkNames":[],"emitted":true},{"name":"app.js","size":767133,"chunks":[0],"chunkNames":["app"],"emitted":true}]}
