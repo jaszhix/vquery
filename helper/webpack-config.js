@@ -142,7 +142,6 @@ module.exports = function (options) {
 
   if (options.saveStats) {
     plugins.push(new webpackStatsHelper.saveToFile(path.join(__dirname, '../webpack.stats.json')));
-    plugins.push(new webpack.DefinePlugin({GA_TRACKING_CODE: JSON.stringify('UA-58776250-1')}));
   }
 
   if (options.banner) {
@@ -166,7 +165,7 @@ module.exports = function (options) {
       path: path.join(__dirname, '../'),
       filename: options.hash ? '[hash].js' : '[name].js',
       chunkFilename: options.hash ? '[chunkhash].js' : '[name].chunk.js',
-      publicPath: '/'
+      publicPath: '/vquery/'
     },
     resolve: {
       extensions: ['', '.jsx', '.js'],

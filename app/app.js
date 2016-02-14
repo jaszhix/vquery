@@ -19,6 +19,8 @@ import Box from './components/FlexboxGrid/Box.js';
 // Stores
 import {appTheme} from './stores/main';
 import Options from './components/options';
+
+const publicPath = '/vquery/';
 var _appTheme = appTheme.get();
 const styles = {
   logo: {width: '25%', marginTop: '10px', marginLeft: '15px', cursor: 'pointer'},
@@ -165,7 +167,7 @@ var Bar = React.createClass({
       <Row style={styles.toolbarRow} >
         <Toolbar>
           <ToolbarGroup firstChild={true} float="left">
-            <img src={Logo} style={styles.logo} onTouchTap={()=>r.push('/')} />
+            <img src={Logo} style={styles.logo} onTouchTap={()=>r.push(publicPath)} />
           </ToolbarGroup>
           <ToolbarGroup float="right">
             {/*<FlatButton
@@ -221,9 +223,9 @@ var Root = React.createClass({
 });
 ReactDOM.render((
   <Router history={browserHistory} >
-    <Route path="/" component={Root}>
+    <Route path={publicPath} component={Root}>
       <IndexRoute component={Docs} />
-      <Route path="options" component={Options} />
+      <Route path={`${publicPath}options`} component={Options} />
     </Route>
   </Router>
   ), document.getElementById('main'));
