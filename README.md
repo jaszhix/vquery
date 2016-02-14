@@ -1,7 +1,8 @@
-<a href="http://jaszhix.github.io/vquery/">
-  <img style="margin-left:auto; margin-right:auto; display:block;" src="http://jaszhix.github.io/vquery/app/assets/images/logo.png" alt="vQuery">
-</a>
-
+<p align="center">
+  <a href="http://jaszhix.github.io/vquery/">
+    <img src="http://jaszhix.github.io/vquery/app/assets/images/logo.png" alt="vQuery">
+  </a>
+</p>
 <p align="center">
   <a href="https://npmjs.org/package/vquery">
     <img src="https://img.shields.io/npm/v/vquery.svg?style=flat-square"
