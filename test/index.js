@@ -17,18 +17,6 @@ describe('vquery', function () {
     this.wrap.appendChild(this.div);
   });
   after(function () {
-    //var arr = []
-    /*var remove = function(el){
-      el.parentNode.removeChild(el);
-      if (el.childNodes.length > 0) {
-          for (var child in el.childNodes) {
-            if (el.childNodes[child].nodeType == 1) {
-              remove(el.childNodes[child]);
-            }
-          }
-        }
-    };
-    remove(this.wrap);*/
     document.body.removeChild(this.wrap);
   });
   afterEach(function () {

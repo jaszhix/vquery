@@ -1,4 +1,6 @@
-<big><h1 align="center">vQuery</h1></big>
+<a href="http://jaszhix.github.io/vquery/">
+  <img style="margin-left:auto; margin-right:auto; display:block;" src="http://jaszhix.github.io/vquery/app/assets/images/logo.png" alt="vQuery">
+</a>
 
 <p align="center">
   <a href="https://npmjs.org/package/vquery">
@@ -10,7 +12,6 @@
   <img src="https://img.shields.io/coveralls/jaszhix/vquery.svg?style=flat-square"
        alt="Coverage Status">
 </a> -->
-
   <a href="https://travis-ci.org/jaszhix/vquery">
     <img src="https://img.shields.io/travis/jaszhix/vquery.svg?style=flat-square"
          alt="Build Status">

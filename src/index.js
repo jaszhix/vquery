@@ -215,7 +215,6 @@
       var arr = [];
       var recurse = (el)=>{
         arr.push(el);
-        //el.removeAttribute('data-reactid');
         if (el.childNodes.length > 0) {
           for (var child in el.childNodes) {
             if (el.childNodes[child].nodeType == 1) {
