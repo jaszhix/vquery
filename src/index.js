@@ -22,9 +22,9 @@
     this.typeOf = (input)=>{
       return Object.prototype.toString.call(input).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
     };
-    this.handler = ()=>{
+    this.handler = (data)=>{
       // If the selector is updated, start a new instance with the updated selectoreter.
-      let _selector = this.selector ? this.selector : selector;
+      let _selector = data ? data : this.selector ? this.selector : selector;
       return new v(_selector);
     };
     v.prototype.uniq = (array)=>{
@@ -77,6 +77,42 @@
         this[prop] = v.prototype[prop];
         return v.prototype[prop].apply(this, arguments);
       } 
+    };
+    v.prototype.ajax = (type, url, options)=>{
+      return new Promise((resolve, reject)=>{
+        var _resolve = (data)=>{
+          let _data = options && options.chain ? this.handler(data) : data;
+          resolve(_data);
+        };
+        var request = new XMLHttpRequest();
+        request.open(type, url, true);
+        let data;
+        if (type === 'POST') {
+          try {
+            data = request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+            _resolve(data);
+          } catch (e) {
+            reject(e);
+          }
+        } else {
+          request.onload = function() {
+            if (request.status >= 200 && request.status < 400) {
+              try {
+                data = JSON.parse(request.responseText);
+              } catch (e) {
+                data = request.responseText;
+              }
+              _resolve(data);
+            } else {
+              reject();
+            }
+          };
+        }   
+        request.onerror = function(err) {
+          reject(err);
+        };
+        request.send();
+      });
     };
     // v(selector).get(0) -> <div></div>
     v.prototype.get = (i)=>{
