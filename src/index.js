@@ -103,14 +103,15 @@
     };
     v.prototype.trigger = (event)=>{
       for (var i = this.nodes.length - 1; i >= 0; i--) {
-        if (this.nodes[i].fireEvent) {
-          (this.nodes[i].fireEvent('on' + event));
+        if (this.node.fireEvent) {
+          (this.node.fireEvent('on' + event));
         } else {
           var evObj = document.createEvent('Events');
           evObj.initEvent(event, true, false);
-          this.nodes[i].dispatchEvent(evObj);
+          this.node.dispatchEvent(evObj);
         }
       }
+      return this.handler();
     };
     v.prototype.click = (func)=>{
       for (var i = this.nodes.length - 1; i >= 0; i--) {
