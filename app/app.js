@@ -22,11 +22,11 @@ import Options from './components/options';
 const publicPath = require('./stores/env.json').publicPath;
 var _appTheme = appTheme.get();
 const styles = {
-  logo: {width: '25%', marginTop: '10px', marginLeft: '15px', cursor: 'pointer'},
+  logo: {width: '25%', marginTop: '10px', marginLeft: '25px', cursor: 'pointer'},
   menu: {float: 'left', position: 'relative', zIndex: '0'},
   menuButton: {width: '30px', height: '30px', marginTop: '13px', marginLeft: '10px', marginRight: '10px', cursor: 'pointer'},
-  leftSidebar: {paddingLeft: '0', paddingTop: '0'},
-  removeScriptButton: {float: 'right', marginTop: '11px'},
+  infoImg: {marginTop: '17px', marginLeft: '40px', cursor: 'pointer', opacity: '0.75', boxShadow: '1px 0px 30px -6px rgb(77, 79, 72)'},
+  infoImgGroup: {paddingBottom: '14px', paddingRight: '28px', backgroundColor: 'rgb(132, 134, 129)'},
   toolbarTitle: {color: _appTheme.palette.textColor, zIndex: '9999', cursor: 'pointer', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', margin: 0, paddingTop: 0, letterSpacing: 0, fontSize: 24},
   toolbarRow: {marginBottom: '15px'},
   flatButton: {color: _appTheme.palette.textColor},
@@ -147,6 +147,15 @@ var Index = React.createClass({
   }
 });
 
+var InfoImg = React.createClass({
+  render: function() {
+    var p = this.props;
+    return (
+      <img style={p.style ? _.merge(styles.infoImg, p.style) : styles.infoImg} src={p.src} alt={p.alt} onTouchTap={p.url ? ()=>window.location.href = p.url : null} />
+    );
+  }
+});
+
 var Bar = React.createClass({
   getInitialState(){
     return {
@@ -169,6 +178,12 @@ var Bar = React.createClass({
           <ToolbarGroup firstChild={true} float="left">
             <img src={Logo} style={styles.logo} onTouchTap={()=>r.push(publicPath)} />
           </ToolbarGroup>
+          <ToolbarGroup float="right" style={styles.infoImgGroup}>
+            <InfoImg url="https://npmjs.org/package/vquery" src="https://img.shields.io/npm/v/vquery.svg?style=flat-square" alt="NPM Version" />
+            <InfoImg url="https://travis-ci.org/jaszhix/vquery" src="https://img.shields.io/travis/jaszhix/vquery.svg?style=flat-square" alt="Build Status" />
+            <InfoImg url="https://npmjs.org/package/vquery" src="http://img.shields.io/npm/dm/vquery.svg?style=flat-square" alt="Downloads" />
+            <InfoImg style={{marginRight:'10px', cursor: 'default'}} src="https://david-dm.org/jaszhix/vquery.svg?style=flat-square" alt="Dependency Status" />
+          </ToolbarGroup>
           <ToolbarGroup float="right">
             <FlatButton        
               label="Github"
@@ -179,6 +194,7 @@ var Bar = React.createClass({
               <i style={styles.flatButtonFontAwesome} className="fa fa-github"/>
               </FlatButton>
           </ToolbarGroup>
+          
         </Toolbar>
       </Row>
     );

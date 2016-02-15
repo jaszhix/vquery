@@ -17,14 +17,14 @@ body {
 #main {
   overflow-x: hidden;
 }
-
 h3 {
   font-size: 32px;
   color: #FFF;
   display: block;
   line-height: 36px;
   font-weight: 500;
-  margin: 0;
+  margin-bottom: 8px;
+  margin-top: 0;
 }
 
 h4 {
@@ -33,7 +33,8 @@ h4 {
   display: block;
   line-height: 36px;
   font-weight: 300;
-  margin: 0;
+  margin-bottom: 8px;
+  margin-top: 0;
 }
 code,
 kbd,
@@ -90,4 +91,28 @@ pre code {
   white-space: pre-wrap;
   background-color: transparent;
   border-radius: 0;
+}
+a {
+    background-color: transparent
+}
+
+a:active,
+a:hover {
+    outline: 0
+}
+a {
+    color: #B7D4EE;
+    text-decoration: none
+}
+
+a:focus,
+a:hover {
+    color: #B7D4EE;
+    text-decoration: underline
+}
+
+a:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px
 }
