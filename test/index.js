@@ -1,6 +1,8 @@
 import {expect} from 'chai';
 
 import v from '../src/index';
+import _ from 'lodash';
+import $ from 'jquery';
 
 describe('vquery', function () {
   // setup and teardown methods for vquery tests
@@ -345,6 +347,13 @@ describe('vquery', function () {
     });
     it('[decamelize] decamelizes a string', function () {
       expect(v('dataId').decamelize()).to.equal('data-Id');
+    });
+    it('[mixin] passes vquery\'s context to lodash', function () {
+      expect(v('div').mixin({_:_}).head().innerText).to.equal(this.div.innerText);
+    });
+    it('[mixin] passes vquery\'s context to jquery', function () {
+      v(this.div).html('<h1></h1>');
+      expect(v('h1').mixin({$:$}).eq(0)[0]).to.equal(v(this.div).find('h1').n);
     });
   });
 });

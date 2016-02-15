@@ -71,6 +71,8 @@
     "gulp-mocha-phantomjs": "^0.10.1",
     "gulp-uglifyjs": "^0.6.2",
     "isparta": "*",
+    "jquery": "^2.2.0",
+    "lodash": "^4.3.0",
     "mocha": "^2.3.4",
     "mocha-phantomjs": "^4.0.2",
     "rimraf": "*",
