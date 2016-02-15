@@ -1,5 +1,9 @@
 # Changelog
 
+### v4.2.1
+
+ * Updated mixin method to pass the array of nodes to the chained library.
+
 ### v4.2.0
 
  * ```.uniq()``` now accepts the selector parameter as well as its own parameter. If uniq is called with the selector parameter only, its array will be passed to a new constructor instance, and will be chainable.
