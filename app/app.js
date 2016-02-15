@@ -293,7 +293,10 @@ var Root = React.createClass({
     );
   }
 });
-ReactDOM.render((
+if (window.location.origin === 'http://jaszhix.github.io') {
+  window.location.href = 'http://vquery.net';
+} else {
+  ReactDOM.render((
   <Router history={browserHistory} >
     <Route path={publicPath} component={Root}>
       <IndexRoute component={Docs} />
@@ -301,3 +304,4 @@ ReactDOM.render((
     </Route>
   </Router>
   ), document.getElementById('main'));
+}
