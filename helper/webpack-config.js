@@ -121,7 +121,7 @@ module.exports = function (options) {
       }
     }));
   } else {
-    setEnv('/vquery/');
+    setEnv('/');
     plugins.push(new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
@@ -178,7 +178,7 @@ module.exports = function (options) {
       path: path.join(__dirname, '../'),
       filename: options.hash ? '[hash].js' : '[name].js',
       chunkFilename: options.hash ? '[chunkhash].js' : '[name].chunk.js',
-      publicPath: options.hot ? '/' : '/vquery/'
+      publicPath: options.hot ? '/' : '/'
     },
     resolve: {
       extensions: ['', '.jsx', '.js'],
