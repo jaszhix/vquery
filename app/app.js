@@ -5,20 +5,20 @@ import ReactDOM from 'react-dom';
 import { Router, Route, Link, IndexRoute, browserHistory } from 'react-router';
 import Reflux from 'reflux';
 import ReactUtils from 'react-utils';
-import _ from 'lodash';
+import kmp from 'kmp';
 import v from 'vquery';
 window.v = v;
 import injectTapEventPlugin from "react-tap-event-plugin";
 injectTapEventPlugin();
 // Material UI
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
-import { Paper, MenuItem, FlatButton, Toolbar, ToolbarGroup, Card, CardTitle, CardText, List, ListItem,  } from 'material-ui';
+import { Paper, FlatButton, Toolbar, ToolbarGroup, Card, CardText, List, ListItem, TextField } from 'material-ui';
 import ArrowUpward from 'material-ui/lib/svg-icons/navigation/arrow-upward';
 import Row from './components/FlexboxGrid/Row.js';
 import Col from './components/FlexboxGrid/Col.js';
 import Box from './components/FlexboxGrid/Box.js';
 // Stores
-import {appTheme} from './stores/main';
+import {appTheme, search} from './stores/main';
 import Options from './components/options';
 const publicPath = require('./stores/env.json').publicPath;
 var _appTheme = appTheme.get();
@@ -27,10 +27,12 @@ const styles = {
   menu: {float: 'left', position: 'relative', zIndex: '0'},
   menuButton: {width: '30px', height: '30px', marginTop: '13px', marginLeft: '10px', marginRight: '10px', cursor: 'pointer'},
   infoImg: {marginTop: '17px', marginLeft: '40px', cursor: 'pointer', opacity: '0.75', boxShadow: '1px 0px 30px -6px rgb(77, 79, 72)'},
-  infoImgGroup: {paddingBottom: '14px', paddingRight: '29px'},
+  infoImgGroup: {paddingBottom: '14px', paddingRight: '29px', top: '-60px'},
   toolbarTitle: {color: _appTheme.palette.textColor, zIndex: '9999', cursor: 'pointer', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', margin: 0, paddingTop: 0, letterSpacing: 0, fontSize: 24},
+  search: {right: '255px', position: 'relative', top: '5px'},
+  searchHintStyle: {color: 'rgba(255, 255, 255, 0.84)'},
   toolbarRow: {marginBottom: '15px'},
-  flatButton: {color: _appTheme.palette.textColor},
+  flatButton: {color: _appTheme.palette.textColor, top: '-61px'},
   flatButtonFontAwesome: {position: 'relative', left: '8px'},
   underlineStyle: {borderColor: '#77959D'},
   floatingLabelStyle: {color: 'rgb(191, 226, 236)'},
@@ -98,9 +100,9 @@ var Docs = React.createClass({
     };
   },
   scrollToDoc(id){
-    console.log(id)
-    v(`#${id}`).n.scrollIntoView()
-    this.setState({scrollTop: id})
+    console.log(id);
+    v(`#${id}`).n.scrollIntoView();
+    this.setState({scrollTop: id});
   },
   handleLinkClick(e, id, title){
     console.log(e, id, title);
@@ -114,7 +116,7 @@ var Docs = React.createClass({
     var methods = [];
     v(div).find('h4').map(function(title){
       methods.push({title: v(title).text()[0].replace('[Break]','').replace(/ *\([^)]*\)*\) */g, ''), id: v(title).attr().id});
-    })
+    });
     return (
       <Row style={styles.rowContent}> 
         <Col md="2" > 
@@ -163,6 +165,21 @@ var Bar = React.createClass({
       leftNavOpen: false
     };
   },
+  componentWillReceiveProps(nextProps){
+    if (nextProps.stores.search !== this.props.stores.search) {
+      v('#main > div > div > div.col-xs > div').each((el)=>{
+      if (kmp(el.innerText.toLowerCase(), nextProps.stores.search) !== -1) {
+        el.style.display = 'block';
+      } else {
+        if (nextProps.stores.search.length === 0) {
+          el.style.display = 'block';
+        } else {
+          el.style.display = 'none';
+        }
+      }
+    });
+    }
+  },
   handleMenu(){
     this.setState({leftNavOpen: !this.state.leftNavOpen});
   },
@@ -178,7 +195,12 @@ var Bar = React.createClass({
       <Row style={styles.toolbarRow} >
         <Toolbar>
           <ToolbarGroup firstChild={true} float="left">
-            <img src={Logo} style={styles.logo} onTouchTap={()=>r.push(publicPath)} />
+            <ToolbarGroup>
+              <img src={Logo} style={styles.logo} onTouchTap={()=>r.push(publicPath)} />
+            </ToolbarGroup>
+            <ToolbarGroup float="left">
+              <TextField hintText="Search" hintStyle={styles.searchHintStyle} style={styles.search} value={p.stores.search} onChange={(e)=>search.set(e.target.value)}/>
+            </ToolbarGroup>
           </ToolbarGroup>
           <ToolbarGroup float="right">
           {p.stores.infoImages ? 
@@ -211,12 +233,14 @@ var Root = React.createClass({
   getInitialState(){
     return {
       appTheme: appTheme.get(),
-      infoImages: false
+      infoImages: false,
+      search: ''
     };
   },
   componentDidMount(){
     // Reflux listeners
     this.listenTo(appTheme, this.appThemeChange);
+    this.listenTo(search, this.searchChange);
     this.onWindowResize();
   },
   contextTypes: {
@@ -248,11 +272,16 @@ var Root = React.createClass({
   appThemeChange(e){
     this.setState({appTheme: e});
   },
+  searchChange(e){
+    this.setState({search: e});
+    
+  },
   render: function() {
     var s = this.state;
     var stores = {
       infoImages: s.infoImages,
-      toolbarButtons: s.toolbarButtons
+      toolbarButtons: s.toolbarButtons,
+      search: s.search
     };
     return (
       <div className="Root">

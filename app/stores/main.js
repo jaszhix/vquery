@@ -33,3 +33,16 @@ export var appTheme = Reflux.createStore({
     return this.theme;
   }
 });
+
+export var search = Reflux.createStore({
+  init(){
+    this.search = '';
+  },
+  set(value){
+    this.search = value;
+    this.trigger(this.search);
+  },
+  get(){
+    return this.search;
+  }
+});
