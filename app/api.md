@@ -19,6 +19,8 @@ v(selector, element, or string).method(props);
 ```html
 <script src="v.min.js"></script>
 ```
+### Experiment with vQuery Now
+You can open up the developer console on this page and start testing the methods documented below.
 [Break]
 The methods below work like they do with jQuery, except they are just wrappers around ```document.querySelectorAll```, and the associated vanilla JS dom manipulation functions.
 
