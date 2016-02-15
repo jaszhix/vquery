@@ -130,7 +130,7 @@
       return this.handler();
     };
     v.prototype.find = (_selector)=>{
-      this.selector = this.query(this.node, _selector);
+      this.selector = isElement(_selector) ? _selector : this.query(this.node, _selector);
       return this.handler();
     };
     v.prototype.hide = ()=>{
