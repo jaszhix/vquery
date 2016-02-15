@@ -19,10 +19,10 @@
     var isElement = (element)=>{
       return element instanceof Element || element[0] instanceof Element;
     };
-    this.typeOf = (input)=>{
+    v.prototype.typeOf = (input)=>{
       return Object.prototype.toString.call(input).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
     };
-    this.handler = (data)=>{
+    v.prototype.handler = (data)=>{
       // If the selector is updated, start a new instance with the updated selectoreter.
       let _selector = data ? data : this.selector ? this.selector : selector;
       return new v(_selector);
@@ -74,8 +74,7 @@
         if (mixin.hasOwnProperty(prop)) {
           v.prototype[prop] = mixin[prop];
         }
-        this[prop] = v.prototype[prop];
-        return v.prototype[prop].apply(this, arguments);
+        return v.prototype[prop].apply(this, [this.nodes, arguments]);
       } 
     };
     v.prototype.ajax = (type, url, options)=>{
@@ -528,6 +527,9 @@
     v.prototype = {
       get n(){
         return this.node;
+      },
+      get ns(){
+        return this.nodes;
       }
     };
   };
