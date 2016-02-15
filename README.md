@@ -8,11 +8,6 @@
     <img src="https://img.shields.io/npm/v/vquery.svg?style=flat-square"
          alt="NPM Version">
   </a>
-
-<!--   <a href="https://coveralls.io/r/jaszhix/vquery">
-  <img src="https://img.shields.io/coveralls/jaszhix/vquery.svg?style=flat-square"
-       alt="Coverage Status">
-</a> -->
   <a href="https://travis-ci.org/jaszhix/vquery">
     <img src="https://img.shields.io/travis/jaszhix/vquery.svg?style=flat-square"
          alt="Build Status">
@@ -135,12 +130,12 @@ v('body > div.pre-render').click(myCleverClickEvent);
 * .ajax(POST|GET, URL, options.chain)
   * AJAX request method returning a Promise. Set options.chain to ```true``` to pass the data through vQuery's context.
 ```js
-v().ajax('get', 'https://myawesome.net/api/request/').then((data)=>{
+v().ajax('GET', 'https://myawesome.net/api/request/').then((data)=>{
   // Do something with the data.
 }).catch((err)=>{
   // Do something with the error.
 });
-v().ajax('get', 'https://myawesome.net/api/request/', {chain: true}).then((data)=>{
+v().ajax('GET', 'https://myawesome.net/api/request/', {chain: true}).then((data)=>{
   console.log(data.nodes);
 -> {...}
   console.log(data.type());
@@ -155,7 +150,7 @@ v().ajax('get', 'https://myawesome.net/api/request/', {chain: true}).then((data)
   * Example using Lodash:
 ```js
 v([]).mixin({_:_}).isArray();
-->
+-> true
 ```
   * Example using jQuery:
 ```js
