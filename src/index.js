@@ -69,6 +69,15 @@
       }
       this.length = this.nonElement ? this.nonElement.length : this.nodes.length;
     }
+    v.prototype.mixin = (mixin)=>{
+      for (var prop in mixin) {
+        if (mixin.hasOwnProperty(prop)) {
+          v.prototype[prop] = mixin[prop];
+        }
+        this[prop] = v.prototype[prop];
+        return v.prototype[prop].apply(this, arguments);
+      } 
+    };
     // v(selector).get(0) -> <div></div>
     v.prototype.get = (i)=>{
       this.selector = this.nodes[i];
