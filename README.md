@@ -40,19 +40,25 @@
 
 vQuery is a simple, light-weight, vanilla JS wrapper for jQuery-like syntax.
 
-## Install
+## Install Using NPM
 
 ```sh
 npm install --save vquery
 ```
-
-## Usage
-
 ```js
 import v from 'vquery'
 
 v(selector, element, or string).method(props);
 ```
+
+## Install Using The Browser
+
+[Download](https://raw.githubusercontent.com/jaszhix/vquery/master/v.min.js) it from the repository or use the [JSDelivr CDN](http://www.jsdelivr.com/projects/vquery).
+
+```html
+<script src="v.min.js"></script>
+```
+
 ## API
 
 The methods below work like they do with jQuery, except they are just wrappers around ```document.querySelectorAll```, and the associated vanilla JS dom manipulation functions.
@@ -74,6 +80,10 @@ v('.class-thing').nodes
     <div class="class-thing"><span id="three">Three</span></div>
     ]
 ```
+
+### API
+
+Below are a few methods available. For the complete API documentation, visit the [vQuery website](http://jaszhix.github.io/vquery/).
 
 *   .node (Alias: .n) *
 ```js
@@ -105,67 +115,10 @@ v('.class-thing').length
 -> 2
 ```
 
-### Events
-
-*   .ready(function) *
-```js
-v().ready(()=>{
-  console.log('Document is ready!');
-});
-```
-
-*   .load(function) *
-```js
-v().load(()=>{
-  console.log('Document has loaded!');
-});
-```
-
-*   .on(event, function)
-```js
-v('#animating-div').on('animationend', myAnimationFunction);
-```
-
-*   .off(event, function)
-```js
-v(document.getElementById('animating-div')).off('animationend', myAnimationFunction);
-```
-
-*   .trigger(event) *
-```js
-v(document.getElementById('animating-div')).trigger('click');
-```
-
 *   .click(function)
 ```js
 v('body > div.pre-render').click(myCleverClickEvent);
 ```
-
-### Iteration
-
-*   .filter(function(currentValue, index, array))
-*   .each(function(currentValue, index, array))
-*   .map(function(currentValue, index, array))
-
-### DOM Manipulation
-
-*   .hide()
-*   .show()
-*   .remove()
-*   .clone()
-*   .wrap(HTML string)
-```js
-v('.class-thing').get(0).wrap('<span id="one" />').parent().n;
-```
-```html
--> <span id="one"><div class="class-thing">Two</div></span>
-```
-
-*   .parent(CSS selector)
-  * Returns the parent node.
-
-*   .parents(CSS selector)
-  * Returns an array of all parent nodes, or filters all parent nodes if a CSS selector parameter is passed to it.
 
 *   .children(CSS selector)
   * Returns an array of child nodes, or filters child nodes if a CSS selector parameter is passed to it.
@@ -173,99 +126,48 @@ v('.class-thing').get(0).wrap('<span id="one" />').parent().n;
 *   .allChildren(CSS selector)
   * Like .children(), it returns an array of child nodes, but instead of returning just the first level of children, it deeply recurses every child node and returns an array of every element under the selected node at all levels of children.
 
-*   .isEmpty() *
-*   .siblings()
-*   .next()
-*   .prev()
-*   .addClass(string of classes separated by a space)
-*   .removeClass(string of classes separated by a space)
-*   .addClass(string of classes separated by a space)
-*   .hasClass(string)
-*   .removeAttr(string)
 *   .attr(object)
   * Pass an object of camel cased attribute keys, or pass no parameter to return an object of existing attributes.
 
 *   .css(object)
   * Pass an object of camel cased style keys, or pass no parameter to return the computed style of the selected element.
 
-*   .rect() *
-  * Returns the position of an object relative of the viewport.
-
-*   .offset() *
-*   .offsetParent() *
-*   .outerHeight() *
-*   .outerWidth() *
-*   .position() *
-*   .html(HTML string)
-  * Inserts HTML inside the selected elements, or returns an array of HTML strings of the selected elements if no parameter is passed.
-
-*   .parseHTML(HTML string) *
+* .ajax(POST|GET, URL, options.chain)
+  * AJAX request method returning a Promise. Set options.chain to ```true``` to pass the data through vQuery's context.
 ```js
-v('<div class="stuff"></div>').parseHTML();
-v().parseHTML('<div class="stuff"></div>');
+v().ajax('get', 'https://myawesome.net/api/request/').then((data)=>{
+  // Do something with the data.
+}).catch((err)=>{
+  // Do something with the error.
+});
+v().ajax('get', 'https://myawesome.net/api/request/', {chain: true}).then((data)=>{
+  console.log(data.nodes);
+-> {...}
+  console.log(data.type());
+-> 'object'
+}).catch((err)=>{
+  // Do something with the error.
+});
+```
+
+* .mixin(object)
+  * This method allows you to pass vQuery's returned result to another library. The mixin should be at the end of the method chain.
+  * Example using Lodash:
+```js
+v([]).mixin({_:_}).isArray();
+->
+```
+  * Example using jQuery:
+```js
+v(':empty').mixin({$: $});
 ```
 ```html
--> <div class="stuff"></div>
+-> <meta charset="utf-8">
 ```
-*   .text(string)
-  * Inserts text inside the selected elements, or returns an array of text strings inside the selected elements if no parameter is passed.
-
-*   .insertBefore(newNode, referenceNode)
-  * Works like the native Node.insertBefore method as it is just a wrapper. The selector parameter must be a parent of the newNode and referenceNode.
-
-*   .prepend(CSS selector or element)
-*   .append(CSS selector or element)
-*   .after(HTML string)
-*   .before(HTML string)
-*   .contains(element or string)
-*   .is(CSS selector or element)
-  * Compares two elements and returns ```true``` if they are the same and ```false``` if not.
-
-### Utilities
-
-*   .uniq(array)
-
-*   .type(value)
-
-*   .json(value)
-```js
-v([{one: true}, {two: false}]).json();
-v().json([{one: true}, {two: false}]);
--> '[{"one":true},{"two":false}]'
-```
-
-*   .parseJSON(valid JSON string)
-```js
-v('[{"one":true},{"two":false}]').parseJSON();
-v().parseJSON('[{"one":true},{"two":false}]');
--> [{one: true}, {two: false}]
-```
-
-*   .trim(string)
-```js
-v('   trimMe!   ').trim();
-v().trim('   trimMe!   ');
--> 'trimMe!'
-```
-
-*   .camelize(string)
-```js
-v('data-id').camelize();
-v().camelize('data-id');
--> 'dataId'
-```
-
-*   .decamelize(string)
-```js
-v('deCamelize').decamelize()
-v().decamelize('deCamelize')
--> 'de-Camelize'
-```
-
-* Asterisked methods are currently not chainable.
 
 ## To-do's
-*   Package vQuery for Bower and the browser
+*   Package vQuery for Bower
+*   Cross-browser testing
 
 
 <!-- [npm-url]: https://npmjs.org/package/vquery
