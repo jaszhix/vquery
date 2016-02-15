@@ -1,11 +1,20 @@
 # Changelog
 
+### v4.2.0
+
+ * ```.uniq()``` now accepts the selector parameter as well as its own parameter. If uniq is called with the selector parameter only, its array will be passed to a new constructor instance, and will be chainable.
+ * ```.find()``` now accepts an element as well as a CSS selector.
+ * ```.trigger()``` is now chainable.
+ * New methods
+   * ```.ajax(GET|POST, URL, options.chain)```
+   * ```.mixin(object)```
+
 ### v4.1.0
 
  * Added browser compatibility.
  * Added a minified build intended for being included in script tag in the root of the repository.
  * ```.children()``` now accepts a CSS selector in its parameter and can further filter down the child nodes.
-  * New methods
+ * New methods
    * ```.parents(CSS selector)```
    * ```.allChildren(CSS selector)```
    * ```.uniq(array)```
