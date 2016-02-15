@@ -54,13 +54,15 @@ v(selector, element, or string).method(props);
 <script src="v.min.js"></script>
 ```
 
-## API
+### API
 
 The methods below work like they do with jQuery, except they are just wrappers around ```document.querySelectorAll```, and the associated vanilla JS dom manipulation functions.
 
 Like jQuery and many other similar libraries, most of the methods can be chained.
 
 **Breaking changes in 4.0.0**: ```.nodes()``` is now ```nodes``` and ```node()``` is now ```node```.
+
+Below are a few methods available. For the complete API documentation, visit the [vQuery website](http://jaszhix.github.io/vquery/).
 
 ### Node retrieval
 
@@ -75,10 +77,6 @@ v('.class-thing').nodes
     <div class="class-thing"><span id="three">Three</span></div>
     ]
 ```
-
-### API
-
-Below are a few methods available. For the complete API documentation, visit the [vQuery website](http://jaszhix.github.io/vquery/).
 
 *   .node (Alias: .n) *
 ```js
