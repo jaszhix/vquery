@@ -29,7 +29,13 @@
     };
     v.prototype.uniq = (array)=>{
       let _array = array ? array : this.nonElement ? this.nonElement : this.nodes ? this.nodes : null;
-      return Array.from(new Set(_array));
+      let uniq = Array.from(new Set(_array));
+      if (array) {
+        return uniq;
+      } else {
+        this.selector = uniq;
+        return this.handler();
+      }
     };
     v.prototype.slice = (nodeList)=>{
       return Array.prototype.slice.call(nodeList);
