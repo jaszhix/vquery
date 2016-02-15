@@ -26,7 +26,7 @@ const styles = {
   menu: {float: 'left', position: 'relative', zIndex: '0'},
   menuButton: {width: '30px', height: '30px', marginTop: '13px', marginLeft: '10px', marginRight: '10px', cursor: 'pointer'},
   infoImg: {marginTop: '17px', marginLeft: '40px', cursor: 'pointer', opacity: '0.75', boxShadow: '1px 0px 30px -6px rgb(77, 79, 72)'},
-  infoImgGroup: {paddingBottom: '14px', paddingRight: '28px', backgroundColor: 'rgb(132, 134, 129)'},
+  infoImgGroup: {paddingBottom: '14px', paddingRight: '29px', backgroundColor: 'rgb(132, 134, 129)'},
   toolbarTitle: {color: _appTheme.palette.textColor, zIndex: '9999', cursor: 'pointer', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', margin: 0, paddingTop: 0, letterSpacing: 0, fontSize: 24},
   toolbarRow: {marginBottom: '15px'},
   flatButton: {color: _appTheme.palette.textColor},
@@ -150,8 +150,9 @@ var Index = React.createClass({
 var InfoImg = React.createClass({
   render: function() {
     var p = this.props;
+    var style = p.style ? _.merge(styles.infoImg, p.style) : styles.infoImg;
     return (
-      <img style={p.style ? _.merge(styles.infoImg, p.style) : styles.infoImg} src={p.src} alt={p.alt} onTouchTap={p.url ? ()=>window.location.href = p.url : null} />
+      <img style={style} src={p.src} alt={p.alt} onTouchTap={p.url ? ()=>window.location.href = p.url : null} />
     );
   }
 });
