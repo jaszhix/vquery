@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link, IndexRoute, browserHistory } from 'react-router';
 import Reflux from 'reflux';
+import ReactUtils from 'react-utils';
 import _ from 'lodash';
 import v from 'vquery';
 window.v = v;
@@ -26,7 +27,7 @@ const styles = {
   menu: {float: 'left', position: 'relative', zIndex: '0'},
   menuButton: {width: '30px', height: '30px', marginTop: '13px', marginLeft: '10px', marginRight: '10px', cursor: 'pointer'},
   infoImg: {marginTop: '17px', marginLeft: '40px', cursor: 'pointer', opacity: '0.75', boxShadow: '1px 0px 30px -6px rgb(77, 79, 72)'},
-  infoImgGroup: {paddingBottom: '14px', paddingRight: '29px', backgroundColor: 'rgb(132, 134, 129)'},
+  infoImgGroup: {paddingBottom: '14px', paddingRight: '29px'},
   toolbarTitle: {color: _appTheme.palette.textColor, zIndex: '9999', cursor: 'pointer', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', margin: 0, paddingTop: 0, letterSpacing: 0, fontSize: 24},
   toolbarRow: {marginBottom: '15px'},
   flatButton: {color: _appTheme.palette.textColor},
@@ -150,9 +151,8 @@ var Index = React.createClass({
 var InfoImg = React.createClass({
   render: function() {
     var p = this.props;
-    var style = p.style ? _.merge(styles.infoImg, p.style) : styles.infoImg;
     return (
-      <img style={style} src={p.src} alt={p.alt} onTouchTap={p.url ? ()=>window.location.href = p.url : null} />
+      <img style={styles.infoImg} src={p.src} alt={p.alt} onTouchTap={p.url ? ()=>window.location.href = p.url : null} />
     );
   }
 });
@@ -172,6 +172,7 @@ var Bar = React.createClass({
   },
   render: function() {
     var s = this.state;
+    var p = this.props;
     var r = this.context.router;
     return (
       <Row style={styles.toolbarRow} >
@@ -179,21 +180,24 @@ var Bar = React.createClass({
           <ToolbarGroup firstChild={true} float="left">
             <img src={Logo} style={styles.logo} onTouchTap={()=>r.push(publicPath)} />
           </ToolbarGroup>
-          <ToolbarGroup float="right" style={styles.infoImgGroup}>
-            <InfoImg url="https://npmjs.org/package/vquery" src="https://img.shields.io/npm/v/vquery.svg?style=flat-square" alt="NPM Version" />
-            <InfoImg url="https://travis-ci.org/jaszhix/vquery" src="https://img.shields.io/travis/jaszhix/vquery.svg?style=flat-square" alt="Build Status" />
-            <InfoImg url="https://npmjs.org/package/vquery" src="http://img.shields.io/npm/dm/vquery.svg?style=flat-square" alt="Downloads" />
-            <InfoImg style={{marginRight:'10px', cursor: 'default'}} src="https://david-dm.org/jaszhix/vquery.svg?style=flat-square" alt="Dependency Status" />
-          </ToolbarGroup>
           <ToolbarGroup float="right">
-            <FlatButton        
-              label="Github"
-              labelPosition="after"
-              style={styles.flatButton}
-              primary={true}
-              onTouchTap={()=>window.location.href = "https://github.com/jaszhix/vquery"}>
-              <i style={styles.flatButtonFontAwesome} className="fa fa-github"/>
-              </FlatButton>
+          {p.stores.infoImages ? 
+            <ToolbarGroup style={styles.infoImgGroup}>
+              <InfoImg url="https://npmjs.org/package/vquery" src="https://img.shields.io/npm/v/vquery.svg?style=flat-square" alt="NPM Version" />
+              <InfoImg url="https://travis-ci.org/jaszhix/vquery" src="https://img.shields.io/travis/jaszhix/vquery.svg?style=flat-square" alt="Build Status" />
+              <InfoImg url="https://npmjs.org/package/vquery" src="http://img.shields.io/npm/dm/vquery.svg?style=flat-square" alt="Downloads" />
+              <InfoImg style={{marginRight:'10px', cursor: 'default'}} src="https://david-dm.org/jaszhix/vquery.svg?style=flat-square" alt="Dependency Status" />
+            </ToolbarGroup> : null}
+          {p.stores.toolbarButtons ? <ToolbarGroup>
+                      <FlatButton        
+                        label="Github"
+                        labelPosition="after"
+                        style={styles.flatButton}
+                        primary={true}
+                        onTouchTap={()=>window.location.href = "https://github.com/jaszhix/vquery"}>
+                        <i style={styles.flatButtonFontAwesome} className="fa fa-github"/>
+                        </FlatButton>
+                    </ToolbarGroup> : null}
           </ToolbarGroup>
           
         </Toolbar>
@@ -203,15 +207,17 @@ var Bar = React.createClass({
 });
 
 var Root = React.createClass({
-  mixins: [Reflux.ListenerMixin],
+  mixins: [Reflux.ListenerMixin, ReactUtils.Mixins.WindowSizeWatch],
   getInitialState(){
     return {
-      appTheme: appTheme.get()
+      appTheme: appTheme.get(),
+      infoImages: false
     };
   },
   componentDidMount(){
     // Reflux listeners
     this.listenTo(appTheme, this.appThemeChange);
+    this.onWindowResize();
   },
   contextTypes: {
     route: React.PropTypes.object,
@@ -227,14 +233,30 @@ var Root = React.createClass({
       route: this.props.route
     };
   },
+  onWindowResize(e) {
+    if (window.innerWidth >= 1317) {
+      this.setState({infoImages: true});
+    } else {
+      this.setState({infoImages: false});
+    }
+    if (window.innerWidth >= 690) {
+      this.setState({toolbarButtons: true});
+    } else {
+      this.setState({toolbarButtons: false});
+    }
+  },
   appThemeChange(e){
     this.setState({appTheme: e});
   },
   render: function() {
     var s = this.state;
+    var stores = {
+      infoImages: s.infoImages,
+      toolbarButtons: s.toolbarButtons
+    };
     return (
       <div className="Root">
-        <Bar {...this.props} appTheme={s.appTheme} />
+        <Bar stores={stores} appTheme={s.appTheme} />
         {this.props.children}
       </div>
     );
