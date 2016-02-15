@@ -26,19 +26,21 @@ const styles = {
   logo: {width: '25%', marginTop: '10px', marginLeft: '25px', cursor: 'pointer'},
   menu: {float: 'left', position: 'relative', zIndex: '0'},
   menuButton: {width: '30px', height: '30px', marginTop: '13px', marginLeft: '10px', marginRight: '10px', cursor: 'pointer'},
-  infoImg: {marginTop: '17px', marginLeft: '40px', cursor: 'pointer', opacity: '0.75', boxShadow: '1px 0px 30px -6px rgb(77, 79, 72)'},
-  infoImgGroup: {paddingBottom: '14px', paddingRight: '29px', top: '-60px'},
+  infoImg: {marginTop: '17px', marginLeft: '20px', cursor: 'pointer', opacity: '0.75', boxShadow: '1px 0px 30px -6px rgb(77, 79, 72)'},
+  infoImgGroup: {paddingBottom: '14px', paddingRight: '29px'},
+  infoImgButton: {position: 'absolute', right:'8.33%', top:'1px'},
   toolbarTitle: {color: _appTheme.palette.textColor, zIndex: '9999', cursor: 'pointer', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', margin: 0, paddingTop: 0, letterSpacing: 0, fontSize: 24},
-  search: {right: '255px', position: 'relative', top: '5px'},
+  search: {right: '71px', position: 'absolute', top: '5px'},
   searchHintStyle: {color: 'rgba(255, 255, 255, 0.84)'},
   toolbarRow: {marginBottom: '15px'},
-  flatButton: {color: _appTheme.palette.textColor, top: '-61px'},
+  flatButton: {color: _appTheme.palette.textColor},
   flatButtonFontAwesome: {position: 'relative', left: '8px'},
   underlineStyle: {borderColor: '#77959D'},
   floatingLabelStyle: {color: 'rgb(191, 226, 236)'},
-  rowContent: {marginLeft: '8px', marginRight: '8px'},
+  rowContent: {marginLeft: '10%', marginRight: '10%'},
+  leftColumn: {width: '150px', boxSizing: 'border-box', paddingRight: '0.5rem', paddingLeft: '0.5rem'},
   content: {
-    list: {paddingTop: '0', paddingBottom: '0'},
+    list: {paddingTop: '0', paddingBottom: '0', textAlign: 'center'},
     card: {paddingLeft: '8px', marginBottom: '15px'},
     cardTitle: {color: _appTheme.palette.textColor},
     cardText: {paddingTop: '0', paddingBottom: '0'},
@@ -119,7 +121,7 @@ var Docs = React.createClass({
     });
     return (
       <Row style={styles.rowContent}> 
-        <Col md="2" > 
+        <div style={styles.leftColumn} > 
           <Box> 
             <Card> 
               <List style={styles.content.list}> 
@@ -129,7 +131,7 @@ var Docs = React.createClass({
               </List> 
             </Card> 
           </Box> 
-        </Col> 
+        </div> 
         <Col auto={true} > 
           {docs.map((doc, i)=>{
             return <ContentBox key={i} scrollTop={s.scrollTop} content={doc}/>;
@@ -193,8 +195,8 @@ var Bar = React.createClass({
     var r = this.context.router;
     return (
       <Row style={styles.toolbarRow} >
-        <Toolbar>
-          <ToolbarGroup firstChild={true} float="left">
+        <Toolbar >
+          <ToolbarGroup firstChild={true} float="left" style={{marginLeft: '8.33%'}}>
             <ToolbarGroup>
               <img src={Logo} style={styles.logo} onTouchTap={()=>r.push(publicPath)} />
             </ToolbarGroup>
@@ -202,7 +204,7 @@ var Bar = React.createClass({
               <TextField hintText="Search" hintStyle={styles.searchHintStyle} style={styles.search} value={p.stores.search} onChange={(e)=>search.set(e.target.value)}/>
             </ToolbarGroup>
           </ToolbarGroup>
-          <ToolbarGroup float="right">
+          <ToolbarGroup float="right" style={styles.infoImgButton} >
           {p.stores.infoImages ? 
             <ToolbarGroup style={styles.infoImgGroup}>
               <InfoImg url="https://npmjs.org/package/vquery" src="https://img.shields.io/npm/v/vquery.svg?style=flat-square" alt="NPM Version" />
@@ -258,7 +260,7 @@ var Root = React.createClass({
     };
   },
   onWindowResize(e) {
-    if (window.innerWidth >= 1317) {
+    if (window.innerWidth >= 1384) {
       this.setState({infoImages: true});
     } else {
       this.setState({infoImages: false});
