@@ -88,8 +88,9 @@
         let data;
         if (type === 'POST') {
           try {
-            data = request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-            _resolve(data);
+            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+            request.send(options.data);
+            _resolve(request.responseText);
           } catch (e) {
             reject(e);
           }
@@ -106,11 +107,11 @@
               reject();
             }
           };
+          request.send();
         }   
         request.onerror = function(err) {
           reject(err);
         };
-        request.send();
       });
     };
     // v(selector).get(0) -> <div></div>
