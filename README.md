@@ -125,7 +125,7 @@ v('body > div.pre-render').click(myCleverClickEvent);
 *   .css(object)
   * Pass an object of camel cased style keys, or pass no parameter to return the computed style of the selected element.
 
-* .ajax(POST|GET, URL, options.chain)
+* .ajax(POST|GET, URL, options.data|options.chain)
   * AJAX request method returning a Promise. Set options.chain to ```true``` to pass the data through vQuery's context.
 ```js
 v().ajax('GET', 'https://myawesome.net/api/request/').then((data)=>{
