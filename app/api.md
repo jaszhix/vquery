@@ -277,7 +277,7 @@ Compares two elements and returns ```true``` if they are the same, and ```false`
 [Break]
 ### Utilities
 [Break]
-#### .ajax(POST|GET, URL, options.chain)
+#### .ajax(POST|GET, URL, options.data|options.chain)
 AJAX request method returning a Promise. Set options.chain to ```true``` to pass the data through vQuery's context.
 ```js
 v().ajax('get', 'https://myawesome.net/api/request/').then((data)=>{
@@ -301,7 +301,7 @@ Example using Lodash:
 
 ```js
 v([]).mixin({_:_}).isArray();
-->
+-> true
 ```
 Example using jQuery:
 
