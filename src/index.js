@@ -349,13 +349,21 @@
     };
     // v(selector).attr() returns an object of camelized attribute keys. 
     // v(selector).attr({dataId: '0'}) -> <div data-id="0"></div>
-    v.prototype.attr = (props)=>{  
+    v.prototype.attr = (props, props2)=>{
       for (var i = this.nodes.length - 1; i >= 0; i--) {
         if (props) {
-          for (var y in props) {
-            this.nodes[i].setAttribute(this.decamelize(y), props[y]);
+          if (props2 && this.typeOf(props2) === 'string') {
+            this.nodes[i].setAttribute(this.decamelize(props), props2);
+          } else {
+            for (var y in props) {
+              if (this.typeOf(props) === 'string') {
+                return this.nodes[i].attributes[props].value;
+              } else {
+                this.nodes[i].setAttribute(this.decamelize(y), props[y]);
+                return this.handler();
+              }
+            }
           }
-          return this.handler();
         } else {
           var obj = {};
           var name = null;
