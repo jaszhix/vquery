@@ -1,5 +1,19 @@
 # Changelog
 
+### v4.3.0
+ * Breaking change: Renamed ```.outerHeight()``` and ```.outerWidth()``` to ```.height()``` and ```.width()```, respectively in order to bring more syntactic consistency with jQuery.
+ * Breaking change: Updated ```.html()``` to return the outerHTML of an element instead of the innerHTML. Passing an HTML string to its parameter still sets the selected elements innerHTML.
+ * Updated ```.attr()``` method to return an attribute's value if a single string is passed to its parameter instead of an object.
+ * Updated ```.find()``` to accept a comma separated list of selectors, and be able to return an array of the selected elements.
+ * New methods
+   * ```.replaceWith(HTML String)```
+   * ```.includes(String, Match)```
+   * ```.val(String)```
+
+### v4.2.2
+
+ * Fixed ```.ajax()```` method not being able to POST a data object.
+
 ### v4.2.1
 
  * Updated mixin method to pass the array of nodes to the chained library.
