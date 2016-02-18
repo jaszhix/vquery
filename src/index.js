@@ -48,13 +48,26 @@
     v.prototype.query = (el, _selector)=>{
       return el.querySelectorAll(_selector);
     };
+    v.prototype.parseHTML = (string)=>{
+      let tmp = document.implementation.createHTMLDocument();
+      tmp.body.innerHTML = this.nonElement ? this.nonElement : string;
+      return tmp.body.children;
+    };
     // Assign the selector by calling this.query if its an element, otherwise assign it to this.nodes directly.
     if (selector) {
       if (this.typeOf(selector) === 'string') {
         try {
           assignNodes(this.query(document, selector));
         } catch (e) {
-          this.nonElement = selector;
+          try {
+            if (selector.match(/<(.|\n)*?>/g)[0]) {
+              this.nonElement = selector;
+              assignNodes(this.parseHTML(selector));
+            }
+          } catch (y) {
+            this.nonElement = selector;
+          }
+
         }
         if (typeof this.node === 'undefined') {
           this.nonElement = selector;
@@ -412,11 +425,6 @@
         }
       }
       return contents ? this.handler() : output;
-    };
-    v.prototype.parseHTML = (string)=>{
-      let tmp = document.implementation.createHTMLDocument();
-      tmp.body.innerHTML = this.nonElement ? this.nonElement : string;
-      return tmp.body.children;
     };
     v.prototype.json = (input)=>{
       let _input = this.nodes ? this.nodes : input;
