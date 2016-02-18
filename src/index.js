@@ -198,7 +198,24 @@
       return this.handler();
     };
     v.prototype.find = (_selector)=>{
-      this.selector = isElement(_selector) ? _selector : this.query(this.node, _selector);
+      if (!isElement(_selector)) {
+        if (this.includes(_selector, ',')) {
+          let __selector = _selector.split(',');
+          let newSelector = [];
+          let subset = [];
+          for (var i = __selector.length - 1; i >= 0; i--) {
+            subset = this.query(this.node, __selector[i]);
+            for (var y = subset.length - 1; y >= 0; y--) {
+              newSelector.push(subset[y]);
+            }
+          }
+          this.selector = newSelector;
+        } else {
+          this.selector = this.query(this.node, _selector);
+        }
+      } else {
+        this.selector = _selector;
+      }
       return this.handler();
     };
     v.prototype.hide = ()=>{
