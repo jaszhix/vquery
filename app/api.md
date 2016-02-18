@@ -25,8 +25,11 @@ You can open up the developer console on this page and start testing the methods
 The methods below work like they do with jQuery, except they are just wrappers around ```document.querySelectorAll```, and the associated vanilla JS dom manipulation functions.
 
 Like jQuery and many other similar libraries, most of the methods can be chained.
-
-**Breaking changes in 4.0.0**: ```.nodes()``` is now ```nodes``` and ```node()``` is now ```node```.
+[Break]
+### Breaking changes in 4.3.0
+* Renamed ```.outerHeight()``` and ```.outerWidth()``` to ```.height()``` and ```.width()```, respectively in order to bring more syntactic consistency with jQuery.
+* Updated ```.html()``` to return the outerHTML of an element instead of the innerHTML. Passing an HTML string to its parameter still sets the selected elements innerHTML.
+* ```.nodes()``` is now ```nodes``` and ```node()``` is now ```node```.
 [Break]
 ### Node retrieval
 [Break]
@@ -67,6 +70,13 @@ v('.class-thing').node;
 ```html
 -> <div class="class-thing">One</div>
 ```
+[Break]
+#### .nonElement (Alias: .ne)
+If a non selector string is passed to the selector parameter, calling ```.nonElement``` will retrieve it. Most of the utility methods that do not affect the DOM will check for this namespace first.
+```js
+v('This string is not an element').nonElement;
+-> "This string is not an element"
+```
 [Break] 
 #### .get(index)
 Returns a node from an array of nodes at a given index passed to its parameter. ```.get(0)``` is the same as ```.node```, except that it is chainable.
@@ -77,7 +87,7 @@ v('.class-thing').get(1).n;
 -> <div class="class-thing">Two</div>
 ```
 [Break] 
-#### .find(CSS selector)
+#### .find(CSS selector|Element)
 Queries the selected array of nodes.
 ```js
 v('.class-thing').get(2).find('#three').node
@@ -208,8 +218,8 @@ Returns ```true``` or ```false``` if a selected node has a class.
 #### .removeAttr(String)
 Removes an attribute from all selected nodes.
 [Break] 
-#### .attr(object)
-Pass an object of camel cased attribute keys, or pass no parameter to return an object of existing attributes.
+#### .attr(Object|String|Key, Value)
+Pass an object of camel cased attribute keys, or a key/value pair of strings to set attribute(s). Calling the method without a parameter will return an object of the selected element's attributes.
 [Break] 
 #### .css(object)
 Pass an object of camel cased style keys, or pass no parameter to return the computed style of the selected element.
@@ -250,9 +260,15 @@ v().parseHTML('<div class="stuff"></div>');
 ```html
 -> <div class="stuff"></div>
 ```
-[Break] 
+[Break]
+#### .replaceWith(HTML string)
+Replaces the selected element with a parsed HTML string passed to its parameter.
+[Break]
 #### .text(String)
 Inserts text inside the selected elements, or returns an array of text strings inside the selected elements if no parameter is passed.
+[Break] 
+#### .val(String)
+Passing a string to its parameter changes the value of the selected element, or returns the current value of the selected element if no parameter is passed.
 [Break] 
 #### .insertBefore(newNode, referenceNode)
 Works like the native Node.insertBefore method as it is just a wrapper. The selector parameter must be a parent of the newNode and referenceNode.
@@ -271,7 +287,7 @@ Returns a node from a string passed to its parameter, and inserts it before the 
 [Break] 
 #### .contains(element or string)
 Returns ```true``` or ```false``` if the selected node contains an element passed to its parameter, or if the inner text contains a string if a string is passed to its parameter.
-[Break] 
+[Break]
 #### .is(CSS selector or Element)
 Compares two elements and returns ```true``` if they are the same, and ```false``` if not.
 [Break]
@@ -331,7 +347,10 @@ v('[{"one":true},{"two":false}]').parseJSON();
 v().parseJSON('[{"one":true},{"two":false}]');
 -> [{one: true}, {two: false}]
 ```
-[Break] 
+[Break]
+#### .includes(String, Match)
+Similar to ```.contains()``` except it can check if any string is matched by its second parameter.
+[Break]
 #### .trim(String)
 ```js
 v('   trimMe!   ').trim();
