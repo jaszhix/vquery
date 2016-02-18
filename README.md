@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="http://jaszhix.github.io/vquery/">
+  <a href="http://vquery.net">
     <img src="http://jaszhix.github.io/vquery/app/assets/images/logo.png" alt="vQuery">
   </a>
 </p>
@@ -60,7 +60,11 @@ The methods below work like they do with jQuery, except they are just wrappers a
 
 Like jQuery and many other similar libraries, most of the methods can be chained.
 
-**Breaking changes in 4.0.0**: ```.nodes()``` is now ```nodes``` and ```node()``` is now ```node```.
+#### Breaking changes in 4.3.0
+
+* Renamed ```.outerHeight()``` and ```.outerWidth()``` to ```.height()``` and ```.width()```, respectively in order to bring more syntactic consistency with jQuery.
+* Updated ```.html()``` to return the outerHTML of an element instead of the innerHTML. Passing an HTML string to its parameter still sets the selected elements innerHTML.
+* ```.nodes()``` is now ```nodes``` and ```node()``` is now ```node```.
 
 Below are a few methods available. For the complete API documentation, visit the [vQuery website](http://jaszhix.github.io/vquery/).
 
@@ -86,6 +90,12 @@ v('.class-thing').node;
 -> <div class="class-thing">One</div>
 ```
 
+*   .nonElement (Alias: .ne) *
+```js
+v('This string is not an element').nonElement;
+-> "This string is not an element"
+```
+
 *   .get(index)
 ```js
 v('.class-thing').get(1).n;
@@ -94,7 +104,7 @@ v('.class-thing').get(1).n;
 -> <div class="class-thing">Two</div>
 ```
 
-*   .find(CSS selector)
+*   .find(CSS selector|Element)
 ```js
 v('.class-thing').get(2).find('#three').node
 ```
@@ -119,8 +129,8 @@ v('body > div.pre-render').click(myCleverClickEvent);
 *   .allChildren(CSS selector)
   * Like .children(), it returns an array of child nodes, but instead of returning just the first level of children, it deeply recurses every child node and returns an array of every element under the selected node at all levels of children.
 
-*   .attr(object)
-  * Pass an object of camel cased attribute keys, or pass no parameter to return an object of existing attributes.
+*   .attr(object|string|Key, Value)
+  * Pass an object of camel cased attribute keys, or a key/value pair of strings to set attribute(s). Calling the method without a parameter will return an object of the selected element's attributes.
 
 *   .css(object)
   * Pass an object of camel cased style keys, or pass no parameter to return the computed style of the selected element.
