@@ -156,13 +156,26 @@ describe('vquery', function () {
     it('[css] manipulates css', function () {
       expect(v(this.divSelector).css({position: 'absolute', color: '#FFF'}).nodes[0].style).to.equal(this.div.style);
     });
+    it('[val] sets the value of an input element and retrieves it', function () {
+      v(this.divSelector).html('<input type="text"></input>');
+      v(this.divSelector).val('Value set!');
+      expect(this.div.value).to.equal('Value set!');
+      expect(v(this.divSelector).val()).to.equal('Value set!');
+    });
     it('[html] sets html', function () {
       v(this.divSelector).html('<p>Text!</p>');
       expect(this.div.innerHTML).to.equal('<p>Text!</p>');
     });
     it('[html] returns html', function () {
       v(this.divSelector).html('<p>Text!</p>');
-      expect(v(this.divSelector).html()[0]).to.equal('<p>Text!</p>');
+      expect(v(this.divSelector).html()[0]).to.equal(this.div.outerHTML);
+    });
+    it('[replaceWith] replaces an element\'s HTML', function () {
+      this.newDiv = document.createElement('div');
+      this.newDiv.className = 'new-div';
+      this.div.appendChild(this.newDiv);
+      v('.new-div').replaceWith('<div id="replacement"></div>');
+      expect(v(this.div).children().nodes[0].outerHTML).to.equal('<div id="replacement"></div>');
     });
     it('[text] sets text content', function () {
       v(this.divSelector).text('something');
