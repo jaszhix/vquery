@@ -1,5 +1,8 @@
 # Changelog
 
+### v4.3.1
+ * Cleaned up duplicate method ```.replaceWith```.
+
 ### v4.3.0
  * Breaking change: Renamed ```.outerHeight()``` and ```.outerWidth()``` to ```.height()``` and ```.width()```, respectively in order to bring more syntactic consistency with jQuery.
  * Breaking change: Updated ```.html()``` to return the outerHTML of an element instead of the innerHTML. Passing an HTML string to its parameter still sets the selected elements innerHTML.
