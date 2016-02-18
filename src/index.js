@@ -457,7 +457,7 @@
       var output = [];
       for (var i = this.nodes.length - 1; i >= 0; i--) {
         if (!contents) {
-          output.push(this.nodes[i].innerHTML);
+          output.push(this.nodes[i].outerHTML);
         } else {
           this.nodes[i].innerHTML = contents;
         }
