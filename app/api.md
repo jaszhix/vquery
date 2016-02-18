@@ -236,10 +236,10 @@ v('#main > div > div:nth-child(2) > div.col-xs > div:nth-child(7) > div > div > 
 #### .offsetParent()
 Returns the offset parent.
 [Break] 
-#### .outerHeight(Boolean)
+#### .height(Boolean)
 Returns the outer height of an element. Passing ```true``` will return the outer height with margin.
 [Break] 
-#### .outerWidth(Boolean)
+#### .width(Boolean)
 Returns the outer width of an element. Passing ```true``` will return the outer width with margin.
 [Break] 
 #### .position()
