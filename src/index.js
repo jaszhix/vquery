@@ -583,6 +583,9 @@
       },
       get ns(){
         return this.nodes;
+      },
+      get ne(){
+        return this.nonElement;
       }
     };
   };
