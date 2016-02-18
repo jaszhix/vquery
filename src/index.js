@@ -539,12 +539,6 @@
       }
       return this.handler();
     };
-    v.prototype.replaceWith = (contents)=>{ 
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
-        this.nodes[i].outerHTML = contents;
-      }
-      return this.handler();
-    };
     v.prototype.contains = (text)=>{
       let textContent = null;
       if (this.nonElement) {
