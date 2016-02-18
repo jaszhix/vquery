@@ -19,6 +19,16 @@
     var isElement = (element)=>{
       return element instanceof Element || element[0] instanceof Element;
     };
+    var queryElement = (element)=>{
+      return isElement(element) ? element : this.query(document, element)[0];
+    };
+    var queryParameter = (param, checkNodes)=>{
+      if (checkNodes) {
+        return this.nodes ? this.nodes : this.nonElement ? this.nonElement : param;
+      } else {
+        return this.nonElement ? this.nonElement : param;
+      }
+    };
     v.prototype.for = (iterator, func)=>{
       for (let i = iterator.length - 1; i >= 0; i--) {
         func.apply(this, [iterator[i], arguments]);
@@ -493,8 +503,8 @@
       return output;
     };
     v.prototype.type = (input)=>{
-      input = this.nodes ? this.nodes : this.nonElement ? this.nonElement : input;
-      return isElement(this.nodes) ? 'node' : this.typeOf(input);
+      input = queryParameter(input, true);
+      return this.nodes && isElement(this.nodes) ? 'node' : this.typeOf(input);
     };
     v.prototype.replaceWith = (string)=>{
       this.for(this.nodes, (i)=>{
@@ -523,15 +533,15 @@
       });
       return this.handler();
     };
-    v.prototype.prepend = (element)=>{ 
-      let _element = isElement(element) ? element : this.query(document, element)[0];
+    v.prototype.prepend = (el)=>{ 
+      let _element = queryElement(el);
       this.for(this.nodes, (i)=>{
         i.insertBefore(_element, i.firstChild);
       });
       return this.handler();
     };
-    v.prototype.append = (element)=>{ 
-      let _element = isElement(element) ? element : this.query(document, element)[0];
+    v.prototype.append = (el)=>{ 
+      let _element = queryElement(el);
       this.for(this.nodes, (i)=>{
         i.appendChild(_element);
       });
@@ -560,22 +570,22 @@
       return bool;
     };
     v.prototype.is = (el)=>{
-      let _el = isElement(el) ? el : this.query(document, el)[0];
+      let _el = queryElement(el);
       return this.node === _el;
     };
     v.prototype.trim = (string)=>{
-      string = this.nonElement ? this.nonElement : string;
+      string = queryParameter(string, true);
       return string.trim();
     };
     // Used by attr method
     v.prototype.camelize = (string)=>{
-      string = this.nonElement ? this.nonElement : string;
+      string = queryParameter(string, false);
       return string.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
         return index === 0 ? letter.toLowerCase() : letter.toUpperCase();
       }).replace(/\s+/g, '').replace(/[-_]+/g, '');
     };
     v.prototype.decamelize = (string)=>{
-      string = this.nonElement ? this.nonElement : string;
+      string = queryParameter(string, false);
       return string
         .replace(/([a-z])([A-Z])/g, '$1-$2')
         .replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1-$2$3')
