@@ -410,6 +410,16 @@
         return getComputedStyle(this.node);
       }
     };
+    v.prototype.val = (string)=>{
+      if (string) {
+        for (var i = this.nodes.length - 1; i >= 0; i--) {
+          this.nodes[i].value = string;
+        }
+        return this.handler();
+      } else {
+        return this.node.value;
+      }
+    };
     v.prototype.rect = ()=>{
       return this.node.getBoundingClientRect();
     };
