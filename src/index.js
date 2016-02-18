@@ -19,6 +19,9 @@
     var isElement = (element)=>{
       return element instanceof Element || element[0] instanceof Element;
     };
+    v.prototype.includes = (string, match)=>{
+      return string.indexOf(match) > -1;
+    };
     v.prototype.typeOf = (input)=>{
       return Object.prototype.toString.call(input).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
     };
@@ -522,7 +525,7 @@
       } else {
         textContent = this.node.textContent;
       }
-      var bool = textContent.indexOf(text) > -1;
+      var bool = this.includes(textContent, text);
       return bool;
     };
     v.prototype.is = (el)=>{
