@@ -19,6 +19,16 @@
     var isElement = (element)=>{
       return element instanceof Element || element[0] instanceof Element;
     };
+    v.prototype.for = (iterator, func)=>{
+      for (let i = iterator.length - 1; i >= 0; i--) {
+        func.apply(this, [iterator[i], arguments]);
+      }
+    };
+    v.prototype.forIn = (props, func)=>{
+      for (let y in props) {
+        func.apply(this, [y, props, arguments]);
+      }
+    };
     v.prototype.includes = (string, match)=>{
       return string.indexOf(match) > -1;
     };
@@ -151,37 +161,35 @@
       }
     };
     v.prototype.on = (event, func)=>{
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
-        this.nodes[i].addEventListener(event, func);
-      }
+      this.for(this.nodes, (i)=>{
+        i.addEventListener(event, func);
+      });
       return this.handler();
     };
     v.prototype.off = (event, func)=>{
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
-        this.nodes[i].removeEventListener(event, func);
-      }
+      this.for(this.nodes, (i)=>{
+        i.removeEventListener(event, func);
+      });
       return this.handler();
     };
     v.prototype.trigger = (event)=>{
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
-        if (this.node.fireEvent) {
-          (this.node.fireEvent('on' + event));
-        } else {
-          var evObj = document.createEvent('Events');
-          evObj.initEvent(event, true, false);
-          this.node.dispatchEvent(evObj);
-        }
+      if (this.node.fireEvent) {
+        (this.node.fireEvent('on' + event));
+      } else {
+        var evObj = document.createEvent('Events');
+        evObj.initEvent(event, true, false);
+        this.node.dispatchEvent(evObj);
       }
       return this.handler();
     };
     v.prototype.click = (func)=>{
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
+      this.for(this.nodes, (i)=>{
         if (func) {
-          this.nodes[i].addEventListener('click', func);
+          this.on('click', func);
         } else {
-          v.prototype.trigger('click');
+          this.trigger('click');
         }
-      }
+      });
       return this.handler();
     };
     // DOM traversal and manipulation methods
@@ -203,12 +211,12 @@
           let __selector = _selector.split(',');
           let newSelector = [];
           let subset = [];
-          for (var i = __selector.length - 1; i >= 0; i--) {
-            subset = this.query(this.node, __selector[i]);
-            for (var y = subset.length - 1; y >= 0; y--) {
-              newSelector.push(subset[y]);
-            }
-          }
+          this.for(__selector, (i)=>{
+            subset = this.query(this.node, i);
+            this.for(subset, (y)=>{
+              newSelector.push(y);
+            });
+          });
           this.selector = newSelector;
         } else {
           this.selector = this.query(this.node, _selector);
@@ -219,27 +227,27 @@
       return this.handler();
     };
     v.prototype.hide = ()=>{
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
-        this.nodes[i].style.display = 'none';
-      }
+      this.for(this.nodes, (i)=>{
+        i.style.display = 'none';
+      });
       return this.handler();
     };
     v.prototype.show = ()=>{
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
-        this.nodes[i].style.display = 'block';
-      }
+      this.for(this.nodes, (i)=>{
+        i.style.display = 'block';
+      });
       return this.handler();
     };
     v.prototype.remove = ()=>{
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
-        this.nodes[i].parentNode.removeChild(this.nodes[i]);
-      }
+      this.for(this.nodes, (i)=>{
+        i.parentNode.removeChild(i);
+      });
       return this.handler();
     };
     v.prototype.empty = ()=>{
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
-        this.nodes[i].innerHTML = '';
-      }
+      this.for(this.nodes, (i)=>{
+        i.innerHTML = '';
+      });
       return this.handler();
     };
     v.prototype.clone = ()=>{
@@ -248,9 +256,9 @@
       return this.handler();
     };
     v.prototype.wrap = (tag)=>{
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
-        this.nodes[i].outerHTML = `${tag.match(/<(.|\n)*?>/g)[0]}${this.nodes[i].outerHTML}`;
-      }
+      this.for(this.nodes, (i)=>{
+        i.outerHTML = `${tag.match(/<(.|\n)*?>/g)[0]}${i.outerHTML}`;
+      });
       return this.handler();
     };
     v.prototype.parent = ()=>{
@@ -267,12 +275,12 @@
       if (el) {
         let __parents = [];
         let _parentsQuery = [];
-        for (let i = _parents.length - 1; i >= 0; i--) {
-          __parents = this.slice(this.query(_parents[i], el));
-          for (let y = __parents.length - 1; y >= 0; y--) {
-            _parentsQuery.push(__parents[y]);
-          }
-        }
+        this.for(_parents, (i)=>{
+          __parents = this.slice(this.query(i, el));
+          this.for(__parents, (y)=>{
+            _parentsQuery.push(y);
+          });
+        });
         this.selector = this.uniq(_parentsQuery);
       } else {
         this.selector = _parents;
@@ -284,12 +292,12 @@
       if (el) {
         let _children = [];
         let arr = [];
-        for (let i = children.length - 1; i >= 0; i--) {
-          _children = this.slice(this.query(children[i], el));
-          for (let y = _children.length - 1; y >= 0; y--) {
+        this.for(children, (i)=>{
+          _children = this.slice(this.query(i, el));
+          this.for(_children, (y)=>{
             arr.push(_children[y]);
-          }
-        }
+          });
+        });
         this.selector = arr;
       } else {
         this.selector = children;
@@ -302,11 +310,11 @@
       var recurse = (el)=>{
         arr.push(el);
         if (el.childNodes.length > 0) {
-          for (var child in el.childNodes) {
+          this.forIn(el.childNodes, (child)=>{
             if (el.childNodes[child].nodeType == 1) {
               recurse(el.childNodes[child]);
             }
-          }
+          });
         }
       };
       recurse(__el);
@@ -332,79 +340,81 @@
     };
     v.prototype.addClass = (_class)=>{
       var classArr = _class.split(' ');
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
-        for (var y = 0; y < classArr.length; y++) {
-          this.nodes[i].classList.add(classArr[y]);
-        }
-      }
+      this.for(this.nodes, (i)=>{
+        this.for(classArr, (y)=>{
+          i.classList.add(y);
+        });
+      });
       return this.handler();
     };
     v.prototype.removeClass = (_class)=>{
       var classArr = _class.split(' ');
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
-        for (var y = 0; y < classArr.length; y++) {
-          this.nodes[i].classList.remove(classArr[y]);
-        }
-      }
+      this.for(this.nodes, (i)=>{
+        this.for(classArr, (y)=>{
+          i.classList.remove(y);
+        });
+      });
       return this.handler();
     };
     v.prototype.toggleClass = (_class)=>{
       var classArr = _class.split(' ');
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
-        for (var y = 0; y < classArr.length; y++) {
-          this.nodes[i].classList.toggle(classArr[y]);
-        }
-      }
+      this.for(this.nodes, (i)=>{
+        this.for(classArr, (y)=>{
+          i.classList.toggle(y);
+        });
+      });
       return this.handler();
     };
     v.prototype.hasClass = (_class)=>{
       var bool = this.node.classList.contains(_class);
       return bool;
     };
-    v.prototype.removeAttr = (attr)=>{   
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
-        this.nodes[i].removeAttribute(attr);
-      }
+    v.prototype.removeAttr = (attr)=>{
+      this.for(this.nodes, (i)=>{
+        i.removeAttribute(attr);
+      });
       return this.handler();
     };
     // v(selector).attr() returns an object of camelized attribute keys. 
     // v(selector).attr({dataId: '0'}) -> <div data-id="0"></div>
     v.prototype.attr = (props, props2)=>{
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
+      let _return = null;
+      this.for(this.nodes, (i)=>{
         if (props) {
           if (props2 && this.typeOf(props2) === 'string') {
-            this.nodes[i].setAttribute(this.decamelize(props), props2);
+            i.setAttribute(this.decamelize(props), props2);
           } else {
-            for (var y in props) {
+            this.forIn(props, (y)=>{
               if (this.typeOf(props) === 'string') {
-                return this.nodes[i].attributes[props].value;
+                _return = i.attributes[props].value;
               } else {
-                this.nodes[i].setAttribute(this.decamelize(y), props[y]);
-                return this.handler();
+                i.setAttribute(this.decamelize(y), props[y]);
+                _return = this.handler();
               }
-            }
+            });
           }
         } else {
           var obj = {};
           var name = null;
           var value = null;
-          for (var z = this.nodes[i].attributes.length - 1; z >= 0; z--) {
-            name = this.camelize(this.nodes[i].attributes[z].name);
-            value = this.nodes[i].attributes[z].value;
+          this.for(i.attributes, (z)=>{
+            name = this.camelize(z.name);
+            value = z.value;
             obj[name] = value;
-          }
-          return obj;
+          });
+          _return = obj;
         }
-      }
+      });
+      return _return;
     };
     // v(selector).css({backgroundColor: '#FFF'}) -> <div style="background-color:#FFF;"></div>
     v.prototype.css = (props)=>{
       if (props) {
-        for (var i = this.nodes.length - 1; i >= 0; i--) {
-          for (var y in props) {
-            this.nodes[i].style[y] = props[y];
-          }
-        }
+        this.for(this.nodes, (i)=>{
+          this.forIn(props, (y)=>{
+            i.style[y] = props[y];
+          });
+        });
         return this.handler();
       } else {
         return getComputedStyle(this.node);
@@ -412,9 +422,9 @@
     };
     v.prototype.val = (string)=>{
       if (string) {
-        for (var i = this.nodes.length - 1; i >= 0; i--) {
-          this.nodes[i].value = string;
-        }
+        this.for(this.nodes, (i)=>{
+          i.value = string;
+        });
         return this.handler();
       } else {
         return this.node.value;
@@ -455,13 +465,13 @@
     };
     v.prototype.html = (contents)=>{ 
       var output = [];
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
+      this.for(this.nodes, (i)=>{
         if (!contents) {
-          output.push(this.nodes[i].outerHTML);
+          output.push(i.outerHTML);
         } else {
-          this.nodes[i].innerHTML = contents;
+          i.innerHTML = contents;
         }
-      }
+      });
       return contents ? this.handler() : output;
     };
     v.prototype.json = (input)=>{
@@ -487,56 +497,56 @@
       return isElement(this.nodes) ? 'node' : this.typeOf(input);
     };
     v.prototype.replaceWith = (string)=>{
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
+      this.for(this.nodes, (i)=>{
         if (string && typeof string === 'string') {
-          this.nodes[i].outerHTML = string;
+          i.outerHTML = string;
           return this.handler();
         } else {
           error(`Parameter passed to the replaceWith method is not of the type 'string'.`);
         }
-      }
+      });
     };
     v.prototype.text = (contents)=>{
       var output = [];
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
+      this.for(this.nodes, (i)=>{
         if (!contents) {
-          output.push(this.nodes[i].textContent);
+          output.push(i.textContent);
         } else {
-          this.nodes[i].textContent = contents;
+          i.textContent = contents;
         }
-      }
+      });
       return contents ? this.handler() : output;
     };
     v.prototype.insertBefore = (el1, el2)=>{
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
-        this.nodes[i].insertBefore(el1, el2);
-      }
+      this.for(this.nodes, (i)=>{
+        i.insertBefore(el1, el2);
+      });
       return this.handler();
     };
     v.prototype.prepend = (element)=>{ 
       let _element = isElement(element) ? element : this.query(document, element)[0];
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
-        this.nodes[i].insertBefore(_element, this.nodes[i].firstChild);
-      }
+      this.for(this.nodes, (i)=>{
+        i.insertBefore(_element, i.firstChild);
+      });
       return this.handler();
     };
     v.prototype.append = (element)=>{ 
       let _element = isElement(element) ? element : this.query(document, element)[0];
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
-        this.nodes[i].appendChild(_element);
-      }
+      this.for(this.nodes, (i)=>{
+        i.appendChild(_element);
+      });
       return this.handler();
     };
     v.prototype.after = (string)=>{
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
-        this.nodes[i].insertAdjacentHTML('afterend', string);
-      }
+      this.for(this.nodes, (i)=>{
+        i.insertAdjacentHTML('afterend', string);
+      });
       return this.handler();
     };
     v.prototype.before = (string)=>{
-      for (var i = this.nodes.length - 1; i >= 0; i--) {
-        this.nodes[i].insertAdjacentHTML('beforebegin', string);
-      }
+      this.for(this.nodes, (i)=>{
+        i.insertAdjacentHTML('beforebegin', string);
+      });
       return this.handler();
     };
     v.prototype.contains = (text)=>{
