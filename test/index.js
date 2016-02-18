@@ -286,19 +286,19 @@ describe('vquery', function () {
       this.div.appendChild(this.newDiv);
       expect(v('.new-div').offsetParent()).to.equal(this.newDiv.offsetParent || this.newDiv);
     });
-    it('[outerHeight] gets the outer height of an element with margin', function () {
+    it('[height] gets the outer height of an element with margin', function () {
       this.newDiv = document.createElement('div');
       this.newDiv.className = 'new-div';
       this.div.appendChild(this.newDiv);
       this.style = getComputedStyle(this.newDiv);
-      expect(v('.new-div').outerHeight(true)).to.equal(this.newDiv.offsetHeight += parseInt(this.style.marginTop) + parseInt(this.style.marginBottom));
+      expect(v('.new-div').height(true)).to.equal(this.newDiv.offsetHeight += parseInt(this.style.marginTop) + parseInt(this.style.marginBottom));
     });
-    it('[outerWidth] gets the outer width of an element with margin', function () {
+    it('[width] gets the outer width of an element with margin', function () {
       this.newDiv = document.createElement('div');
       this.newDiv.className = 'new-div';
       this.div.appendChild(this.newDiv);
       this.style = getComputedStyle(this.newDiv);
-      expect(v('.new-div').outerWidth(true)).to.equal(this.newDiv.offsetWidth += parseInt(this.style.marginTop) + parseInt(this.style.marginBottom));
+      expect(v('.new-div').width(true)).to.equal(this.newDiv.offsetWidth += parseInt(this.style.marginTop) + parseInt(this.style.marginBottom));
     });
     it('[parseHTML] parses HTML', function () {
       this.newDiv = document.createElement('div');

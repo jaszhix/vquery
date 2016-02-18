@@ -404,7 +404,7 @@
     v.prototype.offsetParent = ()=>{
       return this.node.offsetParent || this.node;
     };
-    v.prototype.outerHeight = (withMargin)=>{
+    v.prototype.height = (withMargin)=>{
       let height = this.node.offsetHeight;
       if (withMargin) {
         let style = this.css();
@@ -412,7 +412,7 @@
       }
       return height;
     };
-    v.prototype.outerWidth = (withMargin)=>{
+    v.prototype.width = (withMargin)=>{
       let width = this.node.offsetWidth;
       if (withMargin) {
         let style = this.css();
