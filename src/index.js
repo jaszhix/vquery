@@ -578,7 +578,7 @@
       } else {
         textContent = this.node.textContent;
       }
-      var bool = this.includes(textContent, text);
+      var bool = this.includes(this.node.textContent, text);
       return bool;
     };
     v.prototype.is = (el)=>{
