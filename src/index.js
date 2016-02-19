@@ -110,7 +110,7 @@
           this.node = this.nodes[0];
         }
       }
-      this.length = this.nonElement ? this.nonElement.length : this.nodes.length;
+      this.length = this.nodes ? this.nodes.length : this.nonElement ? this.nonElement.length : 0;
     }
     v.prototype.mixin = (mixin)=>{
       for (var prop in mixin) {
