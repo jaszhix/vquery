@@ -404,6 +404,7 @@
         if (props) {
           if (props2 && this.typeOf(props2) === 'string') {
             i.setAttribute(this.decamelize(props), props2);
+            _return = this.handler();
           } else {
             this.forIn(props, (y)=>{
               if (this.typeOf(props) === 'string') {
