@@ -1,5 +1,5 @@
 (function(){
-  var v = function(selector) {
+  var v = function(selector, history) {
     if (!(this instanceof v)) {
       return new v(selector);
     } 
@@ -11,7 +11,13 @@
       if (!this.selector) {
         this.selector = selector;
       }
-    } 
+    }
+    if (!history) {
+      this.selectorHistory = [];
+      this.selectorHistory.push(selector);
+    } else {
+      this.selectorHistory = history;
+    }
     // Utility functions
     var error = (msg)=>{
       console.error(`vQuery: ${msg}`);
@@ -48,7 +54,8 @@
     v.prototype.handler = (data)=>{
       // If the selector is updated, start a new instance with the updated selectoreter.
       let _selector = data ? data : this.selector ? this.selector : selector;
-      return new v(_selector);
+      this.selectorHistory.push(_selector);
+      return new v(_selector, this.selectorHistory);
     };
     v.prototype.uniq = (array)=>{
       let _array = array ? array : this.nonElement ? this.nonElement : this.nodes ? this.nodes : null;
@@ -234,6 +241,10 @@
       } else {
         this.selector = _selector;
       }
+      return this.handler();
+    };
+    v.prototype.end = ()=>{
+      this.selector = this.selectorHistory[0];
       return this.handler();
     };
     v.prototype.hide = ()=>{
