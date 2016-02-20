@@ -275,6 +275,15 @@ describe('vquery', function () {
       this.newDiv.appendChild(this.newDivChild);
       expect(v('.new-div').find('.new-div-child').node).to.equal(this.newDivChild);
     });
+    it('[end] returns the original selector at the end of the method chain', function () {
+      this.newDiv = document.createElement('div');
+      this.newDiv.className = 'new-div';
+      this.div.appendChild(this.newDiv);
+      this.p = document.createElement('p');
+      this.p.className = 'child-p';
+      this.newDiv.appendChild(this.p);
+      expect(v(this.newDiv).find('p').get(0).css({color: '#FFF'}).attr({name: 'test'}).end().html()[0]).to.equal(this.div.innerHTML);
+    });
     it('[position] gets the position of an element', function () {
       this.newDiv = document.createElement('div');
       this.newDiv.className = 'new-div';
