@@ -1,5 +1,10 @@
 # Changelog
 
+### v4.4.0
+ * Updated the ```.attr()``` method so it is still chainable while passing a pair of key/value strings.
+ * New method
+   * ```.end()```
+
 ### v4.3.1
  * Cleaned up duplicate method ```.replaceWith```.
 

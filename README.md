@@ -48,7 +48,10 @@ v(selector, element, or string).method(props);
 
 ## Install Using The Browser
 
-[Download](https://raw.githubusercontent.com/jaszhix/vquery/master/v.min.js) it from the repository or use the [JSDelivr CDN](http://www.jsdelivr.com/projects/vquery).
+[Download](https://raw.githubusercontent.com/jaszhix/vquery/master/v.min.js) it from the repository, or you can use a CDN. 
+
+* [JSDelivr CDN](http://www.jsdelivr.com/projects/vquery)
+* [cdnjs](https://cdnjs.com/libraries/vquery)
 
 ```html
 <script src="v.min.js"></script>
@@ -70,7 +73,7 @@ Below are a few methods available. For the complete API documentation, visit the
 
 ### Node retrieval
 
-*   .nodes *
+*   .nodes (Alias: .ns)
 ```js
 v('.class-thing').nodes
 ```
@@ -82,7 +85,7 @@ v('.class-thing').nodes
     ]
 ```
 
-*   .node (Alias: .n) *
+*   .node (Alias: .n)
 ```js
 v('.class-thing').node;
 ```
@@ -90,7 +93,7 @@ v('.class-thing').node;
 -> <div class="class-thing">One</div>
 ```
 
-*   .nonElement (Alias: .ne) *
+*   .nonElement (Alias: .ne)
 ```js
 v('This string is not an element').nonElement;
 -> "This string is not an element"
@@ -112,7 +115,7 @@ v('.class-thing').get(2).find('#three').node
 -> <span id="three">Three</span>
 ```
 
-*   .length *
+*   .length
 ```js
 v('.class-thing').length
 -> 2
@@ -162,10 +165,10 @@ v([]).mixin({_:_}).isArray();
 ```
   * Example using jQuery:
 ```js
-v(':empty').mixin({$: $});
+v(':header').mixin({$:$})
 ```
 ```html
--> <meta charset="utf-8">
+-> [<h3 id=​"install-using-npm">​Install Using NPM​</h3>​, <h3 id=​"install-using-the-browser">​Install Using The Browser​</h3>​, <h3 id=​"experiment-with-vquery-now">​Experiment with vQuery Now​</h3>​, <h3 id=​"breaking-changes-in-4-3-0">​Breaking changes in 4.3.0​</h3>​,...]
 ```
 
 ## To-do's
