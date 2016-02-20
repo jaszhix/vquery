@@ -96,6 +96,15 @@ v('.class-thing').get(2).find('#three').node
 -> <span id="three">Three</span>
 ```
 [Break] 
+#### .end()
+Retrieves the original selector after a sequence of methods have been chained.
+```js
+v('#main').find('p').css({color: '#eee'}).attr({name: 'paragraph'}).end().n
+```
+```html
+-> <div id="main">...</div>
+```
+[Break] 
 #### .length
 Returns the length of the array of nodes.
 ```js
@@ -147,11 +156,46 @@ v('body > div.pre-render').click(myCleverClickEvent);
 [Break]
 ### Iteration
 [Break] 
+#### .for(Iterator, Function)
+An alias to a reverse iterating, length caching, for loop. This method wraps the for loop in a function, and can be easier to type. For loops are currently the fastest way to iterate an array in Javascript.
+```js
+v().for(array, (i)=>{
+  i = `This is the same as array[i] inside a for loop.`
+});
+```
+[Break] 
+#### .forIn(Props, Function)
+An alias to a standard for in loop for iterating objects.
+```js
+v().forIn(object, (i)=>{
+  keys.push(i);
+  values.push(object[i]);
+});
+```
+[Break] 
 #### .filter(function(currentValue, index, array))
+Wrapper around the native Array.prototype.filter function.
+```js
+v('div').filter((el, i, a)=>{
+  console.log(v(el).n);
+});
+```
 [Break] 
 #### .each(function(currentValue, index, array))
+Wrapper around the native Array.prototype.forEach function.
+```js
+v('div').each((el, i, a)=>{
+  console.log(v(el).n);
+});
+```
 [Break] 
 #### .map(function(currentValue, index, array))
+Wrapper around the native Array.prototype.map function.
+```js
+v('div').map((el, i, a)=>{
+  console.log(v(el).n);
+});
+```
 [Break]
 ### DOM Manipulation
 [Break] 
@@ -203,7 +247,7 @@ Returns the next sibling node.
 #### .prev()
 Returns the previous sibling node.
 [Break] 
-#### .addClass(Classes);
+#### .addClass(Classes)
 Adds classes from a space separated string of classes passed to its parameter on all selected nodes.
 [Break] 
 #### .removeClass(String)
@@ -322,10 +366,10 @@ v([]).mixin({_:_}).isArray();
 Example using jQuery:
 
 ```js
-v(':empty').mixin({$: $});
+v(':header').mixin({$:$})
 ```
 ```html
--> <meta charset="utf-8">
+-> [<h3 id=​"install-using-npm">​Install Using NPM​</h3>​, <h3 id=​"install-using-the-browser">​Install Using The Browser​</h3>​, <h3 id=​"experiment-with-vquery-now">​Experiment with vQuery Now​</h3>​, <h3 id=​"breaking-changes-in-4-3-0">​Breaking changes in 4.3.0​</h3>​,...]
 ```
 [Break] 
 #### .uniq(array)
