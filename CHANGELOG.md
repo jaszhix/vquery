@@ -4,6 +4,8 @@
  * Updated the ```.attr()``` method so it is still chainable while passing a pair of key/value strings.
  * New method
    * ```.end()```
+   * ```.for(Iterator, Function)```
+   * ```.forIn(Props, Function)```
 
 ### v4.3.1
  * Cleaned up duplicate method ```.replaceWith```.
