@@ -129,29 +129,31 @@
         var request = new XMLHttpRequest();
         request.open(type, url, true);
         let data;
-        if (type === 'POST') {
+        if (type.toLowerCase() === 'post') {
+          // Check if options.data is JSON, if not, send as application/x-www-form-urlencoded
           try {
-            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-            request.send(options.data);
-            _resolve(request.responseText);
+            options.data = JSON.stringify(options.data);
+            request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
           } catch (e) {
-            reject(e);
+            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
           }
-        } else {
-          request.onload = function() {
-            if (request.status >= 200 && request.status < 400) {
-              try {
-                data = JSON.parse(request.responseText);
-              } catch (e) {
-                data = request.responseText;
-              }
-              _resolve(data);
-            } else {
-              reject();
+          request.send(options.data);
+        }
+        request.onload = function() {
+          if (request.status >= 200 && request.status < 400) {
+            try {
+              data = JSON.parse(request.responseText);
+            } catch (e) {
+              data = request.responseText;
             }
-          };
+            _resolve(data);
+          } else {
+            reject();
+          }
+        };
+        if (type.toLowerCase() === 'get') {
           request.send();
-        }   
+        } 
         request.onerror = function(err) {
           reject(err);
         };
