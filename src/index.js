@@ -37,7 +37,7 @@
     };
     v.prototype.for = (iterator, func)=>{
       for (let i = iterator.length - 1; i >= 0; i--) {
-        func.apply(this, [iterator[i], arguments]);
+        func.apply(this, [iterator[i], i, arguments]);
       }
     };
     v.prototype.forIn = (props, func)=>{
