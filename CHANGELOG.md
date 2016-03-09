@@ -1,5 +1,14 @@
 # Changelog
 
+### v4.4.1
+ * The ```for``` method callback now has a second argument for the loop's index.
+ ```js
+   v().for(items, (item, i)=>{
+      // Do stuff
+   });
+ ```
+ * The AJAX method now can accept JSON when using the POST method.
+
 ### v4.4.0
  * Updated the ```.attr()``` method so it is still chainable while passing a pair of key/value strings.
  * New method
