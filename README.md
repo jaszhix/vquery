@@ -50,7 +50,7 @@ v(selector, element, or string).method(props);
 
 [Download](https://raw.githubusercontent.com/jaszhix/vquery/master/v.min.js) it from the repository, or you can use a CDN. 
 
-* [JSDelivr CDN](http://www.jsdelivr.com/projects/vquery)
+* [JSDelivr](http://www.jsdelivr.com/projects/vquery)
 * [cdnjs](https://cdnjs.com/libraries/vquery)
 
 ```html
@@ -62,12 +62,6 @@ v(selector, element, or string).method(props);
 The methods below work like they do with jQuery, except they are just wrappers around ```document.querySelectorAll```, and the associated vanilla JS dom manipulation functions.
 
 Like jQuery and many other similar libraries, most of the methods can be chained.
-
-#### Breaking changes in 4.3.0
-
-* Renamed ```.outerHeight()``` and ```.outerWidth()``` to ```.height()``` and ```.width()```, respectively in order to bring more syntactic consistency with jQuery.
-* Updated ```.html()``` to return the outerHTML of an element instead of the innerHTML. Passing an HTML string to its parameter still sets the selected elements innerHTML.
-* ```.nodes()``` is now ```nodes``` and ```node()``` is now ```node```.
 
 Below are a few methods available. For the complete API documentation, visit the [vQuery website](http://jaszhix.github.io/vquery/).
 
