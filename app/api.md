@@ -14,7 +14,10 @@ v(selector, element, or string).method(props);
 
 ### Install Using The Browser
 
-[Download](https://raw.githubusercontent.com/jaszhix/vquery/master/v.min.js) it from the repository or use the [JSDelivr CDN](http://www.jsdelivr.com/projects/vquery).
+[Download](https://raw.githubusercontent.com/jaszhix/vquery/master/v.min.js) it from the repository, or you can use a CDN. 
+
+* [JSDelivr](http://www.jsdelivr.com/projects/vquery)
+* [cdnjs](https://cdnjs.com/libraries/vquery)
 
 ```html
 <script src="v.min.js"></script>
@@ -25,11 +28,6 @@ You can open up the developer console on this page and start testing the methods
 The methods below work like they do with jQuery, except they are just wrappers around ```document.querySelectorAll```, and the associated vanilla JS dom manipulation functions.
 
 Like jQuery and many other similar libraries, most of the methods can be chained.
-[Break]
-### Breaking changes in 4.3.0
-* Renamed ```.outerHeight()``` and ```.outerWidth()``` to ```.height()``` and ```.width()```, respectively in order to bring more syntactic consistency with jQuery.
-* Updated ```.html()``` to return the outerHTML of an element instead of the innerHTML. Passing an HTML string to its parameter still sets the selected elements innerHTML.
-* ```.nodes()``` is now ```nodes``` and ```node()``` is now ```node```.
 [Break]
 ### Node retrieval
 [Break]
@@ -159,8 +157,8 @@ v('body > div.pre-render').click(myCleverClickEvent);
 #### .for(Iterator, Function)
 An alias to a reverse iterating, length caching, for loop. This method wraps the for loop in a function, and can be easier to type. For loops are currently the fastest way to iterate an array in Javascript.
 ```js
-v().for(array, (i)=>{
-  i = `This is the same as array[i] inside a for loop.`
+v().for(items, (item, i)=>{
+  item = `This is the same as items[i] inside a for loop.`
 });
 ```
 [Break] 
