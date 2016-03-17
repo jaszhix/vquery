@@ -232,10 +232,7 @@ Returns an array of child nodes, or filters child nodes if a CSS selector parame
 [Break] 
 #### .allChildren(CSS selector)
 Like .children(), it returns an array of child nodes, but instead of returning just the first level of children, it deeply recurses every child node and returns an array of every element under the selected node at all levels of children.
-[Break] 
-#### .isEmpty()
-Returns ```true``` or ```false``` if a node is empty.
-[Break] 
+[Break]  
 #### .siblings()
 Returns an array of sibling nodes.
 [Break] 
@@ -332,6 +329,12 @@ Returns ```true``` or ```false``` if the selected node contains an element passe
 [Break]
 #### .is(CSS selector or Element)
 Compares two elements and returns ```true``` if they are the same, and ```false``` if not.
+[Break]
+#### .isEmpty()
+Returns ```true``` or ```false``` if a node is empty.
+[Break]
+#### .inViewport()
+Returns ```true``` or ```false``` if a node is inside the viewport.
 [Break]
 ### Utilities
 [Break]
