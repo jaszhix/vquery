@@ -98,6 +98,11 @@ describe('vquery', function () {
     it('[isEmpty] determines if node is empty', function () {
       expect(v(this.divSelector).isEmpty()).to.equal(true);
     });
+    it('[inViewport] determines if node is in the viewport', function () {
+      expect(v(this.divSelector).inViewport()).to.equal(true);
+      v(this.divSelector).css({top: '-99999px', left: '6000px', position: 'absolute'});
+      expect(v(this.divSelector).inViewport()).to.equal(false);
+    });
     it('[siblings] selects all siblings', function () {
       this.newDiv = document.createElement('div');
       this.newDiv.className = 'new-div';
