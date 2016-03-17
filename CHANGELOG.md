@@ -1,5 +1,9 @@
 # Changelog
 
+### v4.5.0
+ * New method
+   * ```.inViewport()```
+
 ### v4.4.1
  * The ```for``` method callback now has a second argument for the loop's index.
 ```js
@@ -11,7 +15,7 @@ v().for(items, (item, i)=>{
 
 ### v4.4.0
  * Updated the ```.attr()``` method so it is still chainable while passing a pair of key/value strings.
- * New method
+ * New methods
    * ```.end()```
    * ```.for(Iterator, Function)```
    * ```.forIn(Props, Function)```
