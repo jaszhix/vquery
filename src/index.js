@@ -587,6 +587,15 @@
       let _el = queryElement(el);
       return this.node === _el;
     };
+    v.prototype.inViewport = ()=>{
+      var rect = this.rect();
+      return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      );
+    };
     v.prototype.trim = (string)=>{
       string = queryParameter(string, true);
       return string.trim();
