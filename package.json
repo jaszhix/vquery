@@ -1,6 +1,6 @@
 {
   "name": "vquery",
-  "version": "4.4.1",
+  "version": "4.5.0",
   "description": "A simple, light-weight, vanilla JS wrapper for jQuery-like syntax.",
   "main": "dist/index.js",
   "files": [
