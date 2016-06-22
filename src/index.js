@@ -183,7 +183,7 @@
     };
     v.prototype.load = (func)=>{
       if (func && typeof func !== 'undefined' && typeof func === 'function') {
-        document.addEventListener('onload', func);
+        document.addEventListener('load', func);
       } else {
         error('notFunc', '', 'load', 'function');
       }
