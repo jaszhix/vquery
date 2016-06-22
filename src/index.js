@@ -130,7 +130,7 @@
       } 
     };
     v.prototype.ajax = (type, url, options)=>{
-      var Promise = require('expose?Promise!promise-polyfill');
+      var Promise = require('promise-polyfill');
       var setAsap = require('setasap');
       Promise._setImmediateFn(setAsap);
       return new Promise((resolve, reject)=>{
