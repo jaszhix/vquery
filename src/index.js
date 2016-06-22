@@ -1,7 +1,3 @@
-import Promise from 'promise-polyfill';
-import setAsap from 'setasap';
-Promise._setImmediateFn(setAsap);
-
 (function(){
   var v = function(selector, history) {
     if (!(this instanceof v)) {
@@ -134,6 +130,9 @@ Promise._setImmediateFn(setAsap);
       } 
     };
     v.prototype.ajax = (type, url, options)=>{
+      var Promise = require('expose?Promise!promise-polyfill');
+      var setAsap = require('setasap');
+      Promise._setImmediateFn(setAsap);
       return new Promise((resolve, reject)=>{
         var _resolve = (data)=>{
           let _data = options && options.chain ? this.handler(data) : data;

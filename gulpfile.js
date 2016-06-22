@@ -4,6 +4,9 @@ var gulp = require('gulp'),
   source = require('vinyl-source-stream'),
   mochaPhantomJS = require('gulp-mocha-phantomjs'),
   uglify = require('gulp-uglifyjs');
+var webpack = require('webpack');
+var webpackStream = require('webpack-stream');
+var config = require('./webpack.config');
 
 gulp.task('browser-sync', function () {
   'use strict';
@@ -31,15 +34,9 @@ gulp.task('browserify', function() {
 });
 
 gulp.task('dist', function() {
-  return browserify('./src/index.js')
-    .transform('babelify', {presets: ['es2015']})
-    .bundle()
-    .on('error', function (err) {
-        console.log(err.toString());
-        this.emit('end');
-    })
-    .pipe(source('index.js'))
-    .pipe(gulp.dest('dist/'));
+  return gulp.src('./src/index.js')
+    .pipe(webpackStream(config))
+    .pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('test', function () {
