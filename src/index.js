@@ -19,8 +19,17 @@
       this.selectorHistory = history;
     }
     // Utility functions
-    var error = (msg)=>{
-      console.error(`vQuery: ${msg}`);
+    var error = (msg, selector, method, parameters)=>{
+      var errMsg = (msg)=>{
+        console.error(`vQuery: ${msg}\nAcceptable parameters: v(${selector}).${method}(${parameters})`);
+      };
+      if (msg === 'undefinedNode') {
+        errMsg('Selector is not a valid node.');
+      } else if (msg === 'notFunc') {
+        errMsg(`Parameter passed to the ready method is not of the type 'function'.`);
+      } else {
+        errMsg();
+      }
     };
     var isElement = (element)=>{
       return element instanceof Element || element[0] instanceof Element;
@@ -169,14 +178,14 @@
       if (func && typeof func !== 'undefined' && typeof func === 'function') {
         document.addEventListener('DOMContentLoaded', func);
       } else {
-        error(`Parameter passed to the ready method is not of the type 'function'.`);
+        error('notFunc', '', 'ready', 'function');
       }
     };
     v.prototype.load = (func)=>{
       if (func && typeof func !== 'undefined' && typeof func === 'function') {
         document.addEventListener('onload', func);
       } else {
-        error(`Parameter passed to the load method is not of the type 'function'.`);
+        error('notFunc', '', 'load', 'function');
       }
     };
     v.prototype.on = (event, func)=>{
@@ -485,7 +494,11 @@
       return width;
     };
     v.prototype.position = (withMargin)=>{
-      return {left: this.node.offsetLeft, top: this.node.offsetTop};
+      if (typeof this.node !== 'undefined') {
+        return {left: this.node.offsetLeft, top: this.node.offsetTop};
+      } else {
+        error('undefinedNode', 'node', 'position', 'withMargin');
+      }
     };
     v.prototype.html = (contents)=>{ 
       var output = [];
