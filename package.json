@@ -1,6 +1,6 @@
 {
   "name": "vquery",
-  "version": "4.5.1",
+  "version": "4.5.0",
   "description": "A simple, light-weight, vanilla JS wrapper for jQuery-like syntax.",
   "main": "dist/index.js",
   "files": [
@@ -14,16 +14,17 @@
     "watch": "watch 'npm run build' src",
     "test": "gulp browserify && node ./node_modules/mocha-phantomjs/bin/mocha-phantomjs test/tests.html",
     "prebuild": "npm run clean -s",
-    "build": "rimraf v.min.js && gulp dist && gulp uglify",
+    "build": "npm run minify && babel --optional runtime src -d dist",
+    "minify": "rimraf v.min.js && gulp dist && gulp uglify",
     "coverage": "babel-node node_modules/isparta/bin/isparta cover test/index.js",
     "coveralls": "npm run coverage -s && coveralls < coverage/lcov.info",
     "postcoveralls": "rimraf ./coverage",
     "prepublish": "npm run build -s",
-    "deploy": "git pull --rebase origin master && git push origin master",
+    "deploy": "git pull --rebase origin dev && git push origin dev",
     "patch": "npm version patch && npm publish",
     "minor": "npm version minor && npm publish",
     "major": "npm version major && npm publish",
-    "postpublish": "git push origin master --follow-tags",
+    "postpublish": "git push origin dev --follow-tags",
     "toc": "doctoc --github --title \"# Changelog\" CHANGELOG.md"
   },
   "repository": {
