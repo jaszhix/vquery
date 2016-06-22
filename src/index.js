@@ -1,3 +1,7 @@
+import Promise from 'promise-polyfill';
+import setAsap from 'setasap';
+Promise._setImmediateFn(setAsap);
+
 (function(){
   var v = function(selector, history) {
     if (!(this instanceof v)) {
@@ -133,7 +137,9 @@
       return new Promise((resolve, reject)=>{
         var _resolve = (data)=>{
           let _data = options && options.chain ? this.handler(data) : data;
-          resolve(_data);
+          if (typeof _data !== 'undefined' && _data) {
+            resolve(_data);
+          }
         };
         var request = new XMLHttpRequest();
         request.open(type, url, true);

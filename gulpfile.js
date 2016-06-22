@@ -30,6 +30,18 @@ gulp.task('browserify', function() {
     .pipe(browserSync.reload({stream:true}));
 });
 
+gulp.task('dist', function() {
+  return browserify('./src/index.js')
+    .transform('babelify', {presets: ['es2015']})
+    .bundle()
+    .on('error', function (err) {
+        console.log(err.toString());
+        this.emit('end');
+    })
+    .pipe(source('index.js'))
+    .pipe(gulp.dest('dist/'));
+});
+
 gulp.task('test', function () {
   return gulp.src('./test/tests.html')
     .pipe(mochaPhantomJS({reporter: 'spec', dump:'./tmp/test.log'}));

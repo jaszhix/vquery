@@ -1,5 +1,11 @@
 # Changelog
 
+### v4.5.1
+ * Fixed the ```load``` method.
+ * Improved error messages for debugging.
+ * Cross browser support: Added Promise polyfill for the ```ajax``` method.
+ * Added tests for ```ajax``` method.
+
 ### v4.5.0
  * New method
    * ```.inViewport()```

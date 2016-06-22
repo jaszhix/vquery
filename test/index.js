@@ -1,8 +1,10 @@
-import {expect} from 'chai';
-
+import chai, {expect} from 'chai';
+import chaiAsPromised from 'chai-as-promised';
 import v from '../src/index';
 import _ from 'lodash';
 import $ from 'jquery';
+
+chai.use(chaiAsPromised);
 
 describe('vquery', function () {
   // setup and teardown methods for vquery tests
@@ -381,6 +383,31 @@ describe('vquery', function () {
     it('[mixin] passes vquery\'s context to jquery', function () {
       v(this.div).html('<h1></h1>');
       expect(v('h1').mixin({$:$}).eq(0)[0]).to.equal(v(this.div).find('h1').n);
+    });
+    it('[GET ajax with no options] sends an AJAX request to http://jsonplaceholder.typicode.com/', function (done) {
+      this.timeout(15000);
+      expect(v().ajax('get', 'http://jsonplaceholder.typicode.com/posts')).to.eventually.have.length.of.at.least(100).and.notify(done);
+    });
+    it('[GET ajax with options.chain] sends an AJAX request to http://jsonplaceholder.typicode.com/', function (done) {
+      this.timeout(15000);
+      expect(v().ajax('get', 'http://jsonplaceholder.typicode.com/posts', {chain: true}).then((data)=>{
+        if (typeof data !== 'undefined') {
+          return data.type();
+        }
+      })).to.eventually.equal('array').and.notify(done);
+    });
+    it('[POST ajax]', function (done) {
+      this.timeout(15000);
+      var _data = {
+        userId: 1,
+        title: 'Test!!!',
+        body: 'This is a vquery test.'
+      };
+      expect(v().ajax('post', 'http://jsonplaceholder.typicode.com/posts', {data: _data}).then((data)=>{
+        if (typeof data !== 'undefined') {
+          return data.body;
+        }
+      })).to.eventually.equal(_data.body).and.notify(done);
     });
   });
 });
