@@ -614,6 +614,14 @@
         rect.right <= (window.innerWidth || document.documentElement.clientWidth)
       );
     };
+    v.prototype.inIframe = ()=>{
+      try {
+        return window.self !== window.top;
+      }
+      catch (e) {
+        return true;
+      }
+    };
     v.prototype.trim = (string)=>{
       string = queryParameter(string, true);
       return string.trim();
