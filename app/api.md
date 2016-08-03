@@ -24,6 +24,11 @@ v(selector, element, or string).method(props);
 ```
 ### Experiment with vQuery Now
 You can open up the developer console on this page and start testing the methods documented below.
+
+### vQuery Portal
+
+There is now a [hub](https://neuropuff.com/c/vquery) that will aggregate all vQuery resources across the web.
+
 [Break]
 The methods below work like they do with jQuery, except they are just wrappers around ```document.querySelectorAll```, and the associated vanilla JS dom manipulation functions.
 
@@ -336,6 +341,9 @@ Returns ```true``` or ```false``` if a node is empty.
 #### .inViewport()
 Returns ```true``` or ```false``` if a node is inside the viewport.
 [Break]
+#### .inIframe()
+Returns ```true``` or ```false``` if the current document is inside an iframe.
+[Break]
 ### Utilities
 [Break]
 #### .ajax(POST|GET, URL, options.data|options.chain)
@@ -375,6 +383,14 @@ v(':header').mixin({$:$})
 [Break] 
 #### .uniq(array)
 Returns a duplicate free version of an array, or an array of nodes. The array can be passed to the selector parameter or its own.
+[Break]
+#### .move(indexes)
+Moves an item in an array to and from the specified indexes.
+```js
+var x = v([1,2,3]).move(2,0).ns;
+x[0]
+-> 3
+```
 [Break] 
 #### .type(value)
 Returns the ```typeof``` operator string of the unevaluated operand. Passing an element to its parameter will return ```"node"```. The parameter can be passed to the selector parameter or its own.
