@@ -66,6 +66,14 @@
       this.selectorHistory.push(_selector);
       return new v(_selector, this.selectorHistory);
     };
+    v.prototype.move = (fromIndex, toIndex)=>{
+      try {
+        this.nodes.splice(toIndex, 0, this.nodes.splice(fromIndex, 1)[0]);
+        return this.handler(null, {method: 'move'});
+      } catch (e) {
+        error('notType', '', 'move', 'array');
+      }
+    },
     v.prototype.uniq = (array)=>{
       let _array = array ? array : this.nonElement ? this.nonElement : this.nodes ? this.nodes : null;
       let uniq = Array.from(new Set(_array));
