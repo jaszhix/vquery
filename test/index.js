@@ -384,6 +384,10 @@ describe('vquery', function () {
       v(this.div).html('<h1></h1>');
       expect(v('h1').mixin({$:$}).eq(0)[0]).to.equal(v(this.div).find('h1').n);
     });
+    it('[move] move an item in an array to and from the specified indexes', function () {
+      var x = v([1,2,3]).move(2,0).ns;
+      expect(x[0]).to.equal(3);
+    });
     it('[GET ajax with no options] sends an AJAX request to http://jsonplaceholder.typicode.com/', function (done) {
       this.timeout(15000);
       expect(v().ajax('get', 'http://jsonplaceholder.typicode.com/posts')).to.eventually.have.length.of.at.least(100).and.notify(done);
