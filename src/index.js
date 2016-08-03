@@ -664,6 +664,7 @@
       }
     };
   };
+  window.v = v;
   if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = v;
   }
@@ -672,9 +673,6 @@
       define([], function() {
         return v;
       });
-    }
-    else {
-      window.v = v;
     }
   }
 })();
