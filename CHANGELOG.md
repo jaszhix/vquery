@@ -1,5 +1,12 @@
 # Changelog
 
+### v4.6.0
+ * Passing a serializable input to the selector parameter can now be passed to the ```json``` method.
+ * ```.node``` and its alias ```.n``` will now return ```null``` if no elements are selected instead of ```undefined```.
+ * New methods
+   * ```.inIframe()```
+   * ```.move()```
+
 ### v4.5.1
  * Fixed the ```load``` method.
  * Improved error messages for debugging.
