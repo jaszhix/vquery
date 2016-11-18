@@ -49,8 +49,8 @@
       }
     };
     v.prototype.for = (iterator, func)=>{
-      if (typeof iterator !== 'undefined') {
-        for (let i = iterator.length - 1; i >= 0; i--) {
+      if (iterator !== undefined) {
+        for (let i = 0, len = iterator.length; i < len; i++) {
           func.apply(this, [iterator[i], i, arguments]);
         }
       }
