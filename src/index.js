@@ -198,14 +198,14 @@
     };
     // Event methods
     v.prototype.ready = (func)=>{
-      if (func && typeof func !== 'undefined' && typeof func === 'function') {
+      if (func && func !== undefined && typeof func === 'function') {
         document.addEventListener('DOMContentLoaded', func);
       } else {
         error('notType', '', 'ready', 'function');
       }
     };
     v.prototype.load = (func)=>{
-      if (func && typeof func !== 'undefined' && typeof func === 'function') {
+      if (func && func !== undefined && typeof func === 'function') {
         document.addEventListener('load', func);
       } else {
         error('notType', '', 'load', 'function');
