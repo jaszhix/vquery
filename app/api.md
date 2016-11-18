@@ -160,7 +160,7 @@ v('body > div.pre-render').click(myCleverClickEvent);
 ### Iteration
 [Break] 
 #### .for(Iterator, Function)
-An alias to a reverse iterating, length caching, for loop. This method wraps the for loop in a function, and can be easier to type. For loops are currently the fastest way to iterate an array in Javascript.
+An alias to a forward iterating, length caching, for loop. This method wraps the for loop in a function, and can be easier to type. For loops are currently the fastest way to iterate an array in Javascript.
 ```js
 v().for(items, (item, i)=>{
   item = `This is the same as items[i] inside a for loop.`
@@ -431,4 +431,11 @@ v().camelize('data-id');
 v('deCamelize').decamelize()
 v().decamelize('deCamelize')
 -> 'de-Camelize'
+```
+[Break] 
+#### .noConflict()
+Restores the original ```v``` reference and returns vquery.
+
+```js
+var vquery = v().noConflict()
 ```

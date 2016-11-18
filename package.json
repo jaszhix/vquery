@@ -14,7 +14,8 @@
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-router": "^2.0.0",
-    "reflux": "^0.3.0"
+    "reflux": "^0.3.0",
+    "vquery": "^4.7.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^2.0.0",
