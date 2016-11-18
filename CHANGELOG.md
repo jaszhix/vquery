@@ -1,5 +1,10 @@
 # Changelog
 
+### v4.7.0
+ * The ```for``` method now forward iterates. This may break code relying on it previously iterating backwards.
+ * New method
+   * ```.noConflict()```
+
 ### v4.6.0
  * Passing a serializable input to the selector parameter can now be passed to the ```json``` method.
  * ```.node``` and its alias ```.n``` will now return ```null``` if no elements are selected instead of ```undefined```.

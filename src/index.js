@@ -1,4 +1,5 @@
 (function(){
+  window.oldV = window.v;
   var v = function(selector, context={methodHistory: [], selectorHistory: []}) {
     if (!(this instanceof v)) {
       return new v(selector);
@@ -12,7 +13,8 @@
         this.selector = selector;
       }
     }
-    this.version = '4.6.0';
+
+    this.version = '4.7.0';
     this.methodHistory = context.methodHistory;
 
     if (context.selectorHistory.length === 0) {
@@ -658,6 +660,12 @@
       string = queryParameter(string, false);
       return string.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1-$2$3').replace(/^./, function(str){ return str.toLowerCase(); });
     };
+    v.prototype.noConflict = ()=>{
+      var _v = v;
+      window.v = window.oldV;
+      return _v;
+    };
+    // Aliases
     v.prototype = {
       get n(){
         return this.node;

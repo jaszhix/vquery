@@ -413,5 +413,9 @@ describe('vquery', function () {
         }
       })).to.eventually.equal(_data.body).and.notify(done);
     });
+    it('[noConflict] restores the original v reference and returns vquery', function () {
+      var x = v().noConflict();
+      expect(x().hasOwnProperty('selectorHistory')).to.equal(true);
+    });
   });
 });

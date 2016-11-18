@@ -165,11 +165,6 @@ v(':header').mixin({$:$})
 -> [<h3 id=​"install-using-npm">​Install Using NPM​</h3>​, <h3 id=​"install-using-the-browser">​Install Using The Browser​</h3>​, <h3 id=​"experiment-with-vquery-now">​Experiment with vQuery Now​</h3>​, <h3 id=​"breaking-changes-in-4-3-0">​Breaking changes in 4.3.0​</h3>​,...]
 ```
 
-## To-do's
-*   Package vQuery for Bower
-*   Cross-browser testing
-
-
 <!-- [npm-url]: https://npmjs.org/package/vquery
 [npm-image]: https://img.shields.io/npm/v/vquery.svg?style=flat-square
 
