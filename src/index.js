@@ -49,8 +49,10 @@
       }
     };
     v.prototype.for = (iterator, func)=>{
-      for (let i = iterator.length - 1; i >= 0; i--) {
-        func.apply(this, [iterator[i], i, arguments]);
+      if (typeof iterator !== 'undefined') {
+        for (let i = iterator.length - 1; i >= 0; i--) {
+          func.apply(this, [iterator[i], i, arguments]);
+        }
       }
     };
     v.prototype.forIn = (props, func)=>{
@@ -471,7 +473,11 @@
         });
         return this.handler(null, {method: 'css'});
       } else {
-        return getComputedStyle(this.node);
+        if (isElement(this.node)) {
+          return getComputedStyle(this.node);
+        } else {
+          return {};
+        }
       }
     };
     v.prototype.val = (string)=>{

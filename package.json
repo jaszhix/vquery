@@ -50,7 +50,7 @@
     "micro"
   ],
   "author": "Jason Hicks <jaszhix@gmail.com>",
-  "license": "CC-BY-4.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jaszhix/vquery/issues"
   },
