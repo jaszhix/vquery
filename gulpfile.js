@@ -22,7 +22,10 @@ gulp.task('browser-sync', function () {
 
 gulp.task('browserify', function() {
   return browserify('./test/index.js')
-    .transform('babelify', {presets: ['es2015']})
+    .transform('babelify', {
+      presets: ['stage-0'],
+      plugins: ['transform-runtime']
+    })
     .bundle()
     .on('error', function (err) {
         console.log(err.toString());
