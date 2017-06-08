@@ -1,5 +1,10 @@
 # Changelog
 
+### v5.0.0
+ * Refactored code and converted it into an ES2015 class.
+ * ```insertBefore``` now works like it does in jQuery. This will break existing code relying on this method.
+ * Added ```insertAfter```.
+
 ### v4.7.0
  * The ```for``` method now forward iterates. This may break code relying on it previously iterating backwards.
  * New method

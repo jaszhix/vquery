@@ -45,7 +45,8 @@ describe('vquery', function () {
       this.newDiv = document.createElement('div');
       this.newDiv.className = 'new-div';
       this.div.appendChild(this.newDiv);
-      expect(v('newDiv').remove().nodes[0]).to.equal(undefined);
+      v(this.newDiv).remove();
+      expect(this.div.children.length).to.equal(0);
     });
     it('[empty] empties a node', function () {
       this.newDiv = document.createElement('div');
@@ -198,8 +199,33 @@ describe('vquery', function () {
       this.div.appendChild(this.newDiv);
       this.newDiv2 = document.createElement('div');
       this.newDiv2.className = 'new-div-2';
-      v(this.divSelector).insertBefore(this.newDiv2, this.newDiv);
+      v(this.newDiv2).insertBefore(this.newDiv);
       expect(this.div.children[0]).to.equal(this.newDiv2);
+    });
+    it('[insertAfter] inserts a node after another node', function () {
+      this.newDiv = document.createElement('div');
+      this.newDiv.className = 'new-div';
+      this.div.appendChild(this.newDiv);
+      this.newDiv2 = document.createElement('div');
+      this.newDiv2.className = 'new-div-2';
+      v(this.newDiv2).insertAfter(this.newDiv);
+      expect(this.div.children[1]).to.equal(this.newDiv2);
+    });
+    it('[insertBefore] inserts a node from string after another node', function () {
+      this.newDiv = document.createElement('div');
+      this.newDiv.className = 'new-div';
+      this.div.appendChild(this.newDiv);
+      this.fromStringDiv = v('<div class="new-div-2" />');
+      this.fromStringDiv.insertBefore(this.newDiv);
+      expect(this.div.children[0]).to.equal(this.fromStringDiv.n);
+    });
+    it('[insertAfter] inserts a node from string after another node', function () {
+      this.newDiv = document.createElement('div');
+      this.newDiv.className = 'new-div';
+      this.div.appendChild(this.newDiv);
+      this.fromStringDiv = v('<div class="new-div-2" />');
+      this.fromStringDiv.insertAfter(this.newDiv);
+      expect(this.div.children[1]).to.equal(this.fromStringDiv.n);
     });
     it('[prepend] prepends a node to a node', function () {
       this.newDiv = document.createElement('div');
