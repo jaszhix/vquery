@@ -7,4 +7,4 @@ var options = {
   hot: true
 };
 
-Server(config, options, 'localhost', 3000);
+Server(config, options, 'localhost', 3025);
