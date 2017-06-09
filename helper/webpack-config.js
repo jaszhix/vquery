@@ -123,6 +123,7 @@ module.exports = function (options) {
   } else {
     setEnv('/');
     plugins.push(new webpack.optimize.UglifyJsPlugin({
+      mangle: false,
       compress: {
         warnings: false,
         drop_console: true,
