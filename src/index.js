@@ -13,7 +13,7 @@ class V {
       }
     }
 
-    this.version = '4.7.0';
+    this.version = '5.0.1';
     this.methodHistory = context.methodHistory;
 
     if (context.selectorHistory.length === 0) {
@@ -26,7 +26,7 @@ class V {
     // Utility functions
     this.error = (msg, selector, method, parameters)=>{
       let errMsg = (msg)=>{
-        console.this.error(`vQuery: ${msg}\nAcceptable parameters: v(${selector}).${method}(${parameters})`);
+        console.error(`vQuery: ${msg}\nAcceptable parameters: v(${selector}).${method}(${parameters})`);
       };
       if (msg === 'undefinedNode') {
         errMsg('Selector is not a valid node.');
